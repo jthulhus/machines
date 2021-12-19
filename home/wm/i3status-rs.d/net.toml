@@ -1,0 +1,4 @@
+[[block]]
+block = "net"
+format = "{ssid}"
+on_click = "wifi toggle"

@@ -1,0 +1,6 @@
+[[block]]
+block = "battery"
+driver = "upower"
+device = "BAT1"
+interval = 15
+format = " {percentage}"

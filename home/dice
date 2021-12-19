@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+dice=`echo -e "4\n6\n8\n10\n12\n20\n100" | dmenu`
+if [[ $dice -ne 0 ]]
+then
+    result=$(( (RANDOM%dice) + 1))
+    notify-send "D$dice" "$result/$dice"
+else
+    exit 1
+fi

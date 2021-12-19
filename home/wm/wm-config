@@ -1,0 +1,186 @@
+# Layout setup
+input type:keyboard {
+  xkb_layout bsk
+}
+
+# Touchpad config
+input type:touchpad {
+  accel_profile adaptive
+  click_method button_areas
+  natural_scroll disabled
+  
+  scroll_method two_finger
+  tap disabled
+}
+
+seat * {
+  hide_cursor when-typing enable
+  idle_wake keyboard
+}
+
+# Idle screenlocker
+exec swayidle -w \
+  timeout 300 'swaylock -ef -c 202020' \
+  timeout 600 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' \
+  before-sleep 'swaylock -ef -c 202020'
+
+# Some keybindings
+bindsym XF86MonBrightnessDown exec light down
+bindsym XF86MonBrightnessUp exec light up
+
+bindsym XF86AudioRaiseVolume exec sound up
+bindsym XF86AudioLowerVolume exec sound down
+bindsym XF86AudioMute exec sound mute
+
+set $alt_mod Mod1
+set $win_mod Mod4
+
+set $universal_quit Control+g
+
+# For reasons pressing the XF86TouchpadToggle button actually triggers <s-C-XF86TouchpadToggle>
+bindsym Control+$win_mod+XF86TouchpadToggle input type:touchpad events toggle enabled disabled; exec 'notify-send --urgency=low --expire-time=500 "Touchpad" "Toggled."'
+
+floating_modifier $win_mod
+
+bindsym $win_mod+Return exec alacritty
+bindsym $win_mod+Shift+q kill
+bindsym $win_mod+tab focus next
+
+
+bindsym $win_mod+apostrophe workspace 1
+bindsym $win_mod+quotedbl workspace 2
+bindsym $win_mod+braceleft workspace 3
+bindsym $win_mod+bracketleft workspace 4
+bindsym $win_mod+parenleft workspace 5
+bindsym $win_mod+minus workspace 6
+bindsym $win_mod+plus workspace 7
+bindsym $win_mod+bar workspace 8
+bindsym $win_mod+braceright workspace 9
+
+bindsym $win_mod+space mode "launch"
+mode "launch" {
+  bindsym f exec firefox, mode "default"
+  bindsym t exec thunderbird, mode "default"
+  bindsym c exec clementine; mode "default"
+  bindsym d exec discord, mode "default"
+  bindsym e exec emacs, mode "default"
+  bindsym k exec anki, mode "default"
+  bindsym g mode "games"
+  bindsym return exec rofi -show run, mode "default"
+
+  bindsym escape mode "default"
+  bindsym $universal_quit mode "default"
+}
+
+mode "games" {
+  bindsym d exec dfhack, mode "default"
+  bindsym w exec wesnoth, mode "default"
+
+  bindsym escape mode "default"
+  bindsym $universal_quit mode "default"
+}
+
+bindsym $win_mod+m mode "move"
+mode "move" {
+  bindsym apostrophe move workspace 1, workspace 1
+  bindsym quotedbl move workspace 2, workspace 2
+  bindsym braceleft move workspace 3, workspace 3
+  bindsym bracketleft move workspace 4, workspace 4
+  bindsym parenleft move workspace 5, workspace 5
+  bindsym minus move workspace 6, workspace 6
+  bindsym plus move workspace 7, workspace 7
+  bindsym bar move workspace 8, workspace 8
+  bindsym braceright move workspace 9, workspace 9
+
+  bindsym $alt_mod+apostrophe move workspace 1
+  bindsym $alt_mod+quotedbl move workspace 2
+  bindsym $alt_mod+braceleft move workspace 3
+  bindsym $alt_mod+bracketleft move workspace 4
+  bindsym $alt_mod+parenleft move workspace 5
+  bindsym $alt_mod+minus move workspace 6
+  bindsym $alt_mod+plus move workspace 7
+  bindsym $alt_mod+bar move workspace 8
+  bindsym $alt_mod+braceright move workspace 9
+
+  bindsym Control+apostrophe workspace 1
+  bindsym Control+quotedbl workspace 2
+  bindsym Control+braceleft workspace 3
+  bindsym Control+bracketleft workspace 4
+  bindsym Control+parenleft workspace 5
+  bindsym Control+minus workspace 6
+  bindsym Control+plus workspace 7
+  bindsym Control+bar workspace 8
+  bindsym Control+braceright workspace 9
+
+  bindsym left focus left
+  bindsym right focus right
+  bindsym up focus up
+  bindsym down focus down
+
+  bindsym escape mode "default"
+  bindsym space mode "default"
+  bindsym $universal_quit mode "default"
+}
+
+bindsym $win_mod+p mode "power"
+mode "power" {
+  bindsym e exit
+  bindsym o exec poweroff
+  bindsym r exec reboot
+  bindsym l mode "default", exec swayidle -w \
+    timeout 1 'swaylock -ef -c 202020' \
+    timeout 2 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"; pkill -nx swayidle'
+
+  bindsym escape mode "default"
+  bindsym $universal_quit mode "default"
+}
+
+bindsym $win_mod+Shift+n mode "notification"
+mode "notification" {
+  bindsym d exec "makoctl dismiss"
+  bindsym a exec "makoctl dismiss --all", mode "default"
+  bindsym i exec "makoctl invoke, makoctl dismiss"
+
+  bindsym space mode "default"
+  bindsym escape mode "default"
+  bindsym $universal_quit mode "default"
+}
+
+bindsym $win_mod+n exec "makoctl dismiss"
+
+bindsym $win_mod+c mode "connection"
+mode "connection" {
+  bindsym f exec "wifi off", mode "default"
+  bindsym n exec "wifi on", mode "default"
+  bindsym t exec "wifi toggle", mode "default"
+
+  bindsym escape mode "default"
+  bindsym $universal_quit mode "default"
+}
+
+set $layout_mode "Layout (b)sk (a)zerty (q)werty"
+
+bindsym $win_mod+l mode $layout_mode
+mode $layout_mode {
+  bindsym b input type:keyboard xkb_layout bsk, mode "default"
+  bindsym q input type:keyboard xkb_layout us, mode "default"
+  bindsym a input type:keyboard xkb_layout fr, mode "default"
+
+  bindsym $universal_quit mode "default"
+  bindsym escape mode "default"
+}
+
+bindsym $win_mod+left focus left
+bindsym $win_mod+right focus right
+bindsym $win_mod+up focus up
+bindsym $win_mod+down focus down
+
+bindsym $win_mod+w exec rofi -show window
+
+bar t {
+  font DejaVu Sans
+  status_command i3status-rs
+  position top
+}

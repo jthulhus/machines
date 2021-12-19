@@ -1,0 +1,352 @@
+(require 'package)
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+
+(setq default-frame-alist '((undecorated . t))
+      menu-bar-mode nil
+      scroll-bar-mode nil
+      tool-bar-mode nil)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+
+(setq inhibit-startup-screen t)
+
+(load-theme 'zenburn t)
+
+(use-package fill-column-indicator
+  :hook (prog-mode . fci-mode)
+  :custom (fci-rule-column 80))
+
+(defun my-find-file (&optional arg)
+  (interactive "P")
+  (if (not arg)
+      (find-file (read-file-name "Find File: "))
+    (crux-sudo-edit)))
+
+(use-package emacs
+  :init
+  (setq enable-recursive-minibuffers t
+	gc-cons-threshold 104857600	  ; 100mb
+	read-process-output-max 1048576)  ; 1mb
+  :custom
+  (safe-local-variable-values '((eval set-fill-column 117)))
+  :bind (("C-x C-f" . my-find-file)
+	 ("C-c r s h" . shrink-window-horizontally)
+	 ("C-c r s v" . shrink-window)
+	 ("C-c r e h" . enlarge-window-horizontally)
+	 ("C-c r e v" . enlarge-window)))
+
+(windmove-default-keybindings)
+
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(setq linum-format 'dynamic)
+
+(defun rename-file-and-buffer (new-name)
+  "Renames both current buffer and file it's visiting to NEW-NAME."
+  (interactive "sNew name: ")
+  (let ((name (buffer-name))
+	(filename (buffer-file-name)))
+    (if (not filename)
+	(message "Buffer '%s' is not visiting a file!" name)
+      (if (get-buffer new-name)
+	  (message "A buffer named '%s' already exists!" new-name)
+	(progn
+	  (rename-file filename new-name 1)
+	  (rename-buffer new-name)
+	  (set-visited-file-name new-name)
+	  (set-buffer-modified-p nil))))))
+
+(defun my/comment-or-uncomment ()
+  "Comment or uncomment, based on the region."
+  (interactive)
+  (if (use-region-p)
+      (comment-or-uncomment-region (region-beginning) (region-end))
+    (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
+(global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
+
+(use-package flycheck
+  :hook (rust-mode tuareg-mode elisp-mode))
+
+(use-package rust-mode)
+
+(use-package rustic)
+
+(use-package cargo)
+
+(use-package flycheck-rust
+  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+
+(use-package python
+  :when (executable-find "ipython")
+  :custom
+  (python-shell-interpreter "ipython")
+  (python-shell-interpreter-args "--simple-prompt -i")
+  (python-shell-prompt-regexp "In \\[[0-9]+\\]: ")
+  (python-shell-prompt-output-regexp "Out\\[[0-9]+\\]")
+  (python-shell-completion-setup-code "from IPython.core.completerlib import module_completion")
+  (python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n")
+  (python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
+
+(use-package lsp-pyright
+  :hook (python-mode . (lambda ()
+			 (require 'lsp-pyright)
+			 (lsp))))
+
+(use-package ocp-indent
+  :init
+  (setq byte-compile-warnings '(not cl-functions)))
+
+(require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+
+(use-package tuareg)
+
+(use-package utop
+  :hook (tuareg-mode . utop-minor-mode)
+  :config
+  (setq utop-edit-command nil))
+
+(use-package merlin
+  :hook
+  (tuareg-mode . merlin-mode)
+  (merlin-mode . company-mode)
+  :custom (merlin-command "ocamlmerlin"))
+
+(use-package paredit
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+  (add-hook 'list-interaction-mode-hook #'paredit-mode)
+  (add-hook 'ielm-mode-hook #'paredit-mode)
+  (add-hook 'lisp-mode-hook #'paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode))
+
+(autoload 'bash-completion-dynamic-complete
+  "bash completion"
+  "BASH completion hook")
+
+(use-package bash-completion
+  :config
+  (add-hook 'shell-dynamic-complete-functions 'bash-completion-dynamic-complete))
+
+(use-package load-bash-alias
+  :config
+  (setq load-bash-alias-bashrc-file "~/.bashrc"))
+
+(add-to-list 'load-path "~/.emacs.d/llvm-mode")
+(require 'llvm-mode)
+(require 'tablegen-mode)
+
+(setq LaTeX-command "latex -shell-escape")
+(add-hook 'latex-mode-hook 'display-line-numbers-mode)
+
+(use-package pandoc-mode
+  :hook markdown-mode
+  :init
+  (add-hook 'pandoc-mode-hook #'pandoc-load-default-settings))
+
+(use-package nix-mode
+  :after (lsp-mode flycheck)
+  :init
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+		   :major-modes '(nix-mode)
+		   :server-id 'nix))
+  (setq flycheck-command-wrapper-function
+	(lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
+	flycheck-executable-find
+	(lambda (command) (nix-executable-find (nix-current-sandbox) command)))
+  :config
+  (define-key nix-mode-map (kbd "C-c n") #'helm-nixos-options))
+
+(use-package direnv
+  :init
+  (add-hook 'prog-mode-hook #'direnv-update-environment)
+  :config
+  (direnv-mode)
+  :custom
+  (setq direnv-always-show-summary nil))
+
+(use-package j-mode
+  :hook (j-mode . prog-mode-hook)
+  :config
+  (setq j-console-cmd "jconsole")
+  )
+
+
+(put 'j-other-face 'face-alias 'font-lock-keyword-face)
+(put 'j-verb-face 'face-alias 'font-lock-keyword-face)
+(put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
+(put 'j-conjunction-face 'face-alias 'j-adverb-face)
+
+(use-package yaml-mode)
+
+(use-package toml-mode)
+
+(use-package json-mode)
+
+(use-package company
+  :hook (prog-mode . company-mode)
+  :config
+  (progn
+    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
+    (setq company-show-numbers nil
+	  company-tooltip-align-annotations t
+	  company-idle-delay 0
+	  company-minimum-prefix-length 3))
+  )
+
+(use-package projectile
+  :hook (rust-mode . projectile-mode))
+
+(setq delete-selection-mode t)
+
+(setq font-lock-global-modes '(not speedbar-mode))
+
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
+(use-package ace-jump-mode
+  :bind ("C-." . ace-jump-mode))
+
+(use-package jump-char
+  :bind (("M-h" . jump-char-forward)
+	 ("M-m" . jump-char-backward))
+  :config
+  (setq jump-char-forward-key nil
+	jump-char-backward-key nil))
+
+(use-package embrace
+  :bind (("C-," . embrace-commander))
+  :hook (org-mode . embrace-org-mode-hook))
+
+(use-package expand-region
+  :bind (("M-'" . er/expand-region)))
+
+(use-package which-key
+  :config
+  (which-key-mode))
+
+(use-package org
+  :config
+  (progn
+    (setq org-agenda-start-on-weekday 1)
+    (setq org-modules '(ol-bbdb ol-bibtex ol-docview ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
+    (setq org-agenda-files (list "~/org/head.org" "~/org/school.org")))
+  (add-hook 'org-mode-hook (lambda () (setq-local backup-by-copying t)))
+  :custom-face
+  (org-level-1 ((t (:inherit outline-1 :height 1.25))))
+  (org-level-2 ((t (:inherit outline-1 :height 1.2))))
+  (org-level-3 ((t (:inherit outline-1 :height 1.15))))
+  (org-level-4 ((t (:inherit outline-1 :height 1.1))))
+  (org-level-5 ((t (:inherit outline-1 :height 1.05)))))
+
+(use-package org-auto-tangle
+  :hook (org-mode . org-auto-tangle-mode)
+  :init (setq org-auto-tangle-default t))
+
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+
+(use-package org-roam
+  :init
+  (setq org-roam-v2-ack t)
+  :custom
+  (org-roam-directory "~/em/roam/")
+  (org-roam-completion-everywhere t)
+  (org-roam-dailies-directory "log/")
+  (org-roam-dailies-capture-templates
+   '(("T" "(E)Timestamp" entry "* %<%R>>\n   %?"
+      :if-new (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>\n"))))
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+	 ("C-c n f" . org-roam-node-find)
+	 ("C-c n i" . org-roam-node-insert)
+	 :map org-mode-map
+	 ("C-M-i" . completion-at-point)
+	 :map org-roam-dailies-map
+	 ("Y" . org-roam-dailies-capture-yesterday)
+	 ("T" . org-roam-dailies-capture-tomorrow))
+  :bind-keymap
+  ("C-c n d" . org-roam-dailies-map)
+  :config
+  (require 'org-roam-dailies)
+  (org-roam-setup)
+  (org-roam-db-autosync-mode))
+
+(use-package lsp-mode
+  :after (direnv)
+  :init
+  (setq lsp-keymap-prefix "C-c l"
+	lsp-log-io nil)
+  :config
+  (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
+  (setq lsp-file-watch-ignored '(
+				 "[/\\\\]\\.direnv$"
+				 "[/\\\\]target$"))
+  :hook ((python-mode . lsp)
+	 (rust-mode . lsp)
+	 (tuareg-opam-mode . lsp)
+	 (nix-mode . lsp)
+	 (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui
+  :commands lsp-ui-mode)
+
+(use-package yasnippet
+  :bind (("M-n" . yas-next-field)
+	 ("M-p" . yas-prev-field)
+	 ("<C-return>" . yas-exit-snippet))
+  :config
+  (setq yas-verbosity 1
+	yas-wrap-around-region t)
+  (define-key yas-minor-mode-map (kbd "<tab>") nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+  (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand)
+  (with-eval-after-load 'yasnippet
+    (setq yas-snippet-dirs '(yasnippet-snippets-dir)))
+  (yas-reload-all)
+  (yas-global-mode 1))
+
+(use-package yasnippet-snippets)
+
+(use-package vertico
+  :init
+  (vertico-mode))
+
+(use-package tramp
+  :config
+  (setq password-cache-expiry nil))
+
+(use-package auth-source
+  :ensure nil
+  :custom
+  (auth-source-save-behavior nil))
+
+(setq save-place-mode t)
+
+(use-package savehist
+  :ensure nil
+  :init
+  (savehist-mode))
+
+(use-package crux
+  :bind (("C-c e" . crux-eval-and-replace)
+	 ("C-<backspace>" . crux-kill-line-backwards)
+	 ("C-c f" . crux-recentf-find-file)))
+
+(use-package magit
+  :bind (("C-x g" . magit-status)
+	 ("C-x M-g" . magit-dispatch)
+	 ("C-C M-g" . magit-file-dispatch)))
+
+(use-package eshell
+  :ensure nil
+  :bind (("<f1>" . eshell)))
+
+(use-package unison-mode)
+
+(use-package pass)
+(use-package pinentry)

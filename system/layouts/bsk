@@ -1,0 +1,79 @@
+// Beans Switch Keyboard
+// ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┲━━━━━━━━━┓
+// │ ^ ° │ 1   │ 2   │ 3   │ 4   │ 5   │ 6   │ 7   │ 8   │ 9   │ 0   │ $   │     ┃Backspace┃
+// │ ` ^ │ ' 6 │ " 7 │ { 8 │ [ 9 │ ( 0 │ - 1 │ + 2 │ | 3 │ } 4 │ ] 5 │ )   │ =   ┃         ┃
+// ┢━━━━━┷━┱───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┺━┳━━━━━━━┫
+// ┃       ┃ A À │ Z   │ E É │ R È │ T   │ Y   │ U Ù │ I Ï │ O Ö │ P Ò │ ?   │ _   ┃Enter  ┃
+// ┃Tab    ┃ a à │ z   │ e é │ r è │ t   │ y   │ u ù │ i ï │ o ö │ p ò │ \   │ &   ┃       ┃
+// ┣━━━━━━━┻┱────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┺┓      ┃
+// ┃        ┃ Q Â │ S   │ D Ê │ F Ë │ G   │ H   │ J Û │ K Î │ L Ô │ M   │ *   │ !   ┃      ┃
+// ┃Maj     ┃ q â │ s   │ d ê │ f ë │ g   │ h   │ j û │ k î │ l ô │ m   │ /   │ %   ┃      ┃
+// ┣━━━━━━━┳┹────┬┴────┬┴────┬┴────┬┴────┬┴────┬┴────┬┴────┬┴────┬┴────┬┴────┲┷━━━━━┻━━━━━━┫
+// ┃       ┃ >   │ W   │ X   │ C Ç │ V   │ B   │ N   │ @   │ #   │ ~   │     ┃             ┃
+// ┃Shift  ┃ <   │ w   │ x   │ c ç │ v   │ b   │ n   │ . ! │ , ? │ :   │ ;   ┃Shift        ┃
+// ┣━━━━━━━╋━━━━━┷━┳━━━┷━━━┱─┴─────┴─────┴─────┴─────┴─────┴───┲━┷━━━━━╈━━━━━┻━┳━━━━━━━┳━━━┛
+// ┃       ┃       ┃       ┃   _                               ┃       ┃       ┃       ┃
+// ┃Ctrl   ┃Meta   ┃Alt    ┃   Space                           ┃AltGr  ┃Menu   ┃Ctrl   ┃
+// ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹───────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┛
+
+default
+xkb_symbols "bsk" {
+
+  include "level3(caps_switch)"
+  include "compose(rwin)"
+  include "compose(ralt)"
+	    
+  key <TLDE>	{ [     grave,asciicircum,dead_circumflex,     degree ] };
+  key <AE01>	{ [apostrophe,          1,          6 ] };
+  key <AE02>	{ [  quotedbl,          2,          7 ] };
+  key <AE03>	{ [ braceleft,          3,          8 ] };
+  key <AE04>	{ [bracketleft,         4,          9 ] };
+  key <AE05>	{ [ parenleft,          5,          0 ] };
+  key <AE06>	{ [     minus,          6,          1 ] };
+  key <AE07>	{ [      plus,          7,          2 ] };
+  key <AE08>	{ [       bar,          8,          3 ] };
+  key <AE09>	{ [braceright,          9,          4 ] };
+  key <AE10>	{ [bracketright,        0,          5 ] };
+  key <AE11>	{ [parenright,     dollar ] };
+  key <AE12>	{ [     equal ] };
+
+  key <AD01>	{ [         a,          A,     agrave,         Agrave ] };
+  key <AD02>	{ [         z,          Z ] };
+  key <AD03>	{ [         e,          E,     eacute,         Eacute ] };
+  key <AD04>	{ [         r,          R,     egrave,         Egrave ] };
+  key <AD05>	{ [         t,          T ] };
+  key <AD06>	{ [         y,          Y ] };
+  key <AD07>	{ [         u,          U,     ugrave,         Ugrave ] };
+  key <AD08>	{ [         i,          I, idiaeresis,     Idiaeresis ] };
+  key <AD09>	{ [         o,          O, odiaeresis,     Odiaeresis ] };
+  key <AD10>	{ [         p,          P,     ograve,         Ograve ] };
+  key <AD11>	{ [ backslash,   question ] };
+  key <AD12>	{ [ ampersand, underscore ] };
+
+  key <AC01>	{ [         q,          Q,acircumflex,    Acircumflex ] };
+  key <AC02>	{ [         s,          S ] };
+  key <AC03>	{ [         d,          D,ecircumflex,   Ecircumflex ] };
+  key <AC04>	{ [         f,          F, ediaeresis,    Ediaeresis ] };
+  key <AC05>	{ [         g,          G ] };
+  key <AC06>	{ [         h,          H ] };
+  key <AC07>	{ [         j,          J,ucircumflex,   Ucircumflex ] };
+  key <AC08>	{ [         k,          K,icircumflex,   Icircumflex ] };
+  key <AC09>	{ [         l,          L,ocircumflex,   Ocircumflex ] };
+  key <AC10>	{ [         m,          M ] };
+  key <AC11>	{ [     slash,   asterisk ] };
+  key <BKSL>	{ [   percent,     exclam ] };
+
+  key <LSGT>	{ [      less,    greater ] };
+  key <AB01>	{ [         w,          W ] };
+  key <AB02>	{ [         x,          X ] };
+  key <AB03>	{ [         c,          C,   ccedilla,     Ccedilla ] };
+  key <AB04>	{ [         v,          V ] };
+  key <AB05>	{ [         b,          B ] };
+  key <AB06>	{ [         n,          N ] };
+  key <AB07>	{ [    period,         at,     exclam ] };
+  key <AB08>	{ [     comma, numbersign,   question ] };
+  key <AB09>	{ [     colon, asciitilde ] };
+  key <AB10>	{ [ semicolon ] };
+
+  key <SPCE>	{ [     space, underscore,nobreakspace ] };
+};

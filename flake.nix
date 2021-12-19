@@ -25,6 +25,7 @@
         username = "adri";
         homeDirectory = "/home/${username}";
         configuration = ./home/home.nix;
+        system = "x86_64-linux";
         extraModules = [
           ./home/hosts/dragonbreath.nix
           overlaysModule
@@ -34,6 +35,7 @@
         username = "adri";
         homeDirectory = "/home/${username}";
         configuration = ./home/home.nix;
+        system = "x86_64-linux";
         extraModules = [
           ./home/hosts/cthulhu.nix
           overlaysModule

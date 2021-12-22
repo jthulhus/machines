@@ -256,7 +256,7 @@ My Emacs init.org file
        :config
        (direnv-mode)
        :custom
-       (setq direnv-always-show-summary nil))
+       (direnv-always-show-summary nil))
    #+end_src
 * J
   #+begin_src emacs-lisp :tangle yes

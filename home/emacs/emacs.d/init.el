@@ -167,7 +167,7 @@
   :config
   (direnv-mode)
   :custom
-  (setq direnv-always-show-summary nil))
+  (direnv-always-show-summary nil))
 
 (use-package j-mode
   :hook (j-mode . prog-mode-hook)

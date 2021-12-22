@@ -44,7 +44,7 @@ My Emacs init.org file
        (if (not arg)
 	   (find-file (read-file-name "Find File: "))
 	 (crux-sudo-edit)))
-     
+
      (use-package emacs
        :init
        (setq enable-recursive-minibuffers t
@@ -56,7 +56,8 @@ My Emacs init.org file
 	      ("C-c r s h" . shrink-window-horizontally)
 	      ("C-c r s v" . shrink-window)
 	      ("C-c r e h" . enlarge-window-horizontally)
-	      ("C-c r e v" . enlarge-window)))
+	      ("C-c r e v" . enlarge-window)
+	      ("C-c k" . kill-current-buffer)))
    #+end_src
 ** Window moving
    Enable moving with S-right, S-left, S-up and S-down.

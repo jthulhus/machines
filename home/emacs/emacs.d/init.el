@@ -36,7 +36,8 @@
 	 ("C-c r s h" . shrink-window-horizontally)
 	 ("C-c r s v" . shrink-window)
 	 ("C-c r e h" . enlarge-window-horizontally)
-	 ("C-c r e v" . enlarge-window)))
+	 ("C-c r e v" . enlarge-window)
+	 ("C-c k" . kill-current-buffer)))
 
 (windmove-default-keybindings)
 

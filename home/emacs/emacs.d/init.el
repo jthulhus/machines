@@ -286,12 +286,12 @@
   (setq lsp-file-watch-ignored '(
 				 "[/\\\\]\\.direnv$"
 				 "[/\\\\]target$"))
-  :hook ((python-mode . lsp)
-	 (rust-mode . lsp)
-	 (tuareg-opam-mode . lsp)
-	 (nix-mode . lsp)
+  :hook ((python-mode . lsp-deferred)
+	 (rust-mode . lsp-deferred)
+	 (tuareg-opam-mode . lsp-deferred)
+	 (nix-mode . lsp-deferred)
 	 (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :commands (lsp lsp-deferred))
 
 (use-package lsp-ui
   :commands lsp-ui-mode)

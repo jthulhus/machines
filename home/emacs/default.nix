@@ -28,9 +28,6 @@
     # Python
     nodePackages.pyright
 
-    # Rust
-    rust-analyzer
-
     # Nix
     rnix-lsp
 

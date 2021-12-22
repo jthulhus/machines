@@ -22,7 +22,7 @@ with lib;
     ./firefox
     ./git
     ./python
-    ./rust
+    # ./rust
     ./j
     ./gtk
     ./mailclient

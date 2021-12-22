@@ -7,7 +7,10 @@
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rustOverlay.url = github:oxalica/rust-overlay;
+    rustOverlay = {
+      url = github:oxalica/rust-overlay;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     emacsOverlay.url = github:nix-community/emacs-overlay;
   };
 

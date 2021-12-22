@@ -36,6 +36,6 @@ in {
       };
       gtk3 = gtkConfig;
     };
-    home.file.".config/gtk-4.0/settings.ini".text = gtkConfigSource;
+    # home.file.".config/gtk-4.0/settings.ini".text = gtkConfigSource;
   };
 }

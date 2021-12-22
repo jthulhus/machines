@@ -176,6 +176,10 @@ My Emacs init.org file
        (merlin-mode . company-mode)
        :custom (merlin-command "ocamlmerlin"))
    #+end_src
+* Haskell
+#+begin_src emacs-lisp :tangle yes
+  (use-package lsp-haskell)
+#+end_src
 * Elisp
 ** Paredit
    #+begin_src emacs-lisp :tangle yes
@@ -439,6 +443,7 @@ My Emacs init.org file
 	      (rust-mode . lsp-deferred)
 	      (tuareg-opam-mode . lsp-deferred)
 	      (nix-mode . lsp-deferred)
+	      (haskell-mode . lsp-deferred)
 	      (lsp-mode . lsp-enable-which-key-integration))
        :commands (lsp lsp-deferred))
    #+end_src

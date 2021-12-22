@@ -114,6 +114,8 @@
   (merlin-mode . company-mode)
   :custom (merlin-command "ocamlmerlin"))
 
+(use-package lsp-haskell)
+
 (use-package paredit
   :config
   (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
@@ -290,6 +292,7 @@
 	 (rust-mode . lsp-deferred)
 	 (tuareg-opam-mode . lsp-deferred)
 	 (nix-mode . lsp-deferred)
+	 (haskell-mode . lsp-deferred)
 	 (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 

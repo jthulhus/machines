@@ -74,8 +74,6 @@
 
 (use-package rustic)
 
-(use-package cargo)
-
 (use-package flycheck-rust
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
@@ -154,8 +152,8 @@
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-		   :major-modes '(nix-mode)
-		   :server-id 'nix))
+		    :major-modes '(nix-mode)
+		    :server-id 'nix))
   (setq flycheck-command-wrapper-function
 	(lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
 	flycheck-executable-find
@@ -285,9 +283,10 @@
 	lsp-log-io nil)
   :config
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-  (setq lsp-file-watch-ignored '(
-				 "[/\\\\]\\.direnv$"
-				 "[/\\\\]target$"))
+  (setq lsp-file-watch-ignored
+	'("[/\\\\]\\.direnv$"
+	  "[/\\\\]target$"
+	  "[/\\\\]\\.git"))
   :hook ((python-mode . lsp-deferred)
 	 (rust-mode . lsp-deferred)
 	 (tuareg-opam-mode . lsp-deferred)

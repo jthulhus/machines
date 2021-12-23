@@ -154,10 +154,6 @@
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
 		    :major-modes '(nix-mode)
 		    :server-id 'nix))
-  (setq flycheck-command-wrapper-function
-	(lambda (command) (apply 'nix-shell-command (nix-current-sandbox) command))
-	flycheck-executable-find
-	(lambda (command) (nix-executable-find (nix-current-sandbox) command)))
   :config
   (define-key nix-mode-map (kbd "C-c n") #'helm-nixos-options))
 

@@ -13,6 +13,7 @@
     nix-index
     ripgrep
     vlc
+    cloc
   ];
 
   programs.man.enable = true;

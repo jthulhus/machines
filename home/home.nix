@@ -25,6 +25,7 @@ with lib;
     ./gtk
     ./mailclient
     ./gpg
+    ./network
   ];
 
   options = {

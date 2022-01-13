@@ -14,7 +14,6 @@ with lib;
     ./wifi
     ./mako
     ./fonts
-    # ./icons
     ./sound
     ./light
     ./utils
@@ -22,7 +21,6 @@ with lib;
     ./firefox
     ./git
     ./python
-    # ./rust
     ./j
     ./gtk
     ./mailclient

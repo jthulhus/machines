@@ -1,6 +1,3 @@
-{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    nm-tray
-  ];
+  services.network-manager-applet.enable = true;
 }

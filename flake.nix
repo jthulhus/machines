@@ -7,19 +7,14 @@
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    rustOverlay = {
-      url = github:oxalica/rust-overlay;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     emacsOverlay.url = github:nix-community/emacs-overlay;
   };
 
-  outputs = { self, nixpkgs, homeManager, rustOverlay, emacsOverlay }: {
+  outputs = { self, nixpkgs, homeManager, emacsOverlay }: {
     homeConfigurations = let
       inherit (homeManager.lib) homeManagerConfiguration;
       overlaysModule = {
         nixpkgs.overlays = [
-          rustOverlay.overlay
           emacsOverlay.overlay
         ];
       };

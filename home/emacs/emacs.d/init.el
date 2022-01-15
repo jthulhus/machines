@@ -19,6 +19,26 @@
   :hook (prog-mode . fci-mode)
   :custom (fci-rule-column 80))
 
+(use-package dashboard
+  :init
+  (setq dashboard-items '((recents . 5)
+			  (projects . 5))
+	dashboard-show-shortcuts nil
+	dashboard-center-content nil
+	dashboard-banner-logo-title "Welcome to Beansmacs!"
+	dashboard-set-init-info t
+	; dashboard-startup-banner "~/.emacs.d/banner"
+	)
+  :config
+  (dashboard-setup-startup-hook))
+
+(use-package page-break-lines)
+
+(use-package xkcd
+  :custom
+  (xkcd-cache-dir "~/.cache/xkcd/" "The directory where the comics are stored.")
+  (xkcd-cache-latest "~/.cache/xkcd/latest" "The file where the latest cached comics' number is stored."))
+
 (defun my-find-file (&optional arg)
   (interactive "P")
   (if (not arg)
@@ -46,7 +66,7 @@
 
 (defun rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
-  (interactive "sNew name: ")
+  (interactive (list (read-file-name "New name: " default-directory (buffer-name) nil (buffer-name))))
   (let ((name (buffer-name))
 	(filename (buffer-file-name)))
     (if (not filename)

@@ -2,6 +2,11 @@
 let
   useSway = config.xserver == "wayland";
   inherit (lib) mkOption types;
+  notmuchOverlay = final: prev: {
+    notmuch = prev.notmuch.overrideAttrs (old: {
+      doCheck = false;
+    });
+  };
 in 
 {
   options = {
@@ -83,6 +88,10 @@ separator = "<span font_family='FiraCode Nerd Font'>\ue0b2</span>"
         brightnessctl
         pulseaudio
         i3status-rust
+      ];
+
+      nixpkgs.overlays = [
+        notmuchOverlay
       ];
       
       xdg.configFile = {

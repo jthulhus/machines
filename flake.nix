@@ -40,12 +40,23 @@
         ];
       };
     };
-    nixosConfigurations = with nixpkgs.lib; {
+    nixosConfigurations = let
+      beanspkgsRegistryModule = {
+        nix.registry.beanspkgs = {
+          from = {
+            type = "indirect";
+            id = "beanspkgs";
+          };
+          flake = nixpkgs;
+        };
+      };
+    in with nixpkgs.lib; {
       dragonbreath = nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./system/configuration.nix
           ./system/hosts/dragonbreath.nix
+          beanspkgsRegistryModule
         ];
       };
       cthulhu = nixosSystem {
@@ -53,6 +64,7 @@
         modules = [
           ./system/configuration.nix
           ./system/hosts/cthulhu.nix
+          beanspkgsRegistryModule
         ];
       };
     };

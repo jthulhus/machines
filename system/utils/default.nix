@@ -4,5 +4,6 @@
     emacs-nox
     xorg.xkbcomp
     git
+    nixos-option
   ];
 }

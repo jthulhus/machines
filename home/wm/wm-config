@@ -118,6 +118,11 @@ mode "move" {
   bindsym up focus up
   bindsym down focus down
 
+  bindsym h focus left
+  bindsym j focus down
+  bindsym k focus up
+  bindsym l focus right
+
   bindsym escape mode "default"
   bindsym space mode "default"
   bindsym $universal_quit mode "default"
@@ -176,6 +181,11 @@ bindsym $win_mod+left focus left
 bindsym $win_mod+right focus right
 bindsym $win_mod+up focus up
 bindsym $win_mod+down focus down
+
+bindsym $win_mod+h focus left
+bindsym $win_mod+j focus down
+bindsym $win_mod+k focus up
+bindsym $win_mod+l focus right
 
 bindsym $win_mod+w exec rofi -show window
 

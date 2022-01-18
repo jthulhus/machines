@@ -12,6 +12,7 @@ in
     ./dbus
     ./sound
     ./utils
+    ./fs
   ];
 
   options.my = {

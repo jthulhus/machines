@@ -39,7 +39,7 @@
   (xkcd-cache-dir "~/.cache/xkcd/" "The directory where the comics are stored.")
   (xkcd-cache-latest "~/.cache/xkcd/latest" "The file where the latest cached comics' number is stored."))
 
-(defun my-find-file (&optional arg)
+(defun find-my-file (&optional arg)
   (interactive "P")
   (if (not arg)
       (find-file (read-file-name "Find File: "))
@@ -48,16 +48,18 @@
 (use-package emacs
   :init
   (setq enable-recursive-minibuffers t
-	gc-cons-threshold 104857600	  ; 100mb
-	read-process-output-max 1048576)  ; 1mb
+        gc-cons-threshold 104857600	  ; 100mb
+        read-process-output-max 1048576)  ; 1mb
+  (global-set-key (kbd "C-j") 'delete-backward-char)
+  (global-set-key (kbd "M-j") 'backward-kill-word)
   :custom
   (safe-local-variable-values '((eval set-fill-column 117)))
   :bind (("C-x C-f" . my-find-file)
-	 ("C-c r s h" . shrink-window-horizontally)
-	 ("C-c r s v" . shrink-window)
-	 ("C-c r e h" . enlarge-window-horizontally)
-	 ("C-c r e v" . enlarge-window)
-	 ("C-c k" . kill-current-buffer)))
+         ("C-c r s h" . shrink-window-horizontally)
+         ("C-c r s v" . shrink-window)
+         ("C-c r e h" . enlarge-window-horizontally)
+         ("C-c r e v" . enlarge-window)
+         ("C-c k" . kill-current-buffer)))
 
 (windmove-default-keybindings)
 

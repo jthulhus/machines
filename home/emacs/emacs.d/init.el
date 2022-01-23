@@ -39,7 +39,7 @@
   (xkcd-cache-dir "~/.cache/xkcd/" "The directory where the comics are stored.")
   (xkcd-cache-latest "~/.cache/xkcd/latest" "The file where the latest cached comics' number is stored."))
 
-(defun find-my-file (&optional arg)
+(defun my-find-file (&optional arg)
   (interactive "P")
   (if (not arg)
       (find-file (read-file-name "Find File: "))

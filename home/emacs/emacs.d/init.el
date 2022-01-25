@@ -45,13 +45,32 @@
       (find-file (read-file-name "Find File: "))
     (crux-sudo-edit)))
 
+(defun dashboard-focus ()
+  (interactive)
+  (switch-to-buffer "*dashboard*"))
+
+(defvar always-keys-minor-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-j") #'delete-backward-char)
+    (define-key map (kbd "M-j") #'backward-kill-word)
+    (define-key map (kbd "C-c d") #'dashboard-focus)
+    (define-key map (kbd "C-M-h") #'windmove-left)
+    (define-key map (kbd "C-M-l") #'windmove-right)
+    (define-key map (kbd "C-M-j") #'windmove-down)
+    (define-key map (kbd "C-M-k") #'windmove-up)
+    map)
+  "Mode map for the Always Key minor mode.")
+
+(define-minor-mode always-keys-minor-mode
+  "A minor mode to ensure basic moving-around key bindings are enforced."
+  :init-value t
+  :lighter " AK")
+
 (use-package emacs
   :init
   (setq enable-recursive-minibuffers t
         gc-cons-threshold 104857600	  ; 100mb
         read-process-output-max 1048576)  ; 1mb
-  (global-set-key (kbd "C-j") 'delete-backward-char)
-  (global-set-key (kbd "M-j") 'backward-kill-word)
   :custom
   (safe-local-variable-values '((eval set-fill-column 117)))
   :bind (("C-x C-f" . my-find-file)

@@ -15,6 +15,20 @@
 
 (load-theme 'zenburn t)
 
+(use-package spaceline
+  :config
+  (use-package spaceline-config
+    :ensure nil
+    :config
+    (spaceline-toggle-minor-modes-off)
+    (spaceline-toggle-buffer-encoding-off)
+    (spaceline-toggle-buffer-encoding-abbrev-off)
+    (setq powerline-default-separator 'rounded)
+    (spaceline-define-segment line-column
+      "The current line and column numbers."
+      "l:%l c:%2c")
+    (spaceline-emacs-theme)))
+
 (use-package fill-column-indicator
   :hook (prog-mode . fci-mode)
   :custom (fci-rule-column 80))

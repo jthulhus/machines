@@ -12,7 +12,7 @@ with lib;
     ./bash
     ./games
     ./wifi
-    ./mako
+    ./notifications
     ./fonts
     ./sound
     ./light

@@ -144,16 +144,16 @@ mode "power" {
 
 bindsym $win_mod+Shift+n mode "notification"
 mode "notification" {
-  bindsym d exec "makoctl dismiss"
-  bindsym a exec "makoctl dismiss --all", mode "default"
-  bindsym i exec "makoctl invoke, makoctl dismiss"
+  bindsym d exec "dunstctl close"
+  bindsym a exec "dunstctl close-all", mode "default"
+  bindsym i exec "dunstctl action 0, dunstctl close"
 
   bindsym space mode "default"
   bindsym escape mode "default"
   bindsym $universal_quit mode "default"
 }
 
-bindsym $win_mod+n exec "makoctl dismiss"
+bindsym $win_mod+n exec "dunstctl close"
 
 bindsym $win_mod+c mode "connection"
 mode "connection" {

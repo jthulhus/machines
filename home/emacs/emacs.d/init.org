@@ -43,7 +43,7 @@ My Emacs init.org file
       (spaceline-define-segment line-column
         "The current line and column numbers."
         "l:%l c:%2c")
-      (spaceline-emacs-theme)))
+      (spaceline-spacemacs-theme)))
 #+end_src
 ** Add a fill column indicator for prog-mode
 #+begin_src emacs-lisp :tangle yes

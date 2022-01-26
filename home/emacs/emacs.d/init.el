@@ -26,7 +26,7 @@
     (spaceline-define-segment line-column
       "The current line and column numbers."
       "l:%l c:%2c")
-    (spaceline-emacs-theme)))
+    (spaceline-spacemacs-theme)))
 
 (use-package fill-column-indicator
   :hook (prog-mode . fci-mode)

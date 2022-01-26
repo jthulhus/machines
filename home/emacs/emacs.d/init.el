@@ -20,7 +20,6 @@
   (use-package spaceline-config
     :ensure nil
     :config
-    (spaceline-toggle-minor-modes-off)
     (spaceline-toggle-buffer-encoding-off)
     (spaceline-toggle-buffer-encoding-abbrev-off)
     (setq powerline-default-separator 'rounded)

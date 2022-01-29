@@ -74,7 +74,7 @@ My Emacs init.org file
 This makes it easy to distinguish where parenthesis and alike start and end.
 #+begin_src emacs-lisp :tangle yes
   (use-package rainbow-delimiters
-    :hook prog-mode)
+    :hook (prog-mode . rainbow-delimiters-mode))
 #+end_src
 * XKCD
 #+begin_src emacs-lisp :tangle yes

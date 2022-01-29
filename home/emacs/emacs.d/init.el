@@ -47,7 +47,7 @@
 
 (use-package page-break-lines)
 
-(use-package rainbow-delimeters
+(use-package rainbow-delimiters
   :hook prog-mode)
 
 (use-package xkcd

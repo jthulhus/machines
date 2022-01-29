@@ -73,7 +73,7 @@ My Emacs init.org file
 ** Rainbow delimeters
 This makes it easy to distinguish where parenthesis and alike start and end.
 #+begin_src emacs-lisp :tangle yes
-  (use-package rainbow-delimeters
+  (use-package rainbow-delimiters
     :hook prog-mode)
 #+end_src
 * XKCD

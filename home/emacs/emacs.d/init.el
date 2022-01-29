@@ -47,6 +47,9 @@
 
 (use-package page-break-lines)
 
+(use-package rainbow-delimeters
+  :hook prog-mode)
+
 (use-package xkcd
   :custom
   (xkcd-cache-dir "~/.cache/xkcd/" "The directory where the comics are stored.")
@@ -251,11 +254,14 @@
 (use-package projectile
   :hook (rust-mode . projectile-mode))
 
-(setq delete-selection-mode t)
-
 (setq font-lock-global-modes '(not speedbar-mode))
 
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+
+(use-package ace-window
+  :config
+  (setq aw-keys '(?q ?s ?d ?f ?g ?h ?j ?k ?l))
+  :bind ("M-o" . ace-window))
 
 (use-package ace-jump-mode
   :bind ("C-." . ace-jump-mode))
@@ -403,3 +409,6 @@
 
 (use-package pass)
 (use-package pinentry)
+
+(use-package deadgrep
+  :bind ("<f5>" . deadgrep))

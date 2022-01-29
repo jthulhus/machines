@@ -70,6 +70,12 @@ My Emacs init.org file
 #+begin_src emacs-lisp :tangle yes
   (use-package page-break-lines)
 #+end_src
+** Rainbow delimeters
+This makes it easy to distinguish where parenthesis and alike start and end.
+#+begin_src emacs-lisp :tangle yes
+  (use-package rainbow-delimeters
+    :hook prog-mode)
+#+end_src
 * XKCD
 #+begin_src emacs-lisp :tangle yes
   (use-package xkcd
@@ -375,13 +381,6 @@ Major mode for JSON configuration files.
     :hook (rust-mode . projectile-mode))
 #+end_src
   
-* Delete selection mode
-When a region is selected and you start typing, it replaces the region instead of
-simply deselecting it and appending what you type.
-#+begin_src emacs-lisp :tangle yes
-  (setq delete-selection-mode t)
-#+end_src
-
 * Disable font lock in speedbar-mode
 Font lock allows customization of the font for selected regions of text.
 Speedbar mode doesn't need that.
@@ -393,8 +392,16 @@ Speedbar mode doesn't need that.
   (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 #+end_src
 * Moving
+** Ace window
+#+begin_src emacs-lisp :tangle yes
+  (use-package ace-window
+    :config
+    (setq aw-keys '(?q ?s ?d ?f ?g ?h ?j ?k ?l))
+    :bind ("M-o" . ace-window))
+#+end_src
 ** Ace jump mode
 Fantastic mode that allows you to jump to any location on screen in less than three keystrokes.
+However, this seems bugged lately...
 #+begin_src emacs-lisp :tangle yes
   (use-package ace-jump-mode
     :bind ("C-." . ace-jump-mode))
@@ -598,4 +605,11 @@ A major mode for editing unison configuration files.
 #+begin_src emacs-lisp :tangle yes
   (use-package pass)
   (use-package pinentry)
+#+end_src
+
+* Search
+** Deadgrep
+#+begin_src emacs-lisp :tangle yes
+  (use-package deadgrep
+    :bind ("<f5>" . deadgrep))
 #+end_src

@@ -86,7 +86,13 @@
   :init
   (setq enable-recursive-minibuffers t
         gc-cons-threshold 104857600	  ; 100mb
-        read-process-output-max 1048576)  ; 1mb
+        read-process-output-max 1048576	  ; 1mb
+        backup-by-copying t
+        backup-directory-alist '(("." . "~/backups/emacs/"))
+        delete-old-versions t
+        kept-new-versions 3
+        kept-old-versions 2
+        version-control t)
   :custom
   (safe-local-variable-values '((eval set-fill-column 117)))
   :bind (("C-x C-f" . my-find-file)

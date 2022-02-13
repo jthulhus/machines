@@ -25,6 +25,9 @@ exec swayidle -w \
   resume 'swaymsg "output * dpms on"' \
   before-sleep 'swaylock -ef -c 202020'
 
+# Let firefox picture-in-picture window be floating
+for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
+
 # Some keybindings
 bindsym XF86MonBrightnessDown exec light down
 bindsym XF86MonBrightnessUp exec light up
@@ -47,6 +50,7 @@ bindsym $win_mod+Return exec alacritty
 bindsym $win_mod+Shift+q kill
 bindsym $win_mod+tab focus next
 
+bindsym $win_mod+f floating toggle
 
 bindsym $win_mod+apostrophe workspace 1
 bindsym $win_mod+quotedbl workspace 2

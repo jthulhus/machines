@@ -36,7 +36,7 @@
         (format "wc:%s" (count-words-region (point-min) (point-max))))
       :when (and active (member major-mode wc-modes))
       :priority 90)
-    (spaceline-spacemacs-theme)))
+    (spaceline-spacemacs-theme 'word-count)))
 
 (use-package fill-column-indicator
   :hook (prog-mode . fci-mode)

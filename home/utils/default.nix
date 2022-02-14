@@ -14,6 +14,7 @@
     ripgrep
     vlc
     cloc
+    unoconv
   ];
 
   programs.man.enable = true;

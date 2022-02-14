@@ -15,6 +15,9 @@
 
 (load-theme 'zenburn t)
 
+(defvar wc-modes '(fundamental-mode org-mode)
+  "Which major-mode enable wc in the powerline.")
+
 (use-package spaceline
   :config
   (use-package spaceline-config
@@ -25,7 +28,14 @@
     (setq powerline-default-separator 'rounded)
     (spaceline-define-segment line-column
       "The current line and column numbers."
-      "l:%l c:%2c")
+      "%l|%2c")
+    (spaceline-define-segment word-count
+      "The number of words in the buffer or region if active."
+      (if (use-region-p)
+          (format "wc[R]:%s" (count-words-region (region-beginning) (region-end)))
+        (format "wc:%s" (count-words-region (point-min) (point-max))))
+      :when (and active (member major-mode wc-modes))
+      :priority 90)
     (spaceline-spacemacs-theme)))
 
 (use-package fill-column-indicator

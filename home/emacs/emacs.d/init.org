@@ -31,6 +31,12 @@ My Emacs init.org file
   (load-theme 'zenburn t)
 #+end_src
 ** Have a spacemacs-like powerline
+Setup wc-modes variable.
+#+begin_src emacs-lisp :tangle yes
+  (defvar wc-modes '(fundamental-mode org-mode)
+    "Which major-mode enable wc in the powerline.")
+#+end_src
+
 #+begin_src emacs-lisp :tangle yes
   (use-package spaceline
     :config
@@ -42,7 +48,14 @@ My Emacs init.org file
       (setq powerline-default-separator 'rounded)
       (spaceline-define-segment line-column
         "The current line and column numbers."
-        "l:%l c:%2c")
+        "%l|%2c")
+      (spaceline-define-segment word-count
+        "The number of words in the buffer or region if active."
+        (if (use-region-p)
+            (format "wc[R]:%s" (count-words-region (region-beginning) (region-end)))
+          (format "wc:%s" (count-words-region (point-min) (point-max))))
+        :when (and active (member major-mode wc-modes))
+        :priority 90)
       (spaceline-spacemacs-theme)))
 #+end_src
 ** Add a fill column indicator for prog-mode

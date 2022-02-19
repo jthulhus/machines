@@ -13,6 +13,7 @@ in
     ./sound
     ./utils
     ./fs
+    ./games
   ];
 
   options.my = {

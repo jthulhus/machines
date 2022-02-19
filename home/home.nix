@@ -43,7 +43,7 @@ This impacts some utilities (dmenu, ...) and the wm (sway or i3).
     inherit (builtins) elem;
     inherit (lib) getName;
     unfreePredicate = pkg: elem (getName pkg) allowedUnfree;
-    allowedUnfree = [ "dwarf-fortress" "discord" ];
+    allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraf-server" ];
   in {
     nixpkgs.config.allowUnfreePredicate = unfreePredicate;
     home = {

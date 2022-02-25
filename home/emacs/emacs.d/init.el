@@ -104,7 +104,7 @@
   :custom
   (safe-local-variable-values '((eval set-fill-column 117)))
   (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
-  (deinfe-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
+  (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
   :bind (("C-x C-f" . my-find-file)
          ("C-c r s h" . shrink-window-horizontally)
          ("C-c r s v" . shrink-window)

@@ -116,8 +116,6 @@ This makes it easy to distinguish where parenthesis and alike start and end.
 #+begin_src emacs-lisp :tangle yes
   (defvar always-keys-minor-mode-map
     (let ((map (make-sparse-keymap)))
-      (define-key map (kbd "C-j") #'delete-backward-char)
-      (define-key map (kbd "M-j") #'backward-kill-word)
       (define-key map (kbd "C-c d") #'dashboard-focus)
       (define-key map (kbd "C-M-h") #'windmove-left)
       (define-key map (kbd "C-M-l") #'windmove-right)
@@ -146,6 +144,8 @@ This makes it easy to distinguish where parenthesis and alike start and end.
           version-control t)
     :custom
     (safe-local-variable-values '((eval set-fill-column 117)))
+    (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
+    (deinfe-key key-translation-map (kbd "M-j") (kbd "M-j"))
     :bind (("C-x C-f" . my-find-file)
            ("C-c r s h" . shrink-window-horizontally)
            ("C-c r s v" . shrink-window)
@@ -279,7 +279,8 @@ of the previous command on <C-x C-o>...
     (add-hook 'ielm-mode-hook #'paredit-mode)
     (add-hook 'lisp-mode-hook #'paredit-mode)
     (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
-    (add-hook 'scheme-mode-hook #'paredit-mode))
+    (add-hook 'scheme-mode-hook #'paredit-mode)
+    :bind (("C-M-j" . kill-sexp)))
 #+end_src
 * Bash
 ** Bash completion

@@ -77,8 +77,6 @@
 
 (defvar always-keys-minor-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "C-j") #'delete-backward-char)
-    (define-key map (kbd "M-j") #'backward-kill-word)
     (define-key map (kbd "C-c d") #'dashboard-focus)
     (define-key map (kbd "C-M-h") #'windmove-left)
     (define-key map (kbd "C-M-l") #'windmove-right)
@@ -105,6 +103,8 @@
         version-control t)
   :custom
   (safe-local-variable-values '((eval set-fill-column 117)))
+  (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
+  (deinfe-key key-translation-map (kbd "M-j") (kbd "M-j"))
   :bind (("C-x C-f" . my-find-file)
          ("C-c r s h" . shrink-window-horizontally)
          ("C-c r s v" . shrink-window)
@@ -194,7 +194,8 @@
   (add-hook 'ielm-mode-hook #'paredit-mode)
   (add-hook 'lisp-mode-hook #'paredit-mode)
   (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
-  (add-hook 'scheme-mode-hook #'paredit-mode))
+  (add-hook 'scheme-mode-hook #'paredit-mode)
+  :bind (("C-M-j" . kill-sexp)))
 
 (autoload 'bash-completion-dynamic-complete
   "bash completion"

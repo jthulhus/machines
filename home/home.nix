@@ -22,6 +22,7 @@ with lib;
     ./git
     ./python
     ./j
+    ./scheme
     ./gtk
     ./mailclient
     ./gpg

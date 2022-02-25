@@ -193,7 +193,8 @@
   (add-hook 'list-interaction-mode-hook #'paredit-mode)
   (add-hook 'ielm-mode-hook #'paredit-mode)
   (add-hook 'lisp-mode-hook #'paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode))
+  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
+  (add-hook 'scheme-mode-hook #'paredit-mode))
 
 (autoload 'bash-completion-dynamic-complete
   "bash completion"

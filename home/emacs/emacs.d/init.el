@@ -113,8 +113,6 @@
 (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
 (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
 
-(windmove-default-keybindings)
-
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq linum-format 'dynamic)
 
@@ -149,7 +147,8 @@
 (use-package rustic)
 
 (use-package flycheck-rust
-  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+  :commands flycheck-rust-setup
+  :hook (flycheck-mode . flycheck-rust-setup))
 
 (use-package python
   :when (executable-find "ipython")
@@ -189,21 +188,20 @@
 (use-package lsp-haskell)
 
 (use-package paredit
-  :config
-  (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-  (add-hook 'list-interaction-mode-hook #'paredit-mode)
-  (add-hook 'ielm-mode-hook #'paredit-mode)
-  (add-hook 'lisp-mode-hook #'paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'paredit-mode)
-  (add-hook 'scheme-mode-hook #'paredit-mode)
-  :bind (("C-M-j" . kill-sexp)))
+  :hook
+  ((emacs-lisp-mode
+    list-interaction-mode
+    ielm-mode
+    lisp-mode
+    eval-expression-minibuffer-setup
+    scheme-mode) . paredit-mode))
 
 (autoload 'bash-completion-dynamic-complete
   "bash completion"
   "BASH completion hook")
 
 (use-package bash-completion
-  :config
+  :init
   (add-hook 'shell-dynamic-complete-functions 'bash-completion-dynamic-complete))
 
 (use-package load-bash-alias
@@ -218,9 +216,9 @@
 (add-hook 'latex-mode-hook 'display-line-numbers-mode)
 
 (use-package pandoc-mode
+  :commands pandoc-load-default-settings
   :hook markdown-mode
-  :init
-  (add-hook 'pandoc-mode-hook #'pandoc-load-default-settings))
+  (pandoc-mode . pandoc-load-default-settings))
 
 (use-package nix-mode
   :after (lsp-mode flycheck)
@@ -234,8 +232,8 @@
   (define-key nix-mode-map (kbd "C-c n") #'helm-nixos-options))
 
 (use-package direnv
-  :init
-  (add-hook 'prog-mode-hook #'direnv-update-environment)
+  :commands direnv-update-environment
+  :hook (prog-mode . direnv-update-environment)
   :config
   (direnv-mode)
   :custom
@@ -320,11 +318,6 @@
 (use-package org-auto-tangle
   :hook (org-mode . org-auto-tangle-mode)
   :init (setq org-auto-tangle-default t))
-
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
 
 (use-package org-roam
   :init

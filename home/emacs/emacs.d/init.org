@@ -280,6 +280,10 @@ of the previous command on <C-x C-o>...
       eval-expression-minibuffer-setup
       scheme-mode) . paredit-mode))
 #+end_src
+* Scheme
+#+begin_src emacs-lisp :tangle yes
+  (use-package geiser-mit)
+#+end_src
 * Bash
 ** Bash completion
 #+begin_src emacs-lisp :tangle yes 

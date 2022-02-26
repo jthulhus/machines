@@ -196,6 +196,8 @@
     eval-expression-minibuffer-setup
     scheme-mode) . paredit-mode))
 
+(use-package geiser-mit)
+
 (autoload 'bash-completion-dynamic-complete
   "bash completion"
   "BASH completion hook")

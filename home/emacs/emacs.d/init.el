@@ -189,6 +189,8 @@
 
 (use-package racket-mode)
 
+(use-package scheme-complete)
+
 (use-package geiser-mit)
 
 (use-package quack)
@@ -200,7 +202,8 @@
     ielm-mode
     lisp-mode
     eval-expression-minibuffer-setup
-    scheme-mode) . paredit-mode))
+    scheme-mode
+    racket-mode) . paredit-mode))
 
 (autoload 'bash-completion-dynamic-complete
   "bash completion"

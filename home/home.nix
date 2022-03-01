@@ -23,6 +23,7 @@ with lib;
     ./python
     ./j
     ./scheme
+    ./racket
     ./gtk
     ./mailclient
     ./gpg

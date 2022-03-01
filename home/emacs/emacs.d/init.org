@@ -275,7 +275,9 @@ of the previous command on <C-x C-o>...
   (use-package racket-mode)
  #+end_src
 ** Scheme
-Nothing yet.
+#+begin_src emacs-lisp :tangle yes
+  (use-package scheme-complete)
+#+end_src
 ** Geiser
 #+begin_src emacs-lisp :tangle yes
   (use-package geiser-mit)
@@ -293,7 +295,8 @@ Nothing yet.
       ielm-mode
       lisp-mode
       eval-expression-minibuffer-setup
-      scheme-mode) . paredit-mode))
+      scheme-mode
+      racket-mode) . paredit-mode))
 #+end_src
 * Bash
 ** Bash completion

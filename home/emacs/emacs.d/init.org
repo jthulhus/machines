@@ -269,6 +269,21 @@ of the previous command on <C-x C-o>...
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-haskell)
 #+end_src
+* Lisp
+** Racket
+#+begin_src emacs-lisp :tangle yes
+  (use-package racket-mode)
+ #+end_src
+** Scheme
+Nothing yet.
+** Geiser
+#+begin_src emacs-lisp :tangle yes
+  (use-package geiser-mit)
+#+end_src
+** Quack
+#+begin_src emacs-lisp :tangle yes
+  (use-package quack)
+#+end_src
 * Paredit
 #+begin_src emacs-lisp :tangle yes
   (use-package paredit
@@ -279,10 +294,6 @@ of the previous command on <C-x C-o>...
       lisp-mode
       eval-expression-minibuffer-setup
       scheme-mode) . paredit-mode))
-#+end_src
-* Scheme
-#+begin_src emacs-lisp :tangle yes
-  (use-package geiser-mit)
 #+end_src
 * Bash
 ** Bash completion

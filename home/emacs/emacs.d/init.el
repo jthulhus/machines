@@ -187,6 +187,12 @@
 
 (use-package lsp-haskell)
 
+(use-package racket-mode)
+
+(use-package geiser-mit)
+
+(use-package quack)
+
 (use-package paredit
   :hook
   ((emacs-lisp-mode
@@ -195,8 +201,6 @@
     lisp-mode
     eval-expression-minibuffer-setup
     scheme-mode) . paredit-mode))
-
-(use-package geiser-mit)
 
 (autoload 'bash-completion-dynamic-complete
   "bash completion"

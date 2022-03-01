@@ -187,7 +187,9 @@
 
 (use-package lsp-haskell)
 
-(use-package racket-mode)
+(use-package racket-mode
+  :mode "\\.rkt\\'"
+  :lang racket)
 
 (use-package scheme-complete)
 

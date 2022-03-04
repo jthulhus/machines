@@ -273,8 +273,7 @@ of the previous command on <C-x C-o>...
 ** Racket
 #+begin_src emacs-lisp :tangle yes
   (use-package racket-mode
-    :mode "\\.rkt\\'"
-    :lang racket)
+    :mode "\\.rkt\\'")
  #+end_src
 ** Scheme
 #+begin_src emacs-lisp :tangle yes

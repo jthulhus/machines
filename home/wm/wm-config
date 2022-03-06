@@ -131,8 +131,11 @@ mode "move" {
 
   bindsym i focus child
   bindsym o focus parent
+
+  bindsym z split none
+  bindsym s split toggle
   
-  bindsym $win_mod+r layout toggle splitv splith
+  bindsym r layout toggle splitv splith
 
   bindsym escape mode "default"
   bindsym space mode "default"

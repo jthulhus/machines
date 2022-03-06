@@ -402,10 +402,9 @@ Major mode for JSON configuration files.
     (progn
       (bind-key [remap completion-at-point] #'company-complete company-mode-map)
       (setq company-show-numbers nil
-	    company-tooltip-align-annotations t
-	    company-idle-delay 0
-	    company-minimum-prefix-length 3))
-    )
+            company-tooltip-align-annotations t
+            company-idle-delay 0
+            company-minimum-prefix-length 3)))
 #+end_src
 
 * Projectile

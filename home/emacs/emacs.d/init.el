@@ -270,10 +270,9 @@
   (progn
     (bind-key [remap completion-at-point] #'company-complete company-mode-map)
     (setq company-show-numbers nil
-	  company-tooltip-align-annotations t
-	  company-idle-delay 0
-	  company-minimum-prefix-length 3))
-  )
+          company-tooltip-align-annotations t
+          company-idle-delay 0
+          company-minimum-prefix-length 3)))
 
 (use-package projectile
   :hook (rust-mode . projectile-mode))

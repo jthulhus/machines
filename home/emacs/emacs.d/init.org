@@ -149,7 +149,9 @@ This makes it easy to distinguish where parenthesis and alike start and end.
            ("C-c r s v" . shrink-window)
            ("C-c r e h" . enlarge-window-horizontally)
            ("C-c r e v" . enlarge-window)
-           ("C-c k" . kill-current-buffer)))
+           ("C-c k" . kill-current-buffer)
+           ("C-z" . nil)
+           ("C-x C-z" . nil)))
 #+end_src
 *** Alias DEL and M-DEL
 #+begin_src emacs-lisp :tangle yes

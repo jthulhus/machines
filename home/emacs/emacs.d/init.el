@@ -108,7 +108,9 @@
          ("C-c r s v" . shrink-window)
          ("C-c r e h" . enlarge-window-horizontally)
          ("C-c r e v" . enlarge-window)
-         ("C-c k" . kill-current-buffer)))
+         ("C-c k" . kill-current-buffer)
+         ("C-z" . nil)
+         ("C-x C-z" . nil)))
 
 (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
 (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))

@@ -250,16 +250,13 @@
   (direnv-always-show-summary nil))
 
 (use-package j-mode
-  :hook (j-mode . prog-mode-hook)
+  :hook (j-mode . (lambda () (run-hooks 'prog-mode-hook)))
   :config
   (setq j-console-cmd "jconsole")
-  )
-
-
-(put 'j-other-face 'face-alias 'font-lock-keyword-face)
-(put 'j-verb-face 'face-alias 'font-lock-keyword-face)
-(put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
-(put 'j-conjunction-face 'face-alias 'j-adverb-face)
+  (put 'j-other-face 'face-alias 'font-lock-keyword-face)
+  (put 'j-verb-face 'face-alias 'font-lock-keyword-face)
+  (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
+  (put 'j-conjunction-face 'face-alias 'j-adverb-face))
 
 (use-package yaml-mode)
 

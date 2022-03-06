@@ -109,6 +109,7 @@
          ("C-c r e h" . enlarge-window-horizontally)
          ("C-c r e v" . enlarge-window)
          ("C-c k" . kill-current-buffer)
+         ("S-<return>" . electric-newline-and-maybe-indent)
          ("C-z" . nil)
          ("C-x C-z" . nil)))
 
@@ -190,7 +191,8 @@
 (use-package lsp-haskell)
 
 (use-package racket-mode
-  :mode "\\.rkt\\'")
+  :init
+  (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode)))
 
 (use-package scheme-complete)
 
@@ -206,7 +208,8 @@
     lisp-mode
     eval-expression-minibuffer-setup
     scheme-mode
-    racket-mode) . paredit-mode))
+    racket-mode
+    racket-repl-mode) . paredit-mode))
 
 (autoload 'bash-completion-dynamic-complete
   "bash completion"

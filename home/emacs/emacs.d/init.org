@@ -150,6 +150,7 @@ This makes it easy to distinguish where parenthesis and alike start and end.
            ("C-c r e h" . enlarge-window-horizontally)
            ("C-c r e v" . enlarge-window)
            ("C-c k" . kill-current-buffer)
+           ("S-<return>" . electric-newline-and-maybe-indent)
            ("C-z" . nil)
            ("C-x C-z" . nil)))
 #+end_src
@@ -275,7 +276,8 @@ of the previous command on <C-x C-o>...
 ** Racket
 #+begin_src emacs-lisp :tangle yes
   (use-package racket-mode
-    :mode "\\.rkt\\'")
+    :init
+    (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode)))
  #+end_src
 ** Scheme
 #+begin_src emacs-lisp :tangle yes
@@ -299,7 +301,8 @@ of the previous command on <C-x C-o>...
       lisp-mode
       eval-expression-minibuffer-setup
       scheme-mode
-      racket-mode) . paredit-mode))
+      racket-mode
+      racket-repl-mode) . paredit-mode))
 #+end_src
 * Bash
 ** Bash completion

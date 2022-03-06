@@ -19,6 +19,14 @@
     };
   };
 
+  services.emacs = {
+    enable = true;
+    client.enable = true;
+    defaultEditor = true;
+    socketActivation.enable = true;
+  };
+  
+
   home.packages = with pkgs; [
     # LaTeX
     auctex

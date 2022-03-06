@@ -117,15 +117,22 @@ mode "move" {
   bindsym Control+bar workspace 8
   bindsym Control+braceright workspace 9
 
-  bindsym left focus left
-  bindsym right focus right
-  bindsym up focus up
-  bindsym down focus down
+  bindsym tab workspace back_and_forth
+
+  bindsym left move left
+  bindsym right move right
+  bindsym up move up
+  bindsym down move down
 
   bindsym h focus left
   bindsym j focus down
   bindsym k focus up
   bindsym l focus right
+
+  bindsym i focus child
+  bindsym o focus parent
+  
+  bindsym $win_mod+r layout toggle splitv splith
 
   bindsym escape mode "default"
   bindsym space mode "default"

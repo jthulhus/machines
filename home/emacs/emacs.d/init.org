@@ -288,7 +288,8 @@ of the previous command on <C-x C-o>...
   (use-package geiser-mit)
 #+end_src
 ** Quack
-#+begin_src emacs-lisp :tangle yes
+Quack seems to dislike `racket-mode`.
+#+begin_src emacs-lisp :tangle no
   (use-package quack)
 #+end_src
 * Paredit

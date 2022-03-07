@@ -198,8 +198,6 @@
 
 (use-package geiser-mit)
 
-(use-package quack)
-
 (use-package paredit
   :hook
   ((emacs-lisp-mode

@@ -1,10 +1,10 @@
 notify() {
     notify-send \
-	--urgency=low \		# Urgency
+	--urgency=low \
 	-h string:x-canonical-private-synchronous:wifi \
-	--expire-time=1000 \	# Expire time
-	"Wifi" \		# Title
-	$1			# Content
+	--expire-time=1000 \
+	"Wifi" \
+	$1
 }
 
 on() {

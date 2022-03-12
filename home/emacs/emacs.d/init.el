@@ -328,6 +328,8 @@
   :hook (org-mode . org-auto-tangle-mode)
   :init (setq org-auto-tangle-default t))
 
+(use-package org-fragtog)
+
 (use-package org-roam
   :init
   (setq org-roam-v2-ack t)

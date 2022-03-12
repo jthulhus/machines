@@ -497,6 +497,10 @@ Auto-tangle
     :hook (org-mode . org-auto-tangle-mode)
     :init (setq org-auto-tangle-default t))
 #+end_src
+Fragtog
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-fragtog)
+#+end_src
 ** Roam
 #+begin_src emacs-lisp :tangle yes
   (use-package org-roam

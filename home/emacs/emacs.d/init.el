@@ -191,6 +191,7 @@
 (use-package lsp-haskell)
 
 (use-package racket-mode
+  :hook racket-xp-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode)))
 
@@ -261,6 +262,12 @@
   (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
   (put 'j-conjunction-face 'face-alias 'j-adverb-face))
 
+(use-package prolog-mode)
+(use-package ediprolog)
+
+(use-package proof-general)
+(use-package company-coq)
+
 (use-package yaml-mode)
 
 (use-package toml-mode)
@@ -270,12 +277,11 @@
 (use-package company
   :hook (prog-mode . company-mode)
   :config
-  (progn
-    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
-    (setq company-show-numbers nil
-          company-tooltip-align-annotations t
-          company-idle-delay 0
-          company-minimum-prefix-length 3)))
+  (bind-key [remap completion-at-point] #'company-complete company-mode-map)
+  (setq company-show-numbers nil
+        company-tooltip-align-annotations t
+        company-idle-delay 0
+        company-minimum-prefix-length 3))
 
 (use-package projectile
   :hook (rust-mode . projectile-mode))
@@ -310,12 +316,36 @@
   :config
   (which-key-mode))
 
+(defun my/text-scale-adjust-latex-previews ()
+  "Adjust the size of the latex preview fragments when changing the
+buffer's text scale."
+  (pcase major-mode
+    ('latex-mode
+     (dolist (ov (overlays-in (point-min) (point-max)))
+       (if (eq (overlay-get ov 'category)
+               'preview-overlay)
+           (my/text-scale--resize-fragment ov))))
+    ('org-mode
+     (dolist (ov (overlays-in (point-min) (point-max)))
+       (if (eq (overlay-get ov 'org-overlay-type)
+               'org-latex-overlay)
+           (my/text-scale--resize-fragment ov))))))
+
+(defun my/text-scale--resize-fragment (ov)
+  (overlay-put
+   ov 'display
+   (cons 'image
+         (plist-put
+          (cdr (overlay-get ov 'display))
+          :scale (+ 1.0 (* 0.25 (- text-scale-mode-amount 2)))))))
+
 (use-package org
+  :hook (text-scale-mode . my/text-scale-adjust-latex-previews)
   :config
-  (progn
-    (setq org-agenda-start-on-weekday 1)
-    (setq org-modules '(ol-bbdb ol-bibtex ol-docview ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m))
-    (setq org-agenda-files (list "~/org/head.org" "~/org/school.org")))
+  (setq org-agenda-start-on-weekday 1
+        org-modules '(ol-bbdb ol-bibtex ol-docview ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m)
+        org-agenda-files (list "~/org/head.org" "~/org/school.org")
+        org-preview-latex-default-process 'dvisvgm)
   (add-hook 'org-mode-hook (lambda () (setq-local backup-by-copying t)))
   :custom-face
   (org-level-1 ((t (:inherit outline-1 :height 1.25))))

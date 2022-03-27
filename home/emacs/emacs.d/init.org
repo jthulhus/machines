@@ -386,7 +386,7 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 * Prolog
 #+begin_src emacs-lisp :tangle yes
-  (use-package prolog-mode)
+  (use-package prolog)
   (use-package ediprolog)
 #+end_src
 * Coq

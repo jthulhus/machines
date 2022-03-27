@@ -262,7 +262,7 @@
   (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
   (put 'j-conjunction-face 'face-alias 'j-adverb-face))
 
-(use-package prolog-mode)
+(use-package prolog)
 (use-package ediprolog)
 
 (use-package proof-general)

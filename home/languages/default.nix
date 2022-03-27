@@ -1,7 +1,7 @@
 {
   imports = [
     ./python
-    ./rust
+    # ./rust                      # Discontinued
     ./racket
     ./coq
     ./scheme

@@ -34,6 +34,8 @@ with lib;
       description = ''
 The system xserver.
 This impacts some utilities (dmenu, ...) and the wm (sway or i3).
+i3 is currently *not supported* meaning it *could* work out-of-the-box,
+but it also could not. Not testing.
 '';
     };
   };

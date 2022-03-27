@@ -3,6 +3,7 @@ with lib;
 {
   imports = [
     ./packages.nix
+    ./languages
     ./wm
     ./rofi
     ./emacs
@@ -20,10 +21,6 @@ with lib;
     ./discord
     ./firefox
     ./git
-    ./python
-    ./j
-    ./scheme
-    ./racket
     ./gtk
     ./mailclient
     ./gpg

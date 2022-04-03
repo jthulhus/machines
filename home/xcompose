@@ -77,6 +77,9 @@ include "%L"
 <Multi_key> <m> <i> <n> <t>		: "∫"		# INTEGRAL
 <Multi_key> <m> <i> <n> <period>	: "∈"		# ELEMENT OF
 <Multi_key> <m> <R>                     : "ℝ"   U211D   # DOUBLE STRUCK CAPITAL R
+<Multi_key> <m> <N>			: "ℕ"   U2115	# DOUBLE STRUCK CAPITAL N
+<Multi_key> <m> <Z>			: "ℤ"	U2124	# DOUBLE STRUCK CAPITAL Z
+<Multi_key> <m> <Q>			: "ℚ"	U211A	# DOUBLE STRUCK CAPITAL Q
 <Multi_key> <m> <s> <u> <m>             : "Σ"           # CAPITAL SIGMA
 
 # Chinese pinyin tones

@@ -68,7 +68,7 @@ mode "launch" {
   bindsym t exec thunderbird, mode "default"
   bindsym c exec clementine; mode "default"
   bindsym d exec discord, mode "default"
-  bindsym e exec emacs, mode "default"
+  bindsym e exec emacsclient -c, mode "default"
   bindsym k exec anki, mode "default"
   bindsym g mode "games"
   bindsym return exec rofi -show run, mode "default"

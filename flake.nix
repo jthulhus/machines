@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgsWorkingCalibre.url = github:nixos/nixpkgs?rev=1d08ea2bd83abef174fb43cbfb8a856b8ef2ce26;
     homeManager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -10,35 +11,22 @@
     emacsOverlay.url = github:nix-community/emacs-overlay;
   };
 
-  outputs = { self, nixpkgs, homeManager, emacsOverlay }: {
+  outputs = { self, nixpkgs, homeManager, emacsOverlay, ... } @ inputs: rec {
+    lib = import ./lib inputs;
     homeConfigurations = let
       inherit (homeManager.lib) homeManagerConfiguration;
-      overlaysModule = {
-        nixpkgs.overlays = [
-          emacsOverlay.overlay
-        ];
-      };
+      overlays = [
+        emacsOverlay.overlay
+      ];
     in {
-      "adri@dragonbreath" = homeManagerConfiguration rec {
-        username = "adri";
-        homeDirectory = "/home/${username}";
-        configuration = ./home/home.nix;
-        system = "x86_64-linux";
-        extraModules = [
-          ./home/hosts/dragonbreath.nix
-          overlaysModule
-        ];
-      };
-      "adri@cthulhu" = homeManagerConfiguration rec {
-        username = "adri";
-        homeDirectory = "/home/${username}";
-        configuration = ./home/home.nix;
-        system = "x86_64-linux";
-        extraModules = [
-          ./home/hosts/cthulhu.nix
-          overlaysModule
-        ];
-      };
+      "adri@dragonbreath" = lib.mkHome {
+        inherit overlays;
+        hostname = "dragonbreath";
+      } nixpkgs;
+      "adri@cthulhu" = lib.mkHome {
+        inherit overlays;
+        hostname = "cthulhu";
+      } nixpkgs;
     };
     nixosConfigurations = let
       beanspkgsRegistryModule = {

@@ -1,10 +1,12 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, inputs, ... }:
+let
+  pkgsWithCalibre = inputs.nixpkgsWorkingCalibre.legacyPackages.x86_64-linux;
+in {
   home.packages = with pkgs; [                        # Usual stuff
     anki-bin
     clementine
     unison
-    calibre
+    pkgsWithCalibre.calibre
     graphviz
   ] ++ [                       # Gnome, gtk and qt utilities
     dconf

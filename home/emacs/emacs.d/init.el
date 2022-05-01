@@ -204,8 +204,6 @@
 
 (use-package scheme-complete)
 
-(use-package geiser-mit)
-
 (use-package paredit
   :hook
   ((emacs-lisp-mode

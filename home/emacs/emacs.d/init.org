@@ -295,7 +295,8 @@ of the previous command on <C-x C-o>...
   (use-package scheme-complete)
 #+end_src
 ** Geiser
-#+begin_src emacs-lisp :tangle yes
+Geiser seems to be broken for now.
+#+begin_src emacs-lisp :tangle no
   (use-package geiser-mit)
 #+end_src
 ** Quack

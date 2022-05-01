@@ -22,6 +22,7 @@ with lib;
     ./firefox
     ./git
     ./gtk
+    ./qt
     ./mailclient
     ./gpg
     ./network

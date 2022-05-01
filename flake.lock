@@ -51,11 +51,28 @@
         "type": "github"
       }
     },
+    "nixpkgsWorkingMitScheme": {
+      "locked": {
+        "lastModified": 1639525045,
+        "narHash": "sha256-z4GXFNzO+5V4CAUm2DDMAryLOWUKEbQif2ifvv1Ypg4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a2e281f5770247855b85d70c43454ba5bff34613",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a2e281f5770247855b85d70c43454ba5bff34613",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "emacsOverlay": "emacsOverlay",
         "homeManager": "homeManager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgsWorkingMitScheme": "nixpkgsWorkingMitScheme"
       }
     }
   },

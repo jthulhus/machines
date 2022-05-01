@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    nixpkgsWorkingMitScheme.url = github:nixos/nixpkgs?rev=a2e281f5770247855b85d70c43454ba5bff34613;
+    nixpkgsDowngrade.url = github:nixos/nixpkgs?rev=a2e281f5770247855b85d70c43454ba5bff34613;
     homeManager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,12 +11,18 @@
     emacsOverlay.url = github:nix-community/emacs-overlay;
   };
 
-  outputs = { self, nixpkgs, homeManager, emacsOverlay, ... } @ inputs: rec {
+  outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, ... } @ inputs: rec {
     lib = import ./lib inputs;
     homeConfigurations = let
       inherit (homeManager.lib) homeManagerConfiguration;
       overlays = [
         emacsOverlay.overlay
+        (final: prev: {
+          downgrade = import nixpkgsDowngrade {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+        })
       ];
     in {
       "adri@dragonbreath" = lib.mkHome {

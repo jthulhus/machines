@@ -1,9 +1,7 @@
-{ pkgs, inputs, ... }:
-let
-  pkgsWithWorkingMitScheme = inputs.nixpkgsWorkingMitScheme.legacyPackages.x86_64-linux;
-in {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
-    pkgsWithWorkingMitScheme.mitscheme
+    downgrade.mitscheme
     scheme-manpages
   ];
 }

@@ -85,6 +85,7 @@ in
 
     networking.firewall.allowedTCPPorts = [
       5500                      # Clementine
+      15000                     # Wesnoth
     ];
     
     system.stateVersion = "20.09";

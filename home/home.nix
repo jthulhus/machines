@@ -26,6 +26,7 @@ with lib;
     ./mailclient
     ./gpg
     ./network
+    ./gimp
   ];
 
   options = {

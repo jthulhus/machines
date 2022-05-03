@@ -394,19 +394,20 @@ buffer's text scale."
   :after (direnv)
   :init
   (setq lsp-keymap-prefix "C-c l"
-	lsp-log-io nil)
+        lsp-log-io nil)
   :config
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (setq lsp-file-watch-ignored
-	'("[/\\\\]\\.direnv$"
-	  "[/\\\\]target$"
-	  "[/\\\\]\\.git"))
+        '("[/\\\\]\\.direnv$"
+          "[/\\\\]target$"
+          "[/\\\\]\\.git"))
   :hook ((python-mode . lsp-deferred)
-	 (rust-mode . lsp-deferred)
-	 (tuareg-opam-mode . lsp-deferred)
-	 (nix-mode . lsp-deferred)
-	 (haskell-mode . lsp-deferred)
-	 (lsp-mode . lsp-enable-which-key-integration))
+         (rust-mode . lsp-deferred)
+         (tuareg-opam-mode . lsp-deferred)
+         (nix-mode . lsp-deferred)
+         (haskell-mode . lsp-deferred)
+         (c-mode . lsp-deferred)
+         (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 
 (use-package lsp-ui

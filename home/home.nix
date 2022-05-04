@@ -27,6 +27,7 @@ with lib;
     ./gpg
     ./network
     ./gimp
+    ./aseprite
   ];
 
   options = {
@@ -46,7 +47,7 @@ but it also could not. Not testing.
     inherit (builtins) elem;
     inherit (lib) getName;
     unfreePredicate = pkg: elem (getName pkg) allowedUnfree;
-    allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraft-server" ];
+    allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraft-server" "aseprite" ];
   in {
     nixpkgs.config.allowUnfreePredicate = unfreePredicate;
     home = {

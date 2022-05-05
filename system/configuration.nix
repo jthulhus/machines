@@ -14,6 +14,7 @@ in
     ./utils
     ./fs
     ./games
+    ./vm
   ];
 
   options.my = {

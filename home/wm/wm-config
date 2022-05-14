@@ -25,19 +25,35 @@ exec swayidle -w \
   resume 'swaymsg "output * dpms on"' \
   before-sleep 'swaylock -ef -c 202020'
 
+################################
+## APPLICATION SPECIFIC SETUP ##
+################################
+
 # Let firefox picture-in-picture window be floating
 for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
 
-# Some keybindings
+# Disable some features that prevent playing minecraft with touchpad
+for_window [title="Minecraft \d\.\d(\.\d)?.*"] {
+  input type:touchpad dwt disabled
+  seat * hide_cursor when-typing disabled
+}
+
+#################
+## KEYBINDINGS ##
+#################
+
+# General-purpose modifiers
+set $alt_mod Mod1
+set $win_mod Mod4
+
+# Brightness
 bindsym XF86MonBrightnessDown exec light down
 bindsym XF86MonBrightnessUp exec light up
 
+# Volume
 bindsym XF86AudioRaiseVolume exec sound up
 bindsym XF86AudioLowerVolume exec sound down
 bindsym XF86AudioMute exec sound mute
-
-set $alt_mod Mod1
-set $win_mod Mod4
 
 set $universal_quit Control+g
 

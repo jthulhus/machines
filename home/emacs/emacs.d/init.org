@@ -209,17 +209,14 @@ of the previous command on <C-x C-o>...
 ** Enable flycheck for the wanted languages
 #+begin_src emacs-lisp :tangle yes
   (use-package flycheck
-    :hook (rust-mode tuareg-mode elisp-mode))
+    :hook (rustic-mode tuareg-mode elisp-mode))
 #+end_src
 
 * Rust
-** Rust mode
-#+begin_src emacs-lisp :tangle yes
-  (use-package rust-mode)
-#+end_src
 ** Rustic
 #+begin_src emacs-lisp :tangle yes
-  (use-package rustic)
+  (use-package rustic
+    :after rust-mode)
 #+end_src
 ** Flycheck rust
 #+begin_src emacs-lisp :tangle yes

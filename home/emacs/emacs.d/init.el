@@ -150,11 +150,10 @@
 (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 
 (use-package flycheck
-  :hook (rust-mode tuareg-mode elisp-mode))
+  :hook (rustic-mode tuareg-mode elisp-mode))
 
-(use-package rust-mode)
-
-(use-package rustic)
+(use-package rustic
+  :after rust-mode)
 
 (use-package flycheck-rust
   :commands flycheck-rust-setup

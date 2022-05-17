@@ -15,6 +15,7 @@ in
     ./fs
     ./games
     ./vm
+    ./fonts
   ];
 
   options.my = {

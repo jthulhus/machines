@@ -1,3 +1,3 @@
 [[block]]
 block = "time"
-format = "<span font_family='Font Awesome 5 Free'></span> %d/%m"
+format = "<span font_family='Font Awesome 6 Free'></span> %d/%m"

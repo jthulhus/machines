@@ -44,5 +44,12 @@
     ocamlPackages.merlin
     ocamlPackages.ocp-indent
     ocamlPackages.utop
+
+    # Flyspell
+    (aspellWithDicts (dictionaries: with dictionaries; [
+      fr
+      en
+      it
+    ]))
   ];
 }

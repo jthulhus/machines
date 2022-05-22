@@ -16,6 +16,7 @@ in
     ./games
     ./vm
     ./fonts
+    ./gnome
   ];
 
   options.my = {

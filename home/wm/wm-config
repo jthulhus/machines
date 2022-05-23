@@ -64,7 +64,7 @@ floating_modifier $win_mod
 
 bindsym $win_mod+Return exec alacritty
 bindsym $win_mod+Shift+q kill
-bindsym $win_mod+tab focus next
+bindsym $win_mod+tab workspace back_and_forth
 
 bindsym $win_mod+f floating toggle
 
@@ -86,6 +86,7 @@ mode "launch" {
   bindsym d exec discord, mode "default"
   bindsym e exec emacsclient -c, mode "default"
   bindsym k exec anki, mode "default"
+  bindsym u exec unison, mode "default"
   bindsym g mode "games"
   bindsym return exec rofi -show run, mode "default"
 
@@ -96,6 +97,8 @@ mode "launch" {
 mode "games" {
   bindsym d exec dfhack, mode "default"
   bindsym w exec wesnoth, mode "default"
+  bindsym m exec minecraft-launcher, mode "default"
+  bindsym s exec supertuxkart, mode "default"
 
   bindsym escape mode "default"
   bindsym $universal_quit mode "default"

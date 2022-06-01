@@ -28,6 +28,7 @@ in {
             wesnoth = dTrue;
             minecraft = dTrue;
           };
+          virt = true;
         };
         programs.sway = {
           enable = dTrue;

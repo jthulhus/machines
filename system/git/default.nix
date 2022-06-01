@@ -1,7 +1,10 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./gitea.nix
+  ];
+
   environment.systemPackages = with pkgs; [
-    emacs-nox
-    xorg.xkbcomp
+    git
   ];
 }

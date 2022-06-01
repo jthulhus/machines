@@ -1,3 +1,4 @@
+{ config, ... }:
 {
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.enable = config.my.audio;
 }

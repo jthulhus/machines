@@ -3,7 +3,7 @@
   my = {
     boot.mode = "uefi";
     steam = true;
-    gpu = "nvidia-nouveau";
+    gpu = "nvidia-proprietary";
   };
 
   programs.sway.enable = true;

@@ -12,6 +12,8 @@ in {
   };
   config = {
     my.unfree = ifNvidiaProp [ "nvidia-x11" "nvidia-settings" ];
-    services.xserver.videoDrivers = ifNvidiaProp [ "nvidia" ];
+    services = {
+      xserver.videoDrivers = ifNvidiaProp [ "nvidia" ];
+    };
   };
 }

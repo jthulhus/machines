@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs-wayland = {
+      url = github:nix-community/nixpkgs-wayland;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixpkgsDowngrade.url = github:nixos/nixpkgs?rev=a2e281f5770247855b85d70c43454ba5bff34613;
     homeManager = {
       url = github:nix-community/home-manager;

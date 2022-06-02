@@ -17,7 +17,10 @@ in {
     my.unfree = ifNvidiaProp [ "nvidia-x11" "nvidia-settings" ];
     services = {
       xserver.videoDrivers = ifNvidiaProp [ "nvidia" ];
-      nvidia.package = ifNvidiaProp config.boot.kernelPackages.nvidiaPackages.beta;
+    };
+    hardware.nvidia = {
+      package = ifNvidiaProp config.boot.kernelPackages.nvidiaPackages.beta;
+      modesetting.enable = ifNvidiaProp true;
     };
     environment = {
       variables = extraEnv;

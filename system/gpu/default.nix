@@ -19,9 +19,9 @@ in {
       xserver.videoDrivers = ifNvidiaProp [ "nvidia" ];
       nvidia.package = ifNvidiaProp config.boot.kernelPackages.nvidiaPackages.beta;
     };
-  };
-  environment = {
-    variables = extraEnv;
-    sessionVariables = extraEnv;
+    environment = {
+      variables = extraEnv;
+      sessionVariables = extraEnv;
+    };
   };
 }

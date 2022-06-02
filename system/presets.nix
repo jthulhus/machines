@@ -29,6 +29,7 @@ in {
             minecraft = dTrue;
           };
           virt = true;
+          audio = true;
         };
         programs.sway = {
           enable = dTrue;

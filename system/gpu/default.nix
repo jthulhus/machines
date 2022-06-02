@@ -4,6 +4,9 @@ let
   inherit (lib.types) enum;
   inherit (config) my;
   ifNvidiaProp = mkIf (my.gpu == "nvidia-proprietary");
+  extraEnv = ifNvidiaProp {
+    WLR_NO_HARDWARE_CURSORS = "1";
+  };
 in {
   options.my.gpu = mkOption {
     type = enum [ "nvidia-proprietary" "nvidia-nouveau" "intel" "amd" "none" ];
@@ -14,6 +17,11 @@ in {
     my.unfree = ifNvidiaProp [ "nvidia-x11" "nvidia-settings" ];
     services = {
       xserver.videoDrivers = ifNvidiaProp [ "nvidia" ];
+      nvidia.package = ifNvidiaProp config.boot.kernelPackages.nvidiaPackages.beta;
     };
+  };
+  environment = {
+    variables = extraEnv;
+    sessionVariables = extraEnv;
   };
 }

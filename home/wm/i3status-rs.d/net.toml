@@ -1,4 +1,4 @@
 [[block]]
 block = "net"
 format = "{ssid}"
-on_click = "wifi toggle"
+on_click = "alacritty -e nmtui"

@@ -1,3 +1,4 @@
 [[block]]
 block = "time"
 format = "<span font_family='Font Awesome 6 Free'></span> %d/%m"
+interval = 3600

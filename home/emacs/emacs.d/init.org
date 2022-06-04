@@ -477,7 +477,9 @@ Allow to jump even faster to a precise character, both forward and backward
 #+begin_src emacs-lisp :tangle yes
   (use-package embrace
     :bind (("C-," . embrace-commander))
-    :hook (org-mode . embrace-org-mode-hook))
+    :hook
+    (org-mode . embrace-org-mode-hook)
+    (LaTeX-mode . embrace-LaTeX-mode-hook))
 #+end_src
 ** Expand region
 #+begin_src emacs-lisp :tangle yes

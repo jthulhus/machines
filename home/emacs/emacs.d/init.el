@@ -311,7 +311,9 @@
 
 (use-package embrace
   :bind (("C-," . embrace-commander))
-  :hook (org-mode . embrace-org-mode-hook))
+  :hook
+  (org-mode . embrace-org-mode-hook)
+  (LaTeX-mode . embrace-LaTeX-mode-hook))
 
 (use-package expand-region
   :bind (("M-'" . er/expand-region)))

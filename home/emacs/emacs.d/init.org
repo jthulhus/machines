@@ -339,7 +339,7 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 * LaTeX
 ** AUCTeX
-#+begin_src emacs-lisp :tangle no
+#+begin_src emacs-lisp :tangle yes
   (use-package tex
     :ensure auctex)
   (use-package company-auctex)

@@ -230,6 +230,10 @@
 (require 'llvm-mode)
 (require 'tablegen-mode)
 
+(use-package tex
+  :ensure auctex)
+(use-package company-auctex)
+
 (setq LaTeX-command "latex -shell-escape")
 (add-hook 'latex-mode-hook 'display-line-numbers-mode)
 

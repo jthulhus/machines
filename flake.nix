@@ -42,7 +42,7 @@
       dragonbreath = lib.mkSystem {
         hostname = "dragonbreath";
       } nixpkgs;
-      cthlhu = lib.mkSystem {
+      cthulhu = lib.mkSystem {
         hostname = "cthulhu";
       } nixpkgs;
     };

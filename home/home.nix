@@ -28,6 +28,7 @@ with lib;
     ./network
     ./gimp
     ./aseprite
+    ./ldap
   ];
 
   options = {

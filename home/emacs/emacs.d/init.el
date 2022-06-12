@@ -214,6 +214,8 @@
     racket-mode
     racket-repl-mode) . paredit-mode))
 
+(use-package web-mode)
+
 (autoload 'bash-completion-dynamic-complete
   "bash completion"
   "BASH completion hook")

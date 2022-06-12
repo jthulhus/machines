@@ -314,6 +314,10 @@ Quack seems to dislike `racket-mode`.
       racket-mode
       racket-repl-mode) . paredit-mode))
 #+end_src
+* HTML Mode
+#+begin_src emacs-lisp :tangle yes
+  (use-package web-mode)
+#+end_src
 * Bash
 ** Bash completion
 #+begin_src emacs-lisp :tangle yes 

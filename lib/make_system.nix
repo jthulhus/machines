@@ -1,5 +1,6 @@
 {
   self,
+  nixpkgsDowngrade,
   ...
 } @ inputs: {
   hostname,
@@ -12,12 +13,21 @@ let
     my.hostname = hostname;
     nixpkgs.overlays = overlays;
     nix = {
-      registry.beanspkgs = {
-        from = {
-          type = "indirect";
-          id = "beanspkgs";
+      registry = {
+        beanspkgs = {
+          from = {
+            type = "indirect";
+            id = "beanspkgs";
+          };
+          flake = nixpkgs;
         };
-        flake = nixpkgs;
+        downgrade = {
+          from = {
+            type = "indirect";
+            id = "downgrade";
+          };
+          flake = nixpkgsDowngrade;
+        };
       };
     };
   };

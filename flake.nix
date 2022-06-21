@@ -17,7 +17,6 @@
   outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, ... } @ inputs: rec {
     lib = import ./lib inputs;
     homeConfigurations = let
-      inherit (homeManager.lib) homeManagerConfiguration;
       overlays = [
         emacsOverlay.overlay
         (final: prev: {

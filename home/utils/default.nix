@@ -15,6 +15,7 @@
     vlc
     cloc
     unoconv
+    musescore
   ];
 
   programs.man.enable = true;

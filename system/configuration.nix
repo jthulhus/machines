@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./cachix.nix
     ./presets.nix
     ./users
     ./boot

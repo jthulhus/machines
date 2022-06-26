@@ -13,20 +13,18 @@ let
   localEntrypoint = "${self}/home/hosts/${username}@${hostname}.nix";
   mainEntrypoint = "${self}/home/home.nix";
   overlaysModule.nixpkgs.overlays = overlays;
+  homeModule.home = {
+    inherit username;
+    homeDirectory = "/home/${username}";
+  };
+  pkgs = import nixpkgs { inherit system; };
 in
 homeManager.lib.homeManagerConfiguration {
-  inherit username system;
-  homeDirectory = "/home/${username}";
-  extraModules = [
+  inherit pkgs;
+  modules = [
     overlaysModule
+    localEntrypoint
+    mainEntrypoint
+    homeModule
   ];
-  configuration = { lib, ... }: {
-    _module = {
-      inherit args;
-    };
-    imports = [
-      localEntrypoint
-      mainEntrypoint
-    ];
-  };
 }

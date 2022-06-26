@@ -1,4 +1,4 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [                        # Usual stuff
     anki-bin

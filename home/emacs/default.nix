@@ -10,7 +10,7 @@
     enable = true;
     package = with pkgs; emacsWithPackagesFromUsePackage {
       config = ./emacs.d/init.org;
-      package = emacsPgtkNativeComp;
+      package = emacsPgtk;
       alwaysEnsure = true;
       extraEmacsPackages = epkgs: with epkgs; [
         use-package

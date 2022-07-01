@@ -18,7 +18,7 @@ with lib;
     ./sound
     ./light
     ./utils
-    ./discord
+    ./messaging
     ./firefox
     ./git
     ./gtk

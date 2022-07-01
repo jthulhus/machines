@@ -88,6 +88,7 @@ mode "launch" {
   bindsym k exec anki, mode "default"
   bindsym u exec unison, mode "default"
   bindsym z exec zathura, mode "default"
+  bindsym l exec element-desktop, mode "default"
   bindsym g mode "games"
   bindsym return exec rofi -show run, mode "default"
 

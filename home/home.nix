@@ -29,6 +29,7 @@ with lib;
     ./gimp
     ./aseprite
     ./ldap
+    ./xdg
   ];
 
   options = {

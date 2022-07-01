@@ -2,33 +2,33 @@
 with lib;
 {
   imports = [
-    ./packages.nix
-    ./languages
-    ./wm
-    ./rofi
-    ./emacs
-    ./sound
-    ./pass
-    ./gammastep
-    ./bash
-    ./games
-    ./wifi
-    ./notifications
-    ./fonts
-    ./sound
-    ./light
-    ./utils
-    ./messaging
-    ./firefox
-    ./git
-    ./gtk
-    ./qt
-    ./mailclient
-    ./gpg
-    ./network
-    ./gimp
     ./aseprite
+    ./bash
+    ./emacs
+    ./firefox
+    ./fonts
+    ./games
+    ./gammastep
+    ./gimp
+    ./git
+    ./gpg
+    ./gtk
+    ./languages
     ./ldap
+    ./light
+    ./mailclient
+    ./messaging
+    ./network
+    ./notifications
+    ./packages.nix
+    ./pass
+    ./qt
+    ./rofi
+    ./sound
+    ./sound
+    ./utils
+    ./wifi
+    ./wm
     ./xdg
   ];
 

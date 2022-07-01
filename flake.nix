@@ -9,11 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacsOverlay = {
-      # Pinned downgrade due to:
-      #  - unable to build Emacs;
-      #  - org-mode not working.
-      url = github:nix-community/emacs-overlay?rev=e9f4792aa79bccedb34b3fc04d1a36f1848b7b57;
-      inputs.nixpgs.follows = "nixpkgs";
+      url = github:nix-community/emacs-overlay;
     };
   };
 

@@ -633,10 +633,15 @@ Fragtog
 #+end_src
 * TRAMP
 ** Tramp configuration
-#+begin_src emacs-lisp :tangle yes
+This seems buggy
+#+begin_src emacs-lisp :tangle no
   (use-package tramp
     :config
     (setq password-cache-expiry nil))
+#+end_src
+Instead, let's set directly that value
+#+begin_src emacs-lisp :tangle yes
+  (setq password-cache-expiry nil)
 #+end_src
 #+begin_src emacs-lisp :tangle yes
   (use-package auth-source

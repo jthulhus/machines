@@ -441,9 +441,7 @@ buffer's text scale."
   :init
   (vertico-mode))
 
-(use-package tramp
-  :config
-  (setq password-cache-expiry nil))
+(setq password-cache-expiry nil)
 
 (use-package auth-source
   :ensure nil

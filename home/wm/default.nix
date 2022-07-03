@@ -84,7 +84,6 @@ separator = "<span font_family='FiraCode Nerd Font'>\ue0b2</span>"
     {
       home.packages = with pkgs; [
         (if useSway then swaylock-fancy else i3lock)
-        alacritty
         brightnessctl
         pulseaudio
         i3status-rust

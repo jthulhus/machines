@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./bash
     ./cachix.nix
     ./presets.nix
     ./users

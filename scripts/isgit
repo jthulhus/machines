@@ -1,0 +1,258 @@
+#!/usr/bin/env bash
+# Author: mala
+# Addedum: fagiolo
+
+MYSELF=${0##*/}
+MYVERSION=0.1
+
+COLOUR[0]=''
+COLOUR[1]='1;32'
+COLOUR[2]='1;33'
+COLOUR[3]='1;35'
+COLOUR[4]='1;31'
+COLOUR_TEXT=$(git symbolic-ref --short HEAD 2>/dev/null || git describe --tags --always 2>/dev/null)
+
+TEXT[0]=''
+TEXT[1]='clean'
+TEXT[2]='index'
+TEXT[3]='work'
+TEXT[4]='both'
+
+MODE=auto
+WHITESPACE_MODE=none
+NEWLINE=true
+
+function usage () {
+    echo "$MYSELF -- checks whether current dir is in a git repository"
+    echo "Usage: $MYSELF [options]"
+    echo
+    echo 'Options:'
+    echo '  -h --help:         this message'
+    echo '  -a --auto:         use auto mode: colour on tty, text otherwise'
+    echo '                     (this is the default mode)'
+    echo '  -e --exitcode:     use exitcode mode'
+    echo '  -c --colour:       use coloured print mode'
+    echo '  -t --text:         use message print mode'
+    echo '  -b --bash part:    use bash PS1 mode: output the <part> portion'
+    echo '  -M --mode exitcode|colour|text|bash'
+    echo "  -C --colour-text:  string to use for colour mode (default 'git')"
+    echo '  -w --whitespace-right:  add a space after the text'
+    echo '  -W --whitespace-mode none|left|right|both'
+    echo '  -n --no-newline    do not add a newline'
+    echo '  -N --newline       add a newline (default)'
+    echo
+    echo 'Modes:'
+    echo '  exitcode: nothing is printed, the exit code carries the state.'
+    echo "  colour: if in a git repo, a coloured string 'git' is printed;  the"
+    echo '          colour of the string betokens the state.'
+    echo '  text: if in a git repo, a message corresponding to the state is'
+    echo '        printed.'
+    echo '  bash: the coloured string is printed in three parts, depending on'
+    echo '        the <part> value:'
+    echo '          pre:    the terminal codes for the colour selection'
+    echo '          status: the git status string'
+    echo '          post:   the terminal codes for colour reset'
+    echo '        This is done in order to allow enclosing terminal codes in'
+    echo "        pairs of '\[' '\]' inside bash PS1"
+    echo
+    echo 'Exit codes, colours, texts:'
+    echo "  0  <nil>    <nil>:  no git repository"
+    if [ -t 1 ]; then
+        echo -e "  1  \\e[${COLOUR[1]}mgreen\\e[0m    clean:  git repository," \
+             ' all committed'
+        echo -e "  2  \\e[${COLOUR[2]}myellow\\e[0m   index:  git repository," \
+             ' changes in index'
+        echo -e "  3  \\e[${COLOUR[3]}mmagenta\\e[0m  work:   git repository," \
+             ' changes in workspace'
+        echo -e "  4  \\e[${COLOUR[4]}mred\\e[0m      both:   git repository," \
+             ' changes in both'
+    else
+        echo '  1  green    clean:  git repository, all committed'
+        echo '  2  yellow   index:  git repository, changes in index'
+        echo '  3  magenta  work:   git repository, changes in workspace'
+        echo '  4  red      both:   git repository, changes in both'
+    fi
+    echo
+    echo 'Example, set the bash prompt:'
+    echo
+    echo "ISGIT='\\[\`isgit -n -b pre\`\\]\`isgit -w -n -b status\`\\[\`isgit -n -b post\`\\]'"
+    echo "PS1='\\u@\\h '\$ISGIT'\\w \\\$ '"
+}
+
+function fatal () {
+    echo "$MYSELF: $*" >&2
+    exit 10
+}
+
+function err_handler () {
+    exit 11
+}
+
+exec 2>/dev/null
+
+trap err_handler ERR
+
+BASHPART=nil
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -h | --help )
+            usage
+            exit 0
+            ;;
+        -a | --auto )
+            shift
+            MODE=auto
+            ;;
+        -e | --exitcode )
+            shift
+            MODE=exitcode
+            ;;
+        -c | --colour )
+            shift
+            MODE=colour
+            ;;
+        -t | --text )
+            shift
+            MODE=text
+            ;;
+        -b | --bash )
+            MODE=bash
+            [ $# -lt 2 ] && fatal Missing argument to $1 option
+            BASHPART=$2
+            shift 2
+            ;;
+        -M | --mode )
+            [ $# -lt 2 ] && fatal Missing argument to $1 option
+            MODE=$2
+            shift 2
+            ;;
+        -C | --colour-text )
+            [ $# -lt 2 ] && fatal Missing argument to $1 option
+            COLOUR_TEXT=$2
+            shift 2
+            ;;
+        -w | --whitespace-right )
+            shift
+            WHITESPACE_MODE=right
+            ;;
+        -W | --whitespace-mode )
+            [ $# -lt 2 ] && fatal Missing argument to $1 option
+            WHITESPACE_MODE=$2
+            shift 2
+            ;;
+        -n | --no-newline )
+            shift
+            NEWLINE=false
+            ;;
+        -N | --newline )
+            shift
+            NEWLINE=true
+            ;;
+        -* )
+            fatal Unknown option $1
+            ;;
+        * )
+            fatal Superflous argument $1
+            ;;
+    esac
+done
+
+# Are we in a git repository?
+status=0
+dir=`pwd`
+while [ "$dir" != / ]; do
+    [ -d "$dir/.git" ] && { status=1; break; }
+    dir=`dirname "$dir"`
+done
+
+# To understand the greps that follow, please check 'git status
+# --help' for the details of the porcelain output (we use "simple"
+# version 1 output, since we don't need any detail.  Note that the
+# only peculiar case we expect is '??'.  '!!' is only output on
+# demand, and we do not demand it.
+if [ $status -gt 0 ]; then
+    # We are in git
+    gitstatus=`git status --porcelain`
+    if [ -n "$gitstatus" ]; then
+        # There are changes (either in index, in workspace, or both)
+        if grep -q '^[^ ?]' <<< "$gitstatus"; then
+            # Index is dirty
+            if grep -q '^.[^ ]' <<< "$gitstatus"; then
+                # Workspace is dirty (so both are dirty)
+                status=4
+            else
+                # Workspace is clean
+                status=2
+            fi
+        else
+            # Index is clean; workspace is necessarily dirty, or we'd have
+            #   no output from the 'git status'
+            status=3
+        fi
+    fi
+fi
+
+if [ "$MODE" = auto ]; then
+    if [ -t 1 ]; then
+        MODE=colour
+    else
+        MODE=text
+    fi
+fi
+
+WSL=''
+WSR=''
+case $WHITESPACE_MODE in
+    none )
+        # noop
+        ;;
+    right )
+        WSR=' '
+        ;;
+    both )
+        WSL=' '
+        WSR=' '
+        ;;
+    *)
+        fatal Unknown whitespace mode $WHITESPACE_MODE
+        ;;
+esac
+
+case "$MODE" in
+    exitcode )
+        exit $status
+        ;;
+    colour )
+        if [ $status -gt 0 ]; then
+            echo -e -n "$WSL\\e[${COLOUR[$status]}m${COLOUR_TEXT}\\e[0m$WSR"
+        fi
+        ;;
+    text )
+        echo -n "$WSL${TEXT[$status]}$WSR"
+        ;;
+    bash )
+        if [ $status -gt 0 ]; then
+            case $BASHPART in
+                pre )
+                    echo -e -n "\\e[${COLOUR[$status]}m"
+                    ;;
+                status )
+                    echo -n "$WSL$COLOUR_TEXT$WSR"
+                    ;;
+                post )
+                    echo -e -n "\\e[0m"
+                    ;;
+                * )
+                    fatal Unknown bash mode part name $BASHPART
+                    ;;
+            esac
+        fi
+        ;;
+    * )
+        fatal Unknown mode $mode
+        ;;
+esac
+
+if [ $NEWLINE = true ]; then
+    echo
+fi

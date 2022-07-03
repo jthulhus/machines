@@ -13,35 +13,49 @@
     };
   };
 
-  outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, ... } @ inputs: rec {
-    lib = import ./lib inputs;
-    homeConfigurations = let
-      overlays = [
-        emacsOverlay.overlay
+  outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, ... } @ inputs:
+    let
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      inherit (pkgs) writeShellScriptBin;
+      inherit (builtins) readFile;
+      isgit = writeShellScriptBin "isgit" (readFile ./scripts/isgit);
+      commonOverlays = [
         (final: prev: {
-          downgrade = import nixpkgsDowngrade {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
+          inherit isgit;
         })
       ];
-    in {
-      "adri@dragonbreath" = lib.mkHome {
-        inherit overlays;
-        hostname = "dragonbreath";
-      } nixpkgs;
-      "adri@cthulhu" = lib.mkHome {
-        inherit overlays;
-        hostname = "cthulhu";
-      } nixpkgs;
-    };
-    nixosConfigurations = {
-      dragonbreath = lib.mkSystem {
-        hostname = "dragonbreath";
-      } nixpkgs;
-      cthulhu = lib.mkSystem {
-        hostname = "cthulhu";
-      } nixpkgs;
-    };
+    in rec {
+      lib = import ./lib inputs;
+      homeConfigurations = let
+        overlays = [
+          emacsOverlay.overlay
+          (final: prev: {
+            downgrade = import nixpkgsDowngrade {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+          })
+        ] ++ commonOverlays;
+      in {
+        "adri@dragonbreath" = lib.mkHome {
+          inherit overlays;
+          hostname = "dragonbreath";
+        } nixpkgs;
+        "adri@cthulhu" = lib.mkHome {
+          inherit overlays;
+          hostname = "cthulhu";
+        } nixpkgs;
+      };
+      nixosConfigurations = {
+        dragonbreath = lib.mkSystem {
+          hostname = "dragonbreath";
+          overlays = commonOverlays;
+        } nixpkgs;
+        cthulhu = lib.mkSystem {
+          hostname = "cthulhu";
+          overlays = commonOverlays;
+        } nixpkgs;
+      };
+      packages.x86_64-linux.isgit = isgit;
   };
 }

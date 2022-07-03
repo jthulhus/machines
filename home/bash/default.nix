@@ -1,4 +1,9 @@
+{ pkgs, ... }:
 {
+  home.packages = with pkgs; [
+    isgit
+  ];
+  
   programs.bash = {
     enable = true;
     historyFileSize = 2000;
@@ -12,11 +17,9 @@
     initExtra = let
       dollar = "$";
     in ''
-PS1=${dollar}{PS1//'\n'/} # Remove newline in PS1
-
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   exec sway
 fi
-'';
+'' + (builtins.readFile ./make_prompt.sh);
   };
 }

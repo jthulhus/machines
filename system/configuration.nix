@@ -6,23 +6,23 @@ in
 {
   imports = [
     ./bash
-    ./cachix.nix
-    ./presets.nix
-    ./users
     ./boot
-    ./layouts
-    ./nix
-    ./network
+    ./cachix.nix
     ./dbus
-    ./sound
-    ./utils
-    ./fs
-    ./vm
-    ./fonts
     ./firewall
+    ./fonts
+    ./fs
     ./git
-    ./steam
     ./gpu
+    ./layouts
+    ./network
+    ./nix
+    ./presets.nix
+    ./sound
+    ./steam
+    ./users
+    ./utils
+    ./vm
   ];
 
   options.my = {

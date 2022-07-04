@@ -55,6 +55,27 @@
         "type": "github"
       }
     },
+    "inst": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": "utils_2"
+      },
+      "locked": {
+        "lastModified": 1656940094,
+        "narHash": "sha256-YaSRvZS/bKO/k1LVuN64lLqE/bLMqj7+bF9c7IO525Y=",
+        "owner": "theblackbeans",
+        "repo": "inst",
+        "rev": "34cb5f7f8fe8d4079b0984651f536497d629cf16",
+        "type": "github"
+      },
+      "original": {
+        "owner": "theblackbeans",
+        "repo": "inst",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1656401090,
@@ -105,6 +126,7 @@
       "inputs": {
         "emacsOverlay": "emacsOverlay",
         "homeManager": "homeManager",
+        "inst": "inst",
         "nixpkgs": "nixpkgs_2",
         "nixpkgsDowngrade": "nixpkgsDowngrade"
       }
@@ -116,6 +138,21 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "1ed9fb1935d260de5fe1c2f7ee0ebaae17ed2fa1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "utils_2": {
+      "locked": {
+        "lastModified": 1656928814,
+        "narHash": "sha256-RIFfgBuKz6Hp89yRr7+NR5tzIAbn52h8vT6vXkYjZoM=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "7e2a3b3dfd9af950a856d66b0a7d01e3c18aa249",
         "type": "github"
       },
       "original": {

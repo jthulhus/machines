@@ -19,14 +19,16 @@
 
   outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, inst, ... } @ inputs:
     let
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
       inherit (pkgs) writeShellScriptBin;
       inherit (builtins) readFile;
       isgit = writeShellScriptBin "isgit" (readFile ./scripts/isgit);
-      instPkg = inst.defaultApp.${system};
+      instPkg = inst.defaultPackage.${system};
       commonOverlays = [
         (final: prev: {
-          inherit isgit instPkg;
+          inherit isgit;
+          inst = instPkg;
         })
       ];
     in rec {
@@ -36,7 +38,7 @@
           emacsOverlay.overlay
           (final: prev: {
             downgrade = import nixpkgsDowngrade {
-              system = "x86_64-linux";
+              inherit system;
               config.allowUnfree = true;
             };
           })
@@ -61,6 +63,6 @@
           overlays = commonOverlays;
         } nixpkgs;
       };
-      packages.x86_64-linux.isgit = isgit;
+      packages.${system}.isgit = isgit;
   };
 }

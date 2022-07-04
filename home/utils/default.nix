@@ -16,6 +16,7 @@
     cloc
     unoconv
     musescore
+    inst
   ];
 
   programs.man.enable = true;

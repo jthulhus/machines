@@ -10,6 +10,7 @@
     ignores = [
       "*~"
       ".direnv/"
+      "result"
     ];
   };
 }

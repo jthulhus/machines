@@ -17,6 +17,7 @@
     unoconv
     musescore
     inst
+    unzip
   ];
 
   programs.man.enable = true;

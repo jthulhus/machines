@@ -8,9 +8,14 @@
       st = "status";
     };
     ignores = [
+      # Emacs
       "*~"
+      # Direnv
       ".direnv/"
+      # Nix
       "result"
+      # Python
+      "__pycache__/"
     ];
   };
 }

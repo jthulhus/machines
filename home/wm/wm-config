@@ -33,7 +33,7 @@ exec swayidle -w \
 for_window [app_id="firefox" title="Picture-in-Picture"] floating enable
 
 # Disable some features that prevent playing minecraft with touchpad
-for_window [title="Minecraft \d\.\d(\.\d)?.*"] {
+for_window [title="Minecraft\*? \d\.\d(\.\d)?.*"] {
   input type:touchpad dwt disabled
   seat * hide_cursor when-typing disabled
 }
@@ -99,7 +99,7 @@ mode "launch" {
 mode "games" {
   bindsym d exec dfhack, mode "default"
   bindsym w exec wesnoth, mode "default"
-  bindsym m exec minecraft-launcher, mode "default"
+  bindsym m exec polymc, mode "default"
   bindsym s exec supertuxkart, mode "default"
 
   bindsym escape mode "default"

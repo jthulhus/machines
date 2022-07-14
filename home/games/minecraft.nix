@@ -10,6 +10,6 @@ in {
   };
 
   config = with config; {
-    home.packages = optionals games.minecraft.enable (with pkgs; [ minecraft minecraft-server ]);
+    home.packages = optionals games.minecraft.enable (with pkgs; [ polymc minecraft-server ]);
   };
 }

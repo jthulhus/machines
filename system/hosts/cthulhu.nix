@@ -2,7 +2,7 @@
 {
   my = {
     boot.mode = "uefi";
-    steam = false;
+    steam = true;
     gpu = "intel";
   };
 

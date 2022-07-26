@@ -5,19 +5,21 @@
   ];
   
   home.packages = with pkgs; [
-    imv
-    file
-    neofetch
     bat
-    tldr
+    cloc
+    file
+    imv
+    inst
+    mlocate
+    musescore
+    neofetch
     nix-index
     ripgrep
-    vlc
-    cloc
+    tldr
+    tree
     unoconv
-    musescore
-    inst
     unzip
+    vlc
   ];
 
   programs.man.enable = true;

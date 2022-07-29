@@ -6,6 +6,7 @@ with lib;
     ./aseprite
     ./bash
     ./emacs
+    ./file-browser
     ./firefox
     ./fonts
     ./games

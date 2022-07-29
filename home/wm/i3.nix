@@ -7,7 +7,7 @@
         keybindings = { };
         bars = [ ];
       };
-      extraConfig = builtins.readFile ./wm-config;
+      extraConfig = builtins.readFile ./config;
     };
   };
 }

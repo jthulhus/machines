@@ -9,7 +9,7 @@
         bars = [ ];
       };
       extraConfig = let
-        baseConfig = builtins.readFile ./wm-config;
+        baseConfig = builtins.readFile ./config;
         extraConfig = config.wm.extraConfig;
       in builtins.concatStringsSep "\n" [ baseConfig extraConfig ];
     };

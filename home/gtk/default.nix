@@ -35,7 +35,12 @@ in {
         name = "Adwaita-dark";
       };
       gtk3 = gtkConfig;
+      gtk4.extraConfig = gtkConfig.extraConfig;
     };
-    # home.file.".config/gtk-4.0/settings.ini".text = gtkConfigSource;
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
   };
 }

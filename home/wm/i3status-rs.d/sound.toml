@@ -1,2 +1,3 @@
 [[block]]
 block = "sound"
+on_click = "pavucontrol"

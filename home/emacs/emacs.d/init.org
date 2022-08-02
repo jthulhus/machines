@@ -169,6 +169,10 @@ Make it automatically create unexistent directories.
   (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
   (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
 #+end_src
+*** Force newline at the end of a file
+#+begin_src emacs-lisp :tangle yes
+  (setq-default require-final-newline t)
+#+end_src
 * Utilities
 ** Show line numbers
 #+begin_src emacs-lisp :tangle yes

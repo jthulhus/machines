@@ -123,6 +123,8 @@
 (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
 (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
 
+(setq-default require-final-newline t)
+
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 (setq linum-format 'dynamic)
 

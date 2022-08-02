@@ -10,6 +10,7 @@ in
     alsa-utils
     pulseaudio
     soundScript
+    pavucontrol
   ];
   
 }

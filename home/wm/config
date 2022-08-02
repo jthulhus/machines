@@ -80,17 +80,18 @@ bindsym $win_mod+braceright workspace 9
 
 bindsym $win_mod+space mode "launch"
 mode "launch" {
-  bindsym f exec firefox, mode "default"
-  bindsym t exec thunderbird, mode "default"
+  bindsym b exec nautilus, mode "default"
   bindsym c exec clementine; mode "default"
   bindsym d exec discord, mode "default"
   bindsym e exec emacsclient -c, mode "default"
+  bindsym f exec firefox, mode "default"
+  bindsym g mode "games"
   bindsym k exec anki, mode "default"
+  bindsym l exec element-desktop, mode "default"
+  bindsym s exec pavucontrol, mode "default"
+  bindsym t exec thunderbird, mode "default"
   bindsym u exec unison, mode "default"
   bindsym z exec zathura, mode "default"
-  bindsym l exec element-desktop, mode "default"
-  bindsym b exec nautilus, mode "default"
-  bindsym g mode "games"
   bindsym return exec rofi -show run, mode "default"
 
   bindsym escape mode "default"

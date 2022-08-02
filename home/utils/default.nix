@@ -10,6 +10,7 @@
     file
     imv
     inst
+    jq
     mlocate
     musescore
     neofetch

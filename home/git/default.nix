@@ -16,6 +16,8 @@
       "result"
       # Python
       "__pycache__/"
+      # Rust
+      "target/"
     ];
   };
 }

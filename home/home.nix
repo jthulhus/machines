@@ -93,9 +93,8 @@ but it also could not. Not testing.
 
     gtkBookmarks = [
       "prog"
-      "em"
-      "em/docs"
-      "parc"
+      "em/d"
+      "em/d/scolarite/ens"
     ];
     
     fonts.fontconfig.enable = true;

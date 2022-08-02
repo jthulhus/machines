@@ -110,6 +110,7 @@
         version-control t)
   :custom
   (safe-local-variable-values '((eval set-fill-column 117)))
+  (warning-suppress-types '((direnv)))
   :bind (("C-x C-f" . my-find-file)
          ("C-c r s h" . shrink-window-horizontally)
          ("C-c r s v" . shrink-window)

@@ -474,7 +474,8 @@ buffer's text scale."
 
 (use-package unison-mode)
 
-(use-package pass)
+(use-package pass
+  :bind (("C-c p" . pass)))
 (use-package pinentry)
 
 (use-package deadgrep

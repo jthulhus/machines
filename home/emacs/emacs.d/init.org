@@ -695,7 +695,8 @@ A major mode for editing unison configuration files.
 
 * Pass
 #+begin_src emacs-lisp :tangle yes
-  (use-package pass)
+  (use-package pass
+    :bind (("C-c p" . pass)))
   (use-package pinentry)
 #+end_src
 

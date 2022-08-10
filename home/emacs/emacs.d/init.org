@@ -280,6 +280,10 @@ of the previous command on <C-x C-o>...
     (merlin-mode . company-mode)
     :custom (merlin-command "ocamlmerlin"))
 #+end_src
+** Dune
+#+begin_src emacs-lisp :tangle yes
+  (use-package dune)
+#+end_src
 * Haskell
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-haskell)
@@ -317,7 +321,8 @@ Quack seems to dislike `racket-mode`.
       eval-expression-minibuffer-setup
       scheme-mode
       racket-mode
-      racket-repl-mode) . paredit-mode))
+      racket-repl-mode
+      dune-mode) . paredit-mode))
 #+end_src
 * HTML Mode
 #+begin_src emacs-lisp :tangle yes

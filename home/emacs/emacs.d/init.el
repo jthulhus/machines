@@ -197,6 +197,8 @@
   (merlin-mode . company-mode)
   :custom (merlin-command "ocamlmerlin"))
 
+(use-package dune)
+
 (use-package lsp-haskell)
 
 (use-package racket-mode
@@ -215,7 +217,8 @@
     eval-expression-minibuffer-setup
     scheme-mode
     racket-mode
-    racket-repl-mode) . paredit-mode))
+    racket-repl-mode
+    dune-mode) . paredit-mode))
 
 (use-package web-mode)
 

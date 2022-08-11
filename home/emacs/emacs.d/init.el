@@ -189,7 +189,8 @@
 (use-package utop
   :hook (tuareg-mode . utop-minor-mode)
   :config
-  (setq utop-edit-command nil))
+  (setq utop-edit-command nil
+        utop-command "dune utop . -- -emacs"))
 
 (use-package merlin
   :hook

@@ -270,7 +270,8 @@ of the previous command on <C-x C-o>...
   (use-package utop
     :hook (tuareg-mode . utop-minor-mode)
     :config
-    (setq utop-edit-command nil))
+    (setq utop-edit-command nil
+          utop-command "dune utop . -- -emacs"))
 #+end_src
 ** Merlin
 #+begin_src emacs-lisp :tangle yes

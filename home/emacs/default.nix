@@ -39,11 +39,11 @@
     # Nix
     rnix-lsp
 
-    # OCaml
-    ocamlPackages.findlib
-    ocamlPackages.merlin
-    ocamlPackages.ocp-indent
-    ocamlPackages.utop
+    # # OCaml
+    # ocamlPackages.findlib
+    # ocamlPackages.merlin
+    # ocamlPackages.ocp-indent
+    # ocamlPackages.utop
 
     # Flyspell
     (aspellWithDicts (dictionaries: with dictionaries; [

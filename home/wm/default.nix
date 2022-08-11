@@ -87,6 +87,7 @@ separator = "<span font_family='FiraCode Nerd Font'>\ue0b2</span>"
         brightnessctl
         pulseaudio
         i3status-rust
+        sway-contrib.grimshot
       ];
 
       nixpkgs.overlays = [

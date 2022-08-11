@@ -45,10 +45,36 @@ mute() {
     fi
 }
 
+muted_mic() {
+    if [[ "$(amixer get Capture)" = *\[on\]* ]]; then
+	echo yes
+    else
+	echo no
+    fi
+}
+
+mute_mic() {
+    amixer set Capture toggle > /dev/null
+    if [ $(muted_mic) = yes ]; then
+	notify-send \
+	    --urgency=low \
+	    -h string:x-canonical-private-synchronous:mic \
+	    --expire-time=1000 \
+	    "Microphone On"
+    else
+	notify-send \
+	    --urgency=low \
+	    -h string:x-canonical-private-synchronous:mic \
+	    --expire-time=1000 \
+	    "Microphone Off"
+    fi
+}
+
 case $1 in
     up) up;;
     down) down;;
     show) show_current;;
     mute) mute;;
+    mic) mute_mic;;
     get) current;;
 esac

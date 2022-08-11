@@ -55,6 +55,9 @@ bindsym XF86AudioRaiseVolume exec sound up
 bindsym XF86AudioLowerVolume exec sound down
 bindsym XF86AudioMute exec sound mute
 
+# Microphone
+bindsym XF86AudioMicMute exec sound mic
+
 set $universal_quit Control+g
 
 # For reasons pressing the XF86TouchpadToggle button actually triggers <s-C-XF86TouchpadToggle>

@@ -14,6 +14,7 @@ in
     ./fs
     ./git
     ./gpu
+    ./greeter
     ./layouts
     ./network
     ./nix

@@ -4,6 +4,6 @@ let
   inherit (lib.types) listOf str;
 in {
   imports = [
-    ./greetd.nix;
+    ./greetd.nix
   ];
 }

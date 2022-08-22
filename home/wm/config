@@ -82,26 +82,14 @@ bindsym $win_mod+bar workspace 8
 bindsym $win_mod+braceright workspace 9
 
 set $print_mode "Screenshot (a)rea a(c)tive (w)indow (o)utput"
-set $copy_print_mode "Copy Screenshot (a)rea a(c)tive (w)indow (o)utput"
 
 bindsym Print mode $print_mode
-bindsym $win_mod+Print mode $copy_print_mode
 
 mode $print_mode {
-  bindsym a exec grimshot save area, mode "default"
-  bindsym c exec grimshot save active, mode "default"
-  bindsym w exec grimshot save window, mode "default"
-  bindsym o exec grimshot save output, mode "default"
-
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-mode $copy_print_mode {
-  bindsym a exec grimshot copy area, mode "default"
-  bindsym c exec grimshot copy active, mode "default"
-  bindsym w exec grimshot copy window, mode "default"
-  bindsym o exec grimshot copy output, mode "default"
+  bindsym a exec grimshot save area - | swappy -f -, mode "default"
+  bindsym c exec grimshot save active - | swappy -f -, mode "default"
+  bindsym w exec grimshot save window - | swappy -f -, mode "default"
+  bindsym o exec grimshot save output - | swappy -f -, mode "default"
 
   bindsym escape mode "default"
   bindsym $universal_quit mode "default"

@@ -28,6 +28,7 @@ with lib;
     ./rofi
     ./sound
     ./sound
+    ./swappy
     ./utils
     ./wifi
     ./wm

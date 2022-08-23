@@ -99,6 +99,7 @@ bindsym $win_mod+space mode "launch"
 mode "launch" {
   bindsym b exec nautilus, mode "default"
   bindsym c exec clementine; mode "default"
+  bindsym Control+c exec CALIBRE_USE_DARK_PALETTE=1 calibre; mode "default"
   bindsym d exec discord, mode "default"
   bindsym e exec emacsclient -c, mode "default"
   bindsym f exec firefox, mode "default"

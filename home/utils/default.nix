@@ -15,6 +15,7 @@
     musescore
     neofetch
     nix-index
+    poppler_utils
     ripgrep
     tldr
     tree

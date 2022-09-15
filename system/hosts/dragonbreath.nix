@@ -20,6 +20,7 @@
   
   preset = "personal";
   
-  networking.interfaces.enp4s6.useDHCP = true;
-  networking.interfaces.enp5s0.useDHCP = true;
+  networking.interfaces.enp5s6.useDHCP = true;
+  networking.interfaces.enp6s0.useDHCP = true;
+  networking.interfaces.wlp4s0.useDHCP = true;
 }

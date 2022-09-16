@@ -4,5 +4,9 @@
     ecryptfs-helper
   ];
 
+  boot.kernelModules = [
+    "ecryptfs"
+  ];
+  
   security.pam.enableEcryptfs = true;
 }

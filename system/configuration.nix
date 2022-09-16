@@ -9,6 +9,7 @@ in
     ./boot
     ./cachix.nix
     ./dbus
+    ./ecryptfs
     ./firewall
     ./fonts
     ./fs

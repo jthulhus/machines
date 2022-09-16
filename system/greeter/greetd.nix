@@ -11,7 +11,7 @@
   };
   config = let
     sway-config = pkgs.writeText "greetd-sway-config" (''
-      # `-l` activates layer-shell mode. Notica that `swaymsg exit` will be run after gtkgreet.
+      # `-l` activates layer-shell mode. Notice that `swaymsg exit` will be run after gtkgreet.
       input type:keyboard {
         xkb_layout bsk
       }
@@ -27,7 +27,7 @@
     '');
   in {
     services.greetd = {
-      enable = true;
+      enable = false;           # Turns out this isn't very handy...
       settings = {
         default_session = {
           command = "sway --config ${sway-config}";

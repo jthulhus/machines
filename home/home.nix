@@ -95,8 +95,8 @@ but it also could not. Not testing.
 
     gtkBookmarks = [
       "prog"
-      "em/d"
-      "em/d/scolarite/ens"
+      "Private/d"
+      "Private/d/scolarite/ens"
     ];
     
     fonts.fontconfig.enable = true;

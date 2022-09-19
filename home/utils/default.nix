@@ -7,6 +7,7 @@
   home.packages = with pkgs; [
     bat
     cloc
+    elinks
     file
     imv
     inst

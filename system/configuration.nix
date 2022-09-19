@@ -17,6 +17,7 @@ in
     ./gpu
     ./greeter
     ./layouts
+    ./man
     ./network
     ./nix
     ./presets.nix

@@ -63,11 +63,11 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1663656516,
-        "narHash": "sha256-t+aZgI5qmfwSwOgL+ZAXgKJi1yE6kpbtng1kW5TmBKo=",
+        "lastModified": 1663705761,
+        "narHash": "sha256-1hcpNJjQUJ+YpIcpse0/HVaIDaR1nDJcKqJqBtX89Y0=",
         "owner": "theblackbeans",
         "repo": "inst",
-        "rev": "5efc19e1b01c34fee37e2faaa21fc81290cfd0e4",
+        "rev": "4b178f7a3abbf078146a0c4338d92d34ead23ae9",
         "type": "github"
       },
       "original": {

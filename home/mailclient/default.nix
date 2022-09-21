@@ -1,6 +1,6 @@
 {
   imports = [
-    ./evolution.nix
+    # ./evolution.nix
     ./thunderbird.nix
     # ./mailspring.nix
   ];

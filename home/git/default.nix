@@ -6,6 +6,8 @@
     aliases = {
       co = "checkout";
       st = "status";
+      tree = "log --graph --format='format:%C(dim red)%h%Creset %s %C(brightblue)%d'";
+      tr = "tree";
     };
     ignores = [
       # Emacs

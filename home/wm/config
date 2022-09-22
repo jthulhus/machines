@@ -221,17 +221,8 @@ mode "connection" {
   bindsym $universal_quit mode "default"
 }
 
-set $layout_mode "Layout (b)sk b(r)u (a)zerty (q)werty"
-
-bindsym $win_mod+Shift+l mode $layout_mode
-mode $layout_mode {
-  bindsym b input type:keyboard xkb_layout bsk, mode "default"
-  bindsym r input type:keyboard xkb_layout bru, mode "default"
-  bindsym q input type:keyboard xkb_layout us, mode "default"
-  bindsym a input type:keyboard xkb_layout fr, mode "default"
-
-  bindsym $universal_quit mode "default"
-  bindsym escape mode "default"
+bindsym $win_mod+Shift+space exec {
+  'swaymsg "input type:keyboard xkb_layout `echo -e "bsk\nbru\nus\nfr" | dmenu-wl`"'
 }
 
 bindsym $win_mod+left focus left

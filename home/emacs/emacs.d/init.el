@@ -152,6 +152,13 @@
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 
+(use-package god-mode
+  :init
+  (global-set-key (kbd "<escape>") #'god-mode-all)
+  (define-key god-local-mode-map (kbd ".") #'repeat)
+  :config
+  (god-mode))
+
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
 

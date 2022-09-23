@@ -210,6 +210,15 @@ of the previous command on <C-x C-o>...
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
   (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 #+end_src
+* God mode
+#+begin_src emacs-lisp :tangle yes
+  (use-package god-mode
+    :init
+    (global-set-key (kbd "<escape>") #'god-mode-all)
+    (define-key god-local-mode-map (kbd ".") #'repeat)
+    :config
+    (god-mode))
+#+end_src
 * Flycheck
 ** Enable flycheck for the wanted languages
 #+begin_src emacs-lisp :tangle yes

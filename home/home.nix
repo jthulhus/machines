@@ -62,6 +62,7 @@ but it also could not. Not testing.
       file = {
         ".XCompose".source = ./xcompose;
         ".config/direnv".source = ./direnv;
+        ".evrc.dyon".source = ./evrc.dyon;
       };
       
       language = let

@@ -25,6 +25,8 @@ exec swayidle -w \
   resume 'swaymsg "output * dpms on"' \
   before-sleep 'swaylock -ef -c 202020'
 
+exec evscript -f .evrc.dyon -d /dev/input/event1
+
 ################################
 ## APPLICATION SPECIFIC SETUP ##
 ################################

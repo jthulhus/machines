@@ -10,6 +10,7 @@ in
     ./cachix.nix
     ./dbus
     ./ecryptfs
+    ./evscript
     ./firewall
     ./fonts
     ./fs

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  environment.systemPackage = with pkgs; [
+  environment.systemPackages = with pkgs; [
     evscript
   ];
 

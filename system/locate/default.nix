@@ -7,6 +7,7 @@ in {
   ];
   services.locate = {
     inherit locate;
+    localuser = null;
     enable = true;
   };
 }

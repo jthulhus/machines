@@ -18,6 +18,7 @@ in
     ./gpu
     ./greeter
     ./layouts
+    ./locate
     ./man
     ./network
     ./nix

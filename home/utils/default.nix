@@ -12,7 +12,6 @@
     imv
     inst
     jq
-    mlocate
     musescore
     neofetch
     nix-index

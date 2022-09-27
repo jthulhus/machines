@@ -155,9 +155,9 @@
 (use-package god-mode
   :init
   (global-set-key (kbd "<escape>") #'god-mode-all)
-  (define-key god-local-mode-map (kbd ".") #'repeat)
   :config
-  (god-mode))
+  (god-mode)
+  (define-key god-local-mode-map (kbd "z") #'repeat))
 
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))

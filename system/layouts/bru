@@ -55,7 +55,7 @@ xkb_symbols "bru" {
   key <AC03>	{ [ Cyrillic_de,  Cyrillic_DE,               d,              D ] };
   key <AC04>	{ [ Cyrillic_ef,  Cyrillic_EF,               f,              F ] };
   key <AC05>	{ [Cyrillic_ghe, Cyrillic_GHE,               g,              G ] };
-  key <AC06>	{ [ Cyrillic_ye,  Cyrillic_YE,               h,              H ] };
+  key <AC06>	{ [ Cyrillic_ie,  Cyrillic_IE,               h,              H ] };
   key <AC07>	{ [Cyrillic_zhe, Cyrillic_ZHE,               j,              J ] };
   key <AC08>	{ [ Cyrillic_ka,  Cyrillic_KA,               k,              K ] };
   key <AC09>	{ [ Cyrillic_el,  Cyrillic_EL,               l,              L ] };

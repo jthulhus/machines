@@ -339,8 +339,10 @@
   :bind (("M-'" . er/expand-region)))
 
 (use-package which-key
+  :after (god-mode)  
   :config
-  (which-key-mode))
+  (which-key-mode)
+  (which-key-enable-god-mode-support))
 
 (defun my/text-scale-adjust-latex-previews ()
   "Adjust the size of the latex preview fragments when changing the

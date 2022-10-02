@@ -513,8 +513,10 @@ Allow to jump even faster to a precise character, both forward and backward
 * Which key
 #+begin_src emacs-lisp :tangle yes
   (use-package which-key
+    :after (god-mode)  
     :config
-    (which-key-mode))
+    (which-key-mode)
+    (which-key-enable-god-mode-support))
 #+end_src
 * Org
 ** Org

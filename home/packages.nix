@@ -25,14 +25,11 @@
   
   programs = {    
     home-manager.enable = true;
-
-    direnv.enable = true;
   };
 
   services = {
     unison = {
       enable = true;
     };
-    lorri.enable = true;
   };
 }

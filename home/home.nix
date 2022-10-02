@@ -5,6 +5,7 @@ with lib;
     ./alacritty
     ./aseprite
     ./bash
+    ./direnv
     ./emacs
     ./file-browser
     ./firefox

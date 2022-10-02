@@ -62,7 +62,7 @@ but it also could not. Not testing.
 
       file = {
         ".XCompose".source = ./xcompose;
-        ".config/direnv".source = ./direnv.d;
+        ".config/direnv/direnv.toml".source = ./direnv.d/direnv.toml;
         ".evrc.dyon".source = ./evrc.dyon;
       };
       

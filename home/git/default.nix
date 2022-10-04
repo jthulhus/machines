@@ -21,5 +21,10 @@
       # Rust
       "target/"
     ];
+    extraConfig = {
+      init = {
+        defaultBranch = "release";
+      };
+    };
   };
 }

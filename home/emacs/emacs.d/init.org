@@ -365,7 +365,12 @@ Quack seems to dislike `racket-mode`.
 ** AUCTeX
 #+begin_src emacs-lisp :tangle yes
   (use-package tex
-    :ensure auctex)
+    :ensure auctex
+    :custom
+    (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
+  \\|\\While\\b\\|\\Loop\\b")
+    (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
+  \\EndLoop\\b"))
   (use-package company-auctex)
 #+end_src
 ** Latex

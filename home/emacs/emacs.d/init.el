@@ -247,7 +247,12 @@
 (require 'tablegen-mode)
 
 (use-package tex
-  :ensure auctex)
+  :ensure auctex
+  :custom
+  (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
+\\|\\While\\b\\|\\Loop\\b")
+  (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
+\\EndLoop\\b"))
 (use-package company-auctex)
 
 (setq LaTeX-command "latex -shell-escape")

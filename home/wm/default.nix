@@ -16,6 +16,10 @@ in
         default = "";
         description = "Host-specific window manager configuration.";
       };
+      input-event = mkOption {
+        type = with types; str;
+        description = "The keyboard input event path.";
+      };
       bar = {
         theme = mkOption {
           type = types.enum [ "solarized-dark" ];

@@ -9,9 +9,11 @@
         bars = [ ];
       };
       extraConfig = let
-        baseConfig = builtins.readFile ./config;
+        inherit (builtins) readFile replaceStrings concatStringsSep;
+        baseConfig = readFile ./config;
         extraConfig = config.wm.extraConfig;
-      in builtins.concatStringsSep "\n" [ baseConfig extraConfig ];
+        f = replaceStrings ["@input-event@"] [config.wm.input-event];
+      in concatStringsSep "\n" (map f [ baseConfig extraConfig ]);
     };
     
     home.packages = with pkgs; [

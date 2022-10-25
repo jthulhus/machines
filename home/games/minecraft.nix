@@ -10,6 +10,6 @@ in {
   };
 
   config = with config; {
-    home.packages = optionals games.minecraft.enable (with pkgs; [ polymc minecraftServers.vanilla-1-18 ]);
+    home.packages = optionals games.minecraft.enable (with pkgs; [ prismlauncher minecraftServers.vanilla-1-18 ]);
   };
 }

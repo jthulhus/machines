@@ -121,7 +121,7 @@ mode "launch" {
 mode "games" {
   bindsym d exec dfhack, mode "default"
   bindsym w exec wesnoth, mode "default"
-  bindsym m exec polymc, mode "default"
+  bindsym m exec prismlauncher, mode "default"
   bindsym k exec supertuxkart, mode "default"
   bindsym s exec steam, mode "default"
 

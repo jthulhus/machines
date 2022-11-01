@@ -3,6 +3,7 @@ with lib;
 {
   imports = [
     ./alacritty
+    ./anki
     ./aseprite
     ./bash
     ./direnv

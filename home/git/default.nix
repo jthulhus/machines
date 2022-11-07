@@ -25,6 +25,7 @@
       init = {
         defaultBranch = "release";
       };
+      push.autoSetupRemote = true;
     };
   };
 }

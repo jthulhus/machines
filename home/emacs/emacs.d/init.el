@@ -13,8 +13,6 @@
 
 (setq inhibit-startup-screen t)
 
-(load-theme 'zenburn t)
-
 (defvar wc-modes '(fundamental-mode org-mode)
   "Which major-mode enable wc in the powerline.")
 
@@ -94,8 +92,7 @@
 
 (define-minor-mode always-keys-minor-mode
   "A minor mode to ensure basic moving-around key bindings are enforced."
-  :init-value t
-  :lighter " AK")
+  :init-value t)
 
 (use-package emacs
   :init
@@ -170,6 +167,8 @@
   :hook (flycheck-mode . flycheck-rust-setup))
 
 (use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("\\.py\\'" . python-mode)
   :when (executable-find "ipython")
   :custom
   (python-shell-interpreter "ipython")
@@ -181,9 +180,12 @@
   (python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
 
 (use-package lsp-pyright
-  :hook (python-mode . (lambda ()
-			 (require 'lsp-pyright)
-			 (lsp))))
+  :hook
+  (python-mode
+   . (lambda ()
+       (require 'lsp-pyright)
+       (lsp)))
+  :defer t)
 
 (use-package ocp-indent
   :init
@@ -191,7 +193,11 @@
 
 (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 
-(use-package tuareg)
+(use-package tuareg
+  :mode
+  ("\\.ml\\'" . tuareg-mode)
+  ("\\.mli\\'" . tuareg-mode)
+  ("\\.mly\\'" . tuareg-menhir-mode))
 
 (use-package utop
   :hook (tuareg-mode . utop-minor-mode)
@@ -206,8 +212,6 @@
   :custom (merlin-command "ocamlmerlin"))
 
 (use-package dune)
-
-(use-package lsp-haskell)
 
 (use-package racket-mode
   :hook racket-xp-mode
@@ -247,16 +251,20 @@
 (require 'tablegen-mode)
 
 (use-package tex
+  :mode ("\\.tex\\'" . latex-mode)
+  :hook ((LaTeX-mode . (lambda () (run-hooks 'prog-mode-hook)))
+         (LaTeX-mode . flyspell-mode))
   :ensure auctex
   :custom
   (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
 \\|\\While\\b\\|\\Loop\\b")
   (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
-\\EndLoop\\b"))
-(use-package company-auctex)
-
-(setq LaTeX-command "latex -shell-escape")
-(add-hook 'latex-mode-hook 'display-line-numbers-mode)
+\\EndLoop\\b")
+  (LaTeX-command "latex -shell-escape"))
+(use-package company-auctex
+  :defer t
+  :init
+  (company-auctex-init))
 
 (use-package pandoc-mode
   :commands pandoc-load-default-settings
@@ -283,6 +291,7 @@
   (direnv-always-show-summary nil))
 
 (use-package j-mode
+  :mode "\\.ijs\\'"
   :hook (j-mode . (lambda () (run-hooks 'prog-mode-hook)))
   :config
   (setq j-console-cmd "jconsole")
@@ -291,20 +300,27 @@
   (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
   (put 'j-conjunction-face 'face-alias 'j-adverb-face))
 
-(use-package prolog)
+;; (use-package prolog)
 (use-package ediprolog)
 
 (use-package proof-general)
-(use-package company-coq)
+(use-package company-coq
+  :hook coq-mode)
 
-(use-package yaml-mode)
+(use-package esup)
 
-(use-package toml-mode)
+(use-package yaml-mode
+  :mode "\\.yaml\\'")
 
-(use-package json-mode)
+(use-package toml-mode
+  :mode "\\.toml\\'")
+
+(use-package json-mode
+  :mode "\\.json\\'")
 
 (use-package company
   :hook (prog-mode . company-mode)
+  :after (company-coq company-auctex)
   :config
   (bind-key [remap completion-at-point] #'company-complete company-mode-map)
   (setq company-show-numbers nil
@@ -391,8 +407,6 @@ buffer's text scale."
   :hook (org-mode . org-auto-tangle-mode)
   :init (setq org-auto-tangle-default t))
 
-(use-package org-fragtog)
-
 (use-package org-roam
   :init
   (setq org-roam-v2-ack t)
@@ -443,18 +457,16 @@ buffer's text scale."
 
 (use-package yasnippet
   :bind (("M-n" . yas-next-field)
-	 ("M-p" . yas-prev-field)
-	 ("<C-return>" . yas-exit-snippet))
+         ("M-p" . yas-prev-field)
+         ("<C-return>" . yas-exit-snippet))
   :config
   (setq yas-verbosity 1
-	yas-wrap-around-region t)
+        yas-wrap-around-region t)
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
   (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand)
   (with-eval-after-load 'yasnippet
-    (setq yas-snippet-dirs '(yasnippet-snippets-dir)))
-  (yas-reload-all)
-  (yas-global-mode 1))
+    (setq yas-snippet-dirs '(yasnippet-snippets-dir))))
 
 (use-package yasnippet-snippets)
 

@@ -27,7 +27,7 @@ My Emacs init.org file
   (setq inhibit-startup-screen t)
 #+end_src
 ** Load my theme
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (load-theme 'zenburn t)
 #+end_src
 ** Have a spacemacs-like powerline
@@ -136,8 +136,7 @@ Make it automatically create unexistent directories.
 
   (define-minor-mode always-keys-minor-mode
     "A minor mode to ensure basic moving-around key bindings are enforced."
-    :init-value t
-    :lighter " AK")
+    :init-value t)
 #+end_src
 *** Customize emacs
 #+begin_src emacs-lisp :tangle yes
@@ -242,6 +241,8 @@ of the previous command on <C-x C-o>...
 ** Setup the `ipython3` interpreter
 #+begin_src emacs-lisp :tangle yes
   (use-package python
+    :mode ("\\.py\\'" . python-mode)
+    :interpreter ("\\.py\\'" . python-mode)
     :when (executable-find "ipython")
     :custom
     (python-shell-interpreter "ipython")
@@ -255,9 +256,12 @@ of the previous command on <C-x C-o>...
 ** Setup the LSP server
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-pyright
-    :hook (python-mode . (lambda ()
-			   (require 'lsp-pyright)
-			   (lsp))))
+    :hook
+    (python-mode
+     . (lambda ()
+         (require 'lsp-pyright)
+         (lsp)))
+    :defer t)
 #+end_src
 * OCaml
 ** OCP indent
@@ -272,7 +276,11 @@ of the previous command on <C-x C-o>...
 #+end_src
 ** Tuareg
 #+begin_src emacs-lisp :tangle yes
-  (use-package tuareg)
+  (use-package tuareg
+    :mode
+    ("\\.ml\\'" . tuareg-mode)
+    ("\\.mli\\'" . tuareg-mode)
+    ("\\.mly\\'" . tuareg-menhir-mode))
 #+end_src
 ** Utop
 #+begin_src emacs-lisp :tangle yes
@@ -295,7 +303,7 @@ of the previous command on <C-x C-o>...
   (use-package dune)
 #+end_src
 * Haskell
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (use-package lsp-haskell)
 #+end_src
 * Lisp
@@ -365,16 +373,23 @@ Quack seems to dislike `racket-mode`.
 ** AUCTeX
 #+begin_src emacs-lisp :tangle yes
   (use-package tex
+    :mode ("\\.tex\\'" . latex-mode)
+    :hook ((LaTeX-mode . (lambda () (run-hooks 'prog-mode-hook)))
+           (LaTeX-mode . flyspell-mode))
     :ensure auctex
     :custom
     (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
   \\|\\While\\b\\|\\Loop\\b")
     (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
-  \\EndLoop\\b"))
-  (use-package company-auctex)
+  \\EndLoop\\b")
+    (LaTeX-command "latex -shell-escape"))
+  (use-package company-auctex
+    :defer t
+    :init
+    (company-auctex-init))
 #+end_src
 ** Latex
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (setq LaTeX-command "latex -shell-escape")
   (add-hook 'latex-mode-hook 'display-line-numbers-mode)
 #+end_src
@@ -413,6 +428,7 @@ Quack seems to dislike `racket-mode`.
 * J
 #+begin_src emacs-lisp :tangle yes
   (use-package j-mode
+    :mode "\\.ijs\\'"
     :hook (j-mode . (lambda () (run-hooks 'prog-mode-hook)))
     :config
     (setq j-console-cmd "jconsole")
@@ -423,35 +439,44 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 * Prolog
 #+begin_src emacs-lisp :tangle yes
-  (use-package prolog)
+  ;; (use-package prolog)
   (use-package ediprolog)
 #+end_src
 * Coq
 #+begin_src emacs-lisp :tangle yes
   (use-package proof-general)
-  (use-package company-coq)
+  (use-package company-coq
+    :hook coq-mode)
+#+end_src
+* Esup
+#+begin_src emacs-lisp :tangle yes
+  (use-package esup)
 #+end_src
 * Data languages
 ** YAML
 Major mode for YAML configuration files.
 #+begin_src emacs-lisp :tangle yes
-  (use-package yaml-mode)
+  (use-package yaml-mode
+    :mode "\\.yaml\\'")
 #+end_src
 ** TOML
 Major mode for TOML configuration files.
 #+begin_src emacs-lisp :tangle yes
-  (use-package toml-mode)
+  (use-package toml-mode
+    :mode "\\.toml\\'")
 #+end_src
 ** JSON
 Major mode for JSON configuration files.
 #+begin_src emacs-lisp :tangle yes
-  (use-package json-mode)
+  (use-package json-mode
+    :mode "\\.json\\'")
 #+end_src
 
 * Company
 #+begin_src emacs-lisp :tangle yes
   (use-package company
     :hook (prog-mode . company-mode)
+    :after (company-coq company-auctex)
     :config
     (bind-key [remap completion-at-point] #'company-complete company-mode-map)
     (setq company-show-numbers nil
@@ -571,10 +596,6 @@ Auto-tangle
     :hook (org-mode . org-auto-tangle-mode)
     :init (setq org-auto-tangle-default t))
 #+end_src
-Fragtog
-#+begin_src emacs-lisp :tangle yes
-  (use-package org-fragtog)
-#+end_src
 ** Roam
 #+begin_src emacs-lisp :tangle yes
   (use-package org-roam
@@ -635,18 +656,16 @@ Fragtog
 #+begin_src emacs-lisp :tangle yes
   (use-package yasnippet
     :bind (("M-n" . yas-next-field)
-	   ("M-p" . yas-prev-field)
-	   ("<C-return>" . yas-exit-snippet))
+           ("M-p" . yas-prev-field)
+           ("<C-return>" . yas-exit-snippet))
     :config
     (setq yas-verbosity 1
-	  yas-wrap-around-region t)
+          yas-wrap-around-region t)
     (define-key yas-minor-mode-map (kbd "<tab>") nil)
     (define-key yas-minor-mode-map (kbd "TAB") nil)
     (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand)
     (with-eval-after-load 'yasnippet
-      (setq yas-snippet-dirs '(yasnippet-snippets-dir)))
-    (yas-reload-all)
-    (yas-global-mode 1))
+      (setq yas-snippet-dirs '(yasnippet-snippets-dir))))
 #+end_src
 ** Actual snippets
 #+begin_src emacs-lisp :tangle yes

@@ -69,13 +69,12 @@ Setup wc-modes variable.
   (use-package dashboard
     :init
     (setq dashboard-items '((recents . 5)
-			    (projects . 5))
-	  dashboard-show-shortcuts nil
-	  dashboard-center-content nil
-	  dashboard-banner-logo-title "Welcome to Beansmacs!"
-	  dashboard-set-init-info t
-	  ; dashboard-startup-banner "~/.emacs.d/banner"
-	  )
+                            (projects . 5))
+          dashboard-show-shortcuts nil
+          dashboard-center-content nil
+          dashboard-banner-logo-title "Welcome to Beansmacs!"
+          dashboard-set-init-info t
+          initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
     :config
     (dashboard-setup-startup-hook))
 #+end_src

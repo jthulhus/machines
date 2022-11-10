@@ -82,6 +82,15 @@ bindsym $win_mod+minus workspace 6
 bindsym $win_mod+plus workspace 7
 bindsym $win_mod+bar workspace 8
 bindsym $win_mod+braceright workspace 9
+	
+bindsym $win_mod+r layout toggle splith splitv
+bindsym $win_mod+t layout toggle tabbed split
+bindsym $win_mod+s layout toggle stacking split
+
+bindsym $win_mod+Shift+up move up
+bindsym $win_mod+Shift+right move right
+bindsym $win_mod+Shift+down move down
+bindsym $win_mod+Shift+left move left
 
 set $print_mode "Screenshot (a)rea a(c)tive (w)indow (o)utput"
 

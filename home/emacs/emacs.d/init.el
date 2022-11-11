@@ -13,6 +13,8 @@
 
 (setq inhibit-startup-screen t)
 
+(load-theme 'zenburn t)
+
 (defvar wc-modes '(fundamental-mode org-mode)
   "Which major-mode enable wc in the powerline.")
 

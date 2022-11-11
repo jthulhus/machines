@@ -460,6 +460,7 @@ buffer's text scale."
   :bind (("M-n" . yas-next-field)
          ("M-p" . yas-prev-field)
          ("<C-return>" . yas-exit-snippet))
+  :hook (prog-mode . yas-minor-mode)
   :config
   (setq yas-verbosity 1
         yas-wrap-around-region t)

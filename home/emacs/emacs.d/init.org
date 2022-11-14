@@ -10,7 +10,10 @@ My Emacs init.org file
 	       '("melpa" . "https://melpa.org/packages/"))
   (package-initialize)
 #+end_src
-
+* Package Lint
+#+begin_src emacs-lisp :tangle yes
+  (use-package package-lint)
+#+end_src
 * Aspect
 ** Turn off every bar
 #+begin_src emacs-lisp :tangle yes
@@ -223,7 +226,10 @@ of the previous command on <C-x C-o>...
   (use-package flycheck
     :hook (rustic-mode tuareg-mode elisp-mode))
 #+end_src
-
+* Beans
+#+begin_src emacs-lisp :tangle yes
+  (use-package beans)
+#+end_src
 * Rust
 ** Rustic
 #+begin_src emacs-lisp :tangle yes
@@ -383,7 +389,7 @@ Quack seems to dislike `racket-mode`.
   \\EndLoop\\b")
     (LaTeX-command "latex -shell-escape"))
   (use-package company-auctex
-    :defer t
+    :hook (LaTeX-mode . company-mode)
     :init
     (company-auctex-init))
 #+end_src
@@ -409,9 +415,10 @@ Quack seems to dislike `racket-mode`.
     (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
     (lsp-register-client
      (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-		      :major-modes '(nix-mode)
-		      :server-id 'nix))
+                      :major-modes '(nix-mode)
+                      :server-id 'nix))
     :config
+    (diminish 'flycheck-mode)
     (define-key nix-mode-map (kbd "C-c n") #'helm-nixos-options))
 #+end_src
 ** Direnv
@@ -428,7 +435,9 @@ Quack seems to dislike `racket-mode`.
 #+begin_src emacs-lisp :tangle yes
   (use-package j-mode
     :mode "\\.ijs\\'"
-    :hook (j-mode . (lambda () (run-hooks 'prog-mode-hook)))
+    :hook (j-mode . (lambda ()
+                      (run-hooks 'prog-mode-hook)
+                      (rainbow-delimiters-mode-disable)))
     :config
     (setq j-console-cmd "jconsole")
     (put 'j-other-face 'face-alias 'font-lock-keyword-face)
@@ -470,13 +479,16 @@ Major mode for JSON configuration files.
   (use-package json-mode
     :mode "\\.json\\'")
 #+end_src
-
+* Diminish
+#+begin_src emacs-lisp :tangle yes
+  (use-package diminish)
+#+end_src
 * Company
 #+begin_src emacs-lisp :tangle yes
   (use-package company
     :hook (prog-mode . company-mode)
-    :after (company-coq company-auctex)
     :config
+    (diminish 'company-mode)
     (bind-key [remap completion-at-point] #'company-complete company-mode-map)
     (setq company-show-numbers nil
           company-tooltip-align-annotations t
@@ -487,7 +499,9 @@ Major mode for JSON configuration files.
 ** Projectile
 #+begin_src emacs-lisp :tangle yes
   (use-package projectile
-    :hook (rust-mode . projectile-mode))
+    :hook (prog-mode . projectile-mode)
+    :config
+    (diminish 'projectile-mode))
 #+end_src
   
 * Disable font lock in speedbar-mode
@@ -544,6 +558,7 @@ Allow to jump even faster to a precise character, both forward and backward
   (use-package which-key
     :after (god-mode)  
     :config
+    (diminish 'which-key-mode)
     (which-key-mode)
     (which-key-enable-god-mode-support))
 #+end_src
@@ -631,11 +646,13 @@ Auto-tangle
     (setq lsp-keymap-prefix "C-c l"
           lsp-log-io nil)
     :config
+    (diminish 'lsp-lens-mode)
     (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
     (setq lsp-file-watch-ignored
           '("[/\\\\]\\.direnv$"
             "[/\\\\]target$"
-            "[/\\\\]\\.git"))
+            "[/\\\\]\\.git")
+          lsp-enable-suggest-server-download nil)
     :hook ((python-mode . lsp-deferred)
            (rust-mode . lsp-deferred)
            (tuareg-opam-mode . lsp-deferred)
@@ -657,15 +674,16 @@ Auto-tangle
     :bind (("M-n" . yas-next-field)
            ("M-p" . yas-prev-field)
            ("<C-return>" . yas-exit-snippet))
-    :hook (prog-mode . yas-minor-mode)
+    :hook
+    ((prog-mode org-mode) . yas-minor-mode)
     :config
+    (diminish 'yas-minor-mode)
     (setq yas-verbosity 1
-          yas-wrap-around-region t)
+          yas-wrap-around-region t
+          yas-snippet-dirs '(yasnippet-snippets-dir))
     (define-key yas-minor-mode-map (kbd "<tab>") nil)
     (define-key yas-minor-mode-map (kbd "TAB") nil)
-    (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand)
-    (with-eval-after-load 'yasnippet
-      (setq yas-snippet-dirs '(yasnippet-snippets-dir))))
+    (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand))
 #+end_src
 ** Actual snippets
 #+begin_src emacs-lisp :tangle yes
@@ -720,6 +738,12 @@ Instead, let's set directly that value
     :bind (("C-x g" . magit-status)
 	   ("C-x M-g" . magit-dispatch)
 	   ("C-C M-g" . magit-file-dispatch)))
+#+end_src
+* ElDoc
+#+begin_src emacs-lisp :tangle yes
+  (use-package eldoc
+    :config
+    (diminish 'eldoc-mode))
 #+end_src
 * Eshell
 #+begin_src emacs-lisp :tangle yes

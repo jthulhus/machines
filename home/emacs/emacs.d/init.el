@@ -3,6 +3,8 @@
 	     '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+(use-package package-lint)
+
 (setq default-frame-alist '((undecorated . t))
       menu-bar-mode nil
       scroll-bar-mode nil
@@ -160,6 +162,8 @@
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
 
+(use-package beans)
+
 (use-package rustic
   :after rust-mode)
 
@@ -263,7 +267,7 @@
 \\EndLoop\\b")
   (LaTeX-command "latex -shell-escape"))
 (use-package company-auctex
-  :defer t
+  :hook (LaTeX-mode . company-mode)
   :init
   (company-auctex-init))
 
@@ -278,9 +282,10 @@
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-		    :major-modes '(nix-mode)
-		    :server-id 'nix))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix))
   :config
+  (diminish 'flycheck-mode)
   (define-key nix-mode-map (kbd "C-c n") #'helm-nixos-options))
 
 (use-package direnv
@@ -293,7 +298,9 @@
 
 (use-package j-mode
   :mode "\\.ijs\\'"
-  :hook (j-mode . (lambda () (run-hooks 'prog-mode-hook)))
+  :hook (j-mode . (lambda ()
+                    (run-hooks 'prog-mode-hook)
+                    (rainbow-delimiters-mode-disable)))
   :config
   (setq j-console-cmd "jconsole")
   (put 'j-other-face 'face-alias 'font-lock-keyword-face)
@@ -319,10 +326,12 @@
 (use-package json-mode
   :mode "\\.json\\'")
 
+(use-package diminish)
+
 (use-package company
   :hook (prog-mode . company-mode)
-  :after (company-coq company-auctex)
   :config
+  (diminish 'company-mode)
   (bind-key [remap completion-at-point] #'company-complete company-mode-map)
   (setq company-show-numbers nil
         company-tooltip-align-annotations t
@@ -330,7 +339,9 @@
         company-minimum-prefix-length 3))
 
 (use-package projectile
-  :hook (rust-mode . projectile-mode))
+  :hook (prog-mode . projectile-mode)
+  :config
+  (diminish 'projectile-mode))
 
 (setq font-lock-global-modes '(not speedbar-mode))
 
@@ -363,6 +374,7 @@
 (use-package which-key
   :after (god-mode)  
   :config
+  (diminish 'which-key-mode)
   (which-key-mode)
   (which-key-enable-god-mode-support))
 
@@ -439,11 +451,13 @@ buffer's text scale."
   (setq lsp-keymap-prefix "C-c l"
         lsp-log-io nil)
   :config
+  (diminish 'lsp-lens-mode)
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
   (setq lsp-file-watch-ignored
         '("[/\\\\]\\.direnv$"
           "[/\\\\]target$"
-          "[/\\\\]\\.git"))
+          "[/\\\\]\\.git")
+        lsp-enable-suggest-server-download nil)
   :hook ((python-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
          (tuareg-opam-mode . lsp-deferred)
@@ -460,15 +474,16 @@ buffer's text scale."
   :bind (("M-n" . yas-next-field)
          ("M-p" . yas-prev-field)
          ("<C-return>" . yas-exit-snippet))
-  :hook (prog-mode . yas-minor-mode)
+  :hook
+  ((prog-mode org-mode) . yas-minor-mode)
   :config
+  (diminish 'yas-minor-mode)
   (setq yas-verbosity 1
-        yas-wrap-around-region t)
+        yas-wrap-around-region t
+        yas-snippet-dirs '(yasnippet-snippets-dir))
   (define-key yas-minor-mode-map (kbd "<tab>") nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
-  (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand)
-  (with-eval-after-load 'yasnippet
-    (setq yas-snippet-dirs '(yasnippet-snippets-dir))))
+  (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand))
 
 (use-package yasnippet-snippets)
 
@@ -499,6 +514,10 @@ buffer's text scale."
   :bind (("C-x g" . magit-status)
 	 ("C-x M-g" . magit-dispatch)
 	 ("C-C M-g" . magit-file-dispatch)))
+
+(use-package eldoc
+  :config
+  (diminish 'eldoc-mode))
 
 (use-package eshell
   :ensure nil

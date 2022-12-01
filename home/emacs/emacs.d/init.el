@@ -315,6 +315,17 @@
 (use-package company-coq
   :hook coq-mode)
 
+(use-package verilog-mode
+  :after lsp-mode
+  :config
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("svls"))
+                    :major-modes '(verilog-mode)
+                    :priority -1))
+  (add-to-list 'lsp-language-id-configuration '(verilog-mode . "verilog"))
+  (setq verilog-tool 'verilog-linter
+        verilog-linter "svlint"))
+
 (use-package esup)
 
 (use-package yaml-mode
@@ -464,6 +475,7 @@ buffer's text scale."
          (nix-mode . lsp-deferred)
          (haskell-mode . lsp-deferred)
          (c-mode . lsp-deferred)
+         (verilog-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 

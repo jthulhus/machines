@@ -1,7 +1,7 @@
 {
   programs.git = {
     enable = true;
-    userName = "BlackBeans";
+    userName = "jthulhu";
     userEmail = "adrien.lc.mathieu@gmail.com";
     aliases = {
       co = "checkout";

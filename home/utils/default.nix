@@ -10,7 +10,7 @@
     elinks
     file
     imv
-    inst
+    isc
     jq
     musescore
     neofetch

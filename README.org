@@ -1,5 +1,5 @@
-#+title: BlackBeans' machines configuration
-#+author: BlackBeans
+#+title: jthulhu' machines configuration
+#+author: jthulhu
 #+description: An overview and explanation of my configuration.
 #+language: en
 #+options: toc:2 p:t

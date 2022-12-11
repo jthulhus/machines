@@ -1,5 +1,5 @@
 #+title: Emacs init file
-#+author: BlackBeans
+#+author: jthulhu
 #+startup: indent
 
 My Emacs init.org file

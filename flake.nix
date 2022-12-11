@@ -11,24 +11,24 @@
     emacsOverlay = {
       url = github:nix-community/emacs-overlay;
     };
-    inst = {
-      url = github:theblackbeans/inst;
+    isc = {
+      url = github:jthulhu/isc;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, inst, ... } @ inputs:
+  outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, isc, ... } @ inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
       inherit (pkgs) writeShellScriptBin;
       inherit (builtins) readFile;
       isgit = writeShellScriptBin "isgit" (readFile ./scripts/isgit);
-      instPkg = inst.defaultPackage.${system};
+      iscPkg = isc.defaultPackage.${system};
       commonOverlays = [
         (final: prev: {
           inherit isgit;
-          inst = instPkg;
+          isc = iscPkg;
         })
       ];
     in rec {

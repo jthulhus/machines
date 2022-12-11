@@ -55,7 +55,7 @@
         "type": "github"
       }
     },
-    "inst": {
+    "isc": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -63,16 +63,16 @@
         "utils": "utils_2"
       },
       "locked": {
-        "lastModified": 1665432197,
-        "narHash": "sha256-Q4qQ9j7FqRAkf/sLJKtUxbTCOkH5iVixX8/X+AXM9Q8=",
-        "owner": "theblackbeans",
-        "repo": "inst",
-        "rev": "c385ad37f8d8fb5a934a7569cbcfbdb89e2e79b2",
+        "lastModified": 1669583183,
+        "narHash": "sha256-opIXqvIQDgQugX76yhtjy889GJZOcqW5uCPDRdU5UGk=",
+        "owner": "jthulhu",
+        "repo": "isc",
+        "rev": "85222ebc995e81a8ec671dd24599c9a71819afdc",
         "type": "github"
       },
       "original": {
-        "owner": "theblackbeans",
-        "repo": "inst",
+        "owner": "jthulhu",
+        "repo": "isc",
         "type": "github"
       }
     },
@@ -126,7 +126,7 @@
       "inputs": {
         "emacsOverlay": "emacsOverlay",
         "homeManager": "homeManager",
-        "inst": "inst",
+        "isc": "isc",
         "nixpkgs": "nixpkgs_2",
         "nixpkgsDowngrade": "nixpkgsDowngrade"
       }

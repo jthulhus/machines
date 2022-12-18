@@ -40,10 +40,6 @@
       :priority 90)
     (spaceline-spacemacs-theme 'word-count)))
 
-(use-package fill-column-indicator
-  :hook (prog-mode . fci-mode)
-  :custom (fci-rule-column 80))
-
 (use-package dashboard
   :init
   (setq dashboard-items '((recents . 5)
@@ -127,6 +123,7 @@
 (setq-default require-final-newline t)
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
 (setq linum-format 'dynamic)
 
 (defun rename-file-and-buffer (new-name)

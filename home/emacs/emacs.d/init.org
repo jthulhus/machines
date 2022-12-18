@@ -61,12 +61,7 @@ Setup wc-modes variable.
         :priority 90)
       (spaceline-spacemacs-theme 'word-count)))
 #+end_src
-** Add a fill column indicator for prog-mode
-#+begin_src emacs-lisp :tangle yes
-  (use-package fill-column-indicator
-    :hook (prog-mode . fci-mode)
-    :custom (fci-rule-column 80))
-#+end_src
+
 ** Setup a dashboard
 #+begin_src emacs-lisp :tangle yes
   (use-package dashboard
@@ -179,6 +174,7 @@ Make it automatically create unexistent directories.
 ** Show line numbers
 #+begin_src emacs-lisp :tangle yes
   (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
   (setq linum-format 'dynamic)
 #+end_src
 ** Rename both file and buffer at once

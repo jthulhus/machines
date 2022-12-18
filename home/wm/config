@@ -21,8 +21,8 @@ seat * {
 # Idle screenlocker
 exec swayidle -w \
   timeout 300 'swaylock -ef -c 202020' \
-  timeout 600 'swaymsg "output * dpms off"' \
-  resume 'swaymsg "output * dpms on"' \
+  # timeout 600 'swaymsg "output * dpms off"' \
+  # resume 'swaymsg "output * dpms on"' \
   before-sleep 'swaylock -ef -c 202020'
 
 exec evscript -f .evrc.dyon -d /dev/@input-event@
@@ -202,8 +202,10 @@ mode "power" {
   bindsym r exec reboot
   bindsym l mode "default", exec swayidle -w \
     timeout 1 'swaylock -ef -c 202020' \
-    timeout 2 'swaymsg "output * dpms off"' \
-    resume 'swaymsg "output * dpms on"; pkill -nx swayidle'
+    resume 'pkill -nx swayidle'
+    # timeout 2 'swaymsg "output * dpms off"' \
+    # resume 'swaymsg "output * dpms on"; pkill -nx swayidle'
+
 
   bindsym escape mode "default"
   bindsym $universal_quit mode "default"

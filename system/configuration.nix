@@ -22,6 +22,7 @@ in
     ./man
     ./network
     ./nix
+    ./lang
     ./presets.nix
     ./sound
     ./steam

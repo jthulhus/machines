@@ -7,5 +7,6 @@
     ./scheme
     ./j
     ./prolog
+    ./pharo
   ];
 }

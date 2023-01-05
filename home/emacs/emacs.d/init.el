@@ -207,12 +207,6 @@
   (setq utop-edit-command nil
         utop-command "dune utop . -- -emacs"))
 
-(use-package merlin
-  :hook
-  (tuareg-mode . merlin-mode)
-  (merlin-mode . company-mode)
-  :custom (merlin-command "ocamlmerlin"))
-
 (use-package dune)
 
 (use-package racket-mode
@@ -473,6 +467,7 @@ buffer's text scale."
          (haskell-mode . lsp-deferred)
          (c-mode . lsp-deferred)
          (verilog-mode . lsp-deferred)
+         (tuareg-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 

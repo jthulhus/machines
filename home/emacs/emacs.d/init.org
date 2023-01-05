@@ -292,7 +292,7 @@ of the previous command on <C-x C-o>...
           utop-command "dune utop . -- -emacs"))
 #+end_src
 ** Merlin
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (use-package merlin
     :hook
     (tuareg-mode . merlin-mode)
@@ -669,6 +669,7 @@ Auto-tangle
            (haskell-mode . lsp-deferred)
            (c-mode . lsp-deferred)
            (verilog-mode . lsp-deferred)
+           (tuareg-mode . lsp-deferred)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands (lsp lsp-deferred))
 #+end_src

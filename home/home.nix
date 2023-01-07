@@ -53,7 +53,7 @@ but it also could not. Not testing.
 
   config = let
     inherit (builtins) elem;
-    inherit (lib) getName;
+    inherit (lib) getName mkForce;
     unfreePredicate = pkg: elem (getName pkg) allowedUnfree;
     allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraft-server" "aseprite" ];
   in {
@@ -82,7 +82,7 @@ but it also could not. Not testing.
       
       sessionPath = [ "~/.local/bin" ];
       sessionVariables = {
-        EDITOR = "emacs";
+        EDITOR = mkForce "emacsclient -nw";
         XDG_DATA_DIRS = "${config.home.homeDirectory}/.nix-profile/share:$XDG_DATA_DIRS";
         XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
       };

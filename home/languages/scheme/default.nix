@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    downgrade.mitscheme
+    mitscheme
     scheme-manpages
   ];
 }

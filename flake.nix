@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    nixpkgsDowngrade.url = github:nixos/nixpkgs?rev=a2e281f5770247855b85d70c43454ba5bff34613;
+    nixpkgs-stable.url = github:nixos/nixpkgs/nixos-22.11;
     homeManager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,7 +17,15 @@
     };
   };
 
-  outputs = { self, nixpkgs, homeManager, emacsOverlay, nixpkgsDowngrade, isc, ... } @ inputs:
+  outputs = {
+    self,
+      nixpkgs,
+      homeManager,
+      emacsOverlay,
+      nixpkgs-stable,
+      isc,
+      ...
+  } @ inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -37,7 +45,7 @@
         overlays = [
           emacsOverlay.overlay
           (final: prev: {
-            downgrade = import nixpkgsDowngrade {
+            stable = import nixpkgs-stable {
               inherit system;
               config.allowUnfree = true;
             };

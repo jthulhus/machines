@@ -12,11 +12,12 @@
     shellAliases = {
       ls = "ls --color=tty";
       dd = "dd status=progress";
+      vi = "emacsclient --nw";
+      nano = "emacsclient -nw";
+      vim = "emacsclient --nw";
     };
     shellOptions = [ "histappend" "checkwinsize" "globstar" ];
-    initExtra = let
-      dollar = "$";
-    in ''
+    initExtra = ''
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   exec sway
 fi

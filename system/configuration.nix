@@ -29,6 +29,7 @@ in
     ./users
     ./utils
     ./vm
+    ./yubico
   ];
 
   options.my = {

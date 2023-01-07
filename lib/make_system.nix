@@ -1,6 +1,6 @@
 {
   self,
-  nixpkgsDowngrade,
+  nixpkgs-stable,
   ...
 } @ inputs: {
   hostname,
@@ -21,12 +21,12 @@ let
           };
           flake = nixpkgs;
         };
-        downgrade = {
+        stable = {
           from = {
             type = "indirect";
-            id = "downgrade";
+            id = "stable";
           };
-          flake = nixpkgsDowngrade;
+          flake = nixpkgs-stable;
         };
       };
     };

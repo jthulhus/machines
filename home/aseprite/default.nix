@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    aseprite-unfree
+    # Uncomment here to reinstall aseprite
+    # aseprite-unfree
   ];
 }

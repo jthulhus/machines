@@ -50,7 +50,12 @@ in
     inherit (builtins) elem;
     inherit (config) my;
   in {
-    nixpkgs.config.allowUnfreePredicate = pkg: elem (getName pkg) my.unfree;
+    nixpkgs.config = {
+      allowUnfreePredicate = pkg: elem (getName pkg) my.unfree;
+      permittedInsecurePackages = [
+        "python-2.7.18.6"
+      ];
+    };
 
     services.emacs.defaultEditor = true;
 

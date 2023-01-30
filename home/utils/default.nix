@@ -19,7 +19,7 @@
     ripgrep
     tldr
     tree
-    unoconv
+    # unoconv                     # Fuck libreoffice
     unzip
     vlc
   ];

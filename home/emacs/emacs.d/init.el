@@ -1,4 +1,4 @@
-(require 'package)
+﻿(require 'package)
 (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
@@ -105,7 +105,12 @@
         kept-old-versions 2
         version-control t)
   :custom
-  (safe-local-variable-values '((eval set-fill-column 117)))
+  (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
+  (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)
+  (safe-local-variable-values
+   '((eval set-fill-column 117)
+     (lsp-rust-analyzer-cargo-target "x86_64-unknown-none")
+     (lsp-rust-all-targets nil))
   (warning-suppress-types '((direnv)))
   :bind (("C-x C-f" . my-find-file)
          ("C-c r s h" . shrink-window-horizontally)

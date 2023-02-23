@@ -115,7 +115,8 @@
          ("C-c k" . kill-current-buffer)
          ("S-<return>" . electric-newline-and-maybe-indent)
          ("C-z" . nil)
-         ("C-x C-z" . nil)))
+         ("C-x C-z" . nil)
+         ("M-<return>" . comment-indent-new-line)))
 
 (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
 (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
@@ -216,17 +217,9 @@
 
 (use-package scheme-complete)
 
-(use-package paredit
-  :hook
-  ((emacs-lisp-mode
-    list-interaction-mode
-    ielm-mode
-    lisp-mode
-    eval-expression-minibuffer-setup
-    scheme-mode
-    racket-mode
-    racket-repl-mode
-    dune-mode) . paredit-mode))
+(use-package smartparens
+  :init
+  (require 'smartparens-config))
 
 (use-package web-mode)
 
@@ -316,6 +309,17 @@
   (add-to-list 'lsp-language-id-configuration '(verilog-mode . "verilog"))
   (setq verilog-tool 'verilog-linter
         verilog-linter "svlint"))
+
+(use-package dap-mode
+  :init
+  (dap-register-debug-template
+   "Rust::GDB Run Configuration"
+   (list :type "gdb"
+         :request "launch"
+         :name "GDB::Run"
+         :gdbpath "rust-gdb"
+         :target nil
+         :cwd nil)))
 
 (use-package esup)
 

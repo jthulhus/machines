@@ -18,9 +18,9 @@ My Emacs init.org file
 ** Turn off every bar
 #+begin_src emacs-lisp :tangle yes
   (setq default-frame-alist '((undecorated . t))
-	menu-bar-mode nil
-	scroll-bar-mode nil
-	tool-bar-mode nil)
+        menu-bar-mode nil
+        scroll-bar-mode nil
+        tool-bar-mode nil)
   (tool-bar-mode -1)
   (menu-bar-mode -1)
   (scroll-bar-mode -1)
@@ -159,7 +159,8 @@ Make it automatically create unexistent directories.
            ("C-c k" . kill-current-buffer)
            ("S-<return>" . electric-newline-and-maybe-indent)
            ("C-z" . nil)
-           ("C-x C-z" . nil)))
+           ("C-x C-z" . nil)
+           ("M-<return>" . comment-indent-new-line)))
 #+end_src
 *** Alias DEL and M-DEL
 #+begin_src emacs-lisp :tangle yes
@@ -329,8 +330,10 @@ Quack seems to dislike `racket-mode`.
 #+begin_src emacs-lisp :tangle no
   (use-package quack)
 #+end_src
-* Paredit
-#+begin_src emacs-lisp :tangle yes
+* Parenthesis balencing
+** Paredit
+Currently not used
+#+begin_src emacs-lisp :tangle no
   (use-package paredit
     :hook
     ((emacs-lisp-mode
@@ -342,6 +345,12 @@ Quack seems to dislike `racket-mode`.
       racket-mode
       racket-repl-mode
       dune-mode) . paredit-mode))
+#+end_src
+** Smartparens
+#+begin_src emacs-lisp :tangle yes
+  (use-package smartparens
+    :init
+    (require 'smartparens-config))
 #+end_src
 * HTML Mode
 #+begin_src emacs-lisp :tangle yes
@@ -464,6 +473,19 @@ Quack seems to dislike `racket-mode`.
     (add-to-list 'lsp-language-id-configuration '(verilog-mode . "verilog"))
     (setq verilog-tool 'verilog-linter
           verilog-linter "svlint"))
+#+end_src
+* Debugger
+#+begin_src emacs-lisp :tangle yes
+  (use-package dap-mode
+    :init
+    (dap-register-debug-template
+     "Rust::GDB Run Configuration"
+     (list :type "gdb"
+           :request "launch"
+           :name "GDB::Run"
+           :gdbpath "rust-gdb"
+           :target nil
+           :cwd nil)))
 #+end_src
 * Esup
 #+begin_src emacs-lisp :tangle yes

@@ -111,6 +111,7 @@
    '((eval set-fill-column 117)
      (lsp-rust-analyzer-cargo-target "x86_64-unknown-none")
      (lsp-rust-all-targets nil)))
+  (fill-column 97)
   (warning-suppress-types '((direnv)))
   :bind (("C-x C-f" . my-find-file)
          ("C-c r s h" . shrink-window-horizontally)

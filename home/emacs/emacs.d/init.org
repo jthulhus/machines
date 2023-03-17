@@ -137,35 +137,36 @@ Make it automatically create unexistent directories.
 #+end_src
 *** Customize emacs
 #+begin_src emacs-lisp :tangle yes
-  (use-package emacs
-    :init
-    (setq enable-recursive-minibuffers t
-          gc-cons-threshold 104857600	  ; 100mb
-          read-process-output-max 1048576	  ; 1mb
-          backup-by-copying t
-          backup-directory-alist '(("." . "~/backups/emacs/"))
-          delete-old-versions t
-          kept-new-versions 3
-          kept-old-versions 2
-          version-control t)
-    :custom
-    (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
-    (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)
-    (safe-local-variable-values
-     '((eval set-fill-column 117)
-       (lsp-rust-analyzer-cargo-target "x86_64-unknown-none")
-       (lsp-rust-all-targets nil)))
-    (warning-suppress-types '((direnv)))
-    :bind (("C-x C-f" . my-find-file)
-           ("C-c r s h" . shrink-window-horizontally)
-           ("C-c r s v" . shrink-window)
-           ("C-c r e h" . enlarge-window-horizontally)
-           ("C-c r e v" . enlarge-window)
-           ("C-c k" . kill-current-buffer)
-           ("S-<return>" . electric-newline-and-maybe-indent)
-           ("C-z" . nil)
-           ("C-x C-z" . nil)
-           ("M-<return>" . comment-indent-new-line)))
+    (use-package emacs
+      :init
+      (setq enable-recursive-minibuffers t
+            gc-cons-threshold 104857600	  ; 100mb
+            read-process-output-max 1048576	  ; 1mb
+            backup-by-copying t
+            backup-directory-alist '(("." . "~/backups/emacs/"))
+            delete-old-versions t
+            kept-new-versions 3
+            kept-old-versions 2
+            version-control t)
+      :custom
+      (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
+      (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)
+      (safe-local-variable-values
+       '((eval set-fill-column 117)
+         (lsp-rust-analyzer-cargo-target "x86_64-unknown-none")
+         (lsp-rust-all-targets nil)))
+      (fill-column 97)
+      (warning-suppress-types '((direnv)))
+      :bind (("C-x C-f" . my-find-file)
+             ("C-c r s h" . shrink-window-horizontally)
+             ("C-c r s v" . shrink-window)
+             ("C-c r e h" . enlarge-window-horizontally)
+             ("C-c r e v" . enlarge-window)
+             ("C-c k" . kill-current-buffer)
+             ("S-<return>" . electric-newline-and-maybe-indent)
+             ("C-z" . nil)
+             ("C-x C-z" . nil)
+             ("M-<return>" . comment-indent-new-line)))
 #+end_src
 *** Alias DEL and M-DEL
 #+begin_src emacs-lisp :tangle yes

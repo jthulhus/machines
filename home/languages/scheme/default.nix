@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    mitscheme
+    stable.mitscheme
     scheme-manpages
   ];
 }

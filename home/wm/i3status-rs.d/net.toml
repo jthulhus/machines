@@ -1,4 +1,6 @@
 [[block]]
 block = "net"
-format = "{ssid}"
-on_click = "alacritty -e nmtui"
+format_alt = " $icon {$ssid ($signal_strength)|Ethernet}"
+[[block.click]]
+button = "right"
+cmd = "alacritty -e nmtui"

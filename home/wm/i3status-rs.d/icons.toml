@@ -1,7 +1,7 @@
 icons_format = "<span font_family='Font Awesome 6 Free'>{icon}</span> "
 
 [icons]
-name = "awesome6"
+icons = "awesome6"
 [icons.overrides]
 time = ""
 cpu = ""

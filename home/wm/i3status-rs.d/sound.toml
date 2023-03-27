@@ -1,3 +1,5 @@
 [[block]]
 block = "sound"
-on_click = "pavucontrol"
+[[block.click]]
+button = "left"
+cmd = "pavucontrol"

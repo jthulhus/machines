@@ -78,7 +78,7 @@ in
     quote = ''"'';
     theme = ''
 [theme]
-name = ${quote}${config.wm.bar.theme}${quote}
+theme = ${quote}${config.wm.bar.theme}${quote}
 [theme.overrides]
 separator = "<span font_family='FiraCode Nerd Font'>\ue0b2</span>"
 '';

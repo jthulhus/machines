@@ -1,4 +1,4 @@
 [[block]]
 block = "time"
-format = "<span font_family='Font Awesome 6 Free'></span> %d/%m"
+format = "<span font_family='Font Awesome 6 Free'></span> $timestamp.datetime(f:'%e %b', l:fr_FR)"
 interval = 3600

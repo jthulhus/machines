@@ -56,7 +56,7 @@ with lib;
       inherit (builtins) elem;
       inherit (lib) getName mkForce;
       unfreePredicate = pkg: elem (getName pkg) allowedUnfree;
-      allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraft-server" "aseprite" "xkcd-font-unstable" ];
+      allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraft-server" "aseprite" "xkcd-font-unstable" "xkcd-font" ];
     in
     {
       nixpkgs.config.allowUnfreePredicate = unfreePredicate;

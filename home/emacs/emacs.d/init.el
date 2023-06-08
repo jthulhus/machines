@@ -226,7 +226,8 @@
 
 (use-package smartparens
   :init
-  (require 'smartparens-config))
+  (require 'smartparens-config)
+  :hook (prog-mode . smartparens-strict-mode))
 
 (use-package web-mode)
 

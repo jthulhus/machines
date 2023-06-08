@@ -357,7 +357,8 @@ Currently not used
 #+begin_src emacs-lisp :tangle yes
   (use-package smartparens
     :init
-    (require 'smartparens-config))
+    (require 'smartparens-config)
+    :hook (prog-mode . smartparens-strict-mode))
 #+end_src
 * HTML Mode
 #+begin_src emacs-lisp :tangle yes

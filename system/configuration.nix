@@ -9,6 +9,7 @@ in
     ./boot
     ./cachix.nix
     ./dbus
+    ./docker
     ./ecryptfs
     ./evscript
     ./firewall

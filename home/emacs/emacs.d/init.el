@@ -8,8 +8,7 @@
 (setq default-frame-alist '((undecorated . t))
       menu-bar-mode nil
       scroll-bar-mode nil
-      tool-bar-mode nil
-      indent-tabs-mode nil)
+      tool-bar-mode nil)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -105,6 +104,7 @@
         kept-new-versions 3
         kept-old-versions 2
         version-control t)
+  (setq-default indent-tabs-mode nil)
   :custom
   (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
   (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)

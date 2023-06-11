@@ -14,10 +14,10 @@ let
     nixpkgs.overlays = overlays;
     nix = {
       registry = {
-        beanspkgs = {
+        jpkgs = {
           from = {
             type = "indirect";
-            id = "beanspkgs";
+            id = "jpkgs";
           };
           flake = nixpkgs;
         };

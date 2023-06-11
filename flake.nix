@@ -2,8 +2,8 @@
   description = "Full BB configuration.";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    nixpkgs-stable.url = github:nixos/nixpkgs/nixos-22.11;
+    nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
+    nixpkgs-stable.url = github:nixos/nixpkgs/nixos-23.05;
     homeManager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";

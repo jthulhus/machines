@@ -10,7 +10,7 @@
     enable = true;
     package = with pkgs; emacsWithPackagesFromUsePackage {
       config = ./emacs.d/init.org;
-      package = emacsPgtk;
+      package = emacs-pgtk;
       alwaysEnsure = true;
       extraEmacsPackages = epkgs: with epkgs; [
         use-package
@@ -30,7 +30,7 @@
   home.packages = with pkgs; [
     # LaTeX
     # auctex
-    texlive.combined.scheme-full
+    # texlive.combined.scheme-full
     pandoc
 
     # Python

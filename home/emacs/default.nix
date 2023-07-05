@@ -30,7 +30,7 @@
   home.packages = with pkgs; [
     # LaTeX
     # auctex
-    # texlive.combined.scheme-full
+    texlive.combined.scheme-full
     pandoc
 
     # Python

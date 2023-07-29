@@ -8,7 +8,6 @@
   home.packages = with pkgs; [
     bat
     cloc
-    elinks
     file
     imv
     isc
@@ -17,6 +16,8 @@
     neofetch
     nix-index
     poppler_utils
+    pdftk
+    zulip
     ripgrep
     tldr
     tree

@@ -92,9 +92,12 @@ bindsym $win_mod+Shift+right move right
 bindsym $win_mod+Shift+down move down
 bindsym $win_mod+Shift+left move left
 
+bindsym $win_mod+z exec passmenu
+
 set $print_mode "Screenshot (a)rea a(c)tive (w)indow (o)utput"
 
 bindsym Print mode $print_mode
+bindsym XF86Tools mode $print_mode
 
 mode $print_mode {
   bindsym a exec grimshot save area - | swappy -f -, mode "default"

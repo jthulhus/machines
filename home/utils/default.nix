@@ -20,6 +20,7 @@
     zulip
     ripgrep
     tldr
+    trashy
     tree
     # unoconv                     # Fuck libreoffice
     unzip

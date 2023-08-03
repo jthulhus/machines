@@ -15,6 +15,7 @@
       vi = "emacsclient --nw";
       nano = "emacsclient -nw";
       vim = "emacsclient --nw";
+      t = "trash put";
     };
     shellOptions = [ "histappend" "checkwinsize" "globstar" ];
     initExtra = ''

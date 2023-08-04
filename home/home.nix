@@ -36,6 +36,7 @@ with lib;
     ./wifi
     ./wm
     ./xdg
+    ./yubikey
   ];
 
   options = {

@@ -15,6 +15,7 @@ in
     ./fonts
     ./fs
     ./git
+    ./gpg
     ./gpu
     ./greeter
     ./layouts

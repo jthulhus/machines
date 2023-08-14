@@ -3,6 +3,10 @@
     enable = true;
     userName = "jthulhu";
     userEmail = "adrien.lc.mathieu@gmail.com";
+    signing = {
+      signByDefault = true;
+      key = null;
+    };
     aliases = {
       co = "checkout";
       st = "status";

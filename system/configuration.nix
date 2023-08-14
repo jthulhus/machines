@@ -72,7 +72,10 @@ in
     };
 
     services = {
-      printing.enable = true;
+      printing = {
+        enable = true;
+        drivers = with pkgs; [ hplip ];
+      };
     };
 
     system.stateVersion = "20.09";

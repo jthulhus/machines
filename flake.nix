@@ -60,6 +60,10 @@
           inherit overlays;
           hostname = "cthulhu";
         } nixpkgs;
+        "adri@rlyeh" = lib.mkHome {
+          inherit overlays;
+          hostname = "rlyeh";
+        } nixpkgs;
       };
       nixosConfigurations = {
         dragonbreath = lib.mkSystem {
@@ -68,6 +72,10 @@
         } nixpkgs;
         cthulhu = lib.mkSystem {
           hostname = "cthulhu";
+          overlays = commonOverlays;
+        } nixpkgs;
+        rlyeh = lib.mkSystem {
+          hostname = "rlyeh";
           overlays = commonOverlays;
         } nixpkgs;
       };

@@ -1,6 +1,6 @@
 [[block]]
 block = "battery"
 # driver = "upower"
-device = "BAT1"
+device = "@battery-device@"
 interval = 15
 # format = " {percentage}"

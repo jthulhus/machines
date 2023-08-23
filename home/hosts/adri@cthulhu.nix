@@ -6,4 +6,5 @@
       gpu.enable = false;
     };
   };
+  my.battery-device = "BAT1";
 }

@@ -9,5 +9,6 @@ in {
     inherit locate;
     localuser = null;
     enable = true;
+    interval = "hourly";
   };
 }

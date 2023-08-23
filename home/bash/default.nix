@@ -1,5 +1,8 @@
-{ pkgs, ... }:
-{
+{ pkgs, config, ... }:
+let
+  em-directory = "${config.home.homeDirectory}/em";
+  private-locate-db = "${em-directory}/.plocate.db";
+in {
   home.packages = with pkgs; [
     isgit
   ];
@@ -16,6 +19,7 @@
       nano = "emacsclient -nw";
       vim = "emacsclient --nw";
       t = "trash put";
+      udb = "updatedb -l no -o ${private-locate-db} -U ${em-directory}";
     };
     shellOptions = [ "histappend" "checkwinsize" "globstar" ];
     initExtra = ''
@@ -25,6 +29,7 @@ fi
 '' + (builtins.readFile ./make_prompt.sh);
     sessionVariables = {
       CALIBRE_USE_DARK_PALETTE = 1;
+      LOCATE_PATH=private-locate-db;
     };
   };
 }

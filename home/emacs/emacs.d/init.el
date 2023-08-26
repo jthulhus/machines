@@ -300,6 +300,8 @@
   (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
   (put 'j-conjunction-face 'face-alias 'j-adverb-face))
 
+(use-package yuck-mode)
+
 ;; (use-package prolog)
 (use-package ediprolog)
 

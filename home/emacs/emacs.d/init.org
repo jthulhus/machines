@@ -458,6 +458,10 @@ Currently not used
     (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
     (put 'j-conjunction-face 'face-alias 'j-adverb-face))
 #+end_src
+* Yuck
+#+begin_src emacs-lisp :tangle yes
+  (use-package yuck-mode)
+#+end_src
 * Prolog
 #+begin_src emacs-lisp :tangle yes
   ;; (use-package prolog)

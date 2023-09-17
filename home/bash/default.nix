@@ -29,7 +29,7 @@ fi
 '' + (builtins.readFile ./make_prompt.sh);
     sessionVariables = {
       CALIBRE_USE_DARK_PALETTE = 1;
-      LOCATE_PATH=private-locate-db;
+      LOCATE_PATH = private-locate-db;
     };
   };
 }

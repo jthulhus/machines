@@ -147,7 +147,10 @@ Make it automatically create unexistent directories.
           delete-old-versions t
           kept-new-versions 3
           kept-old-versions 2
-          version-control t)
+          version-control t
+          custom-file (concat user-emacs-directory "custom.el"))
+    (when (file-exists-p custom-file)
+      (load custom-file))
     (setq-default indent-tabs-mode nil)
     :custom
     (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)

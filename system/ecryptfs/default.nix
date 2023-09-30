@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     ecryptfs
-    ecryptfs-helper
+    # ecryptfs-helper
   ];
 
   boot.kernelModules = [

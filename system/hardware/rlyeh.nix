@@ -10,15 +10,17 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/29e6d5f9-78a2-4f1a-9301-5c719e856d9b";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
   };
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/6dfb3134-968a-48d1-97ac-12da86cb698a";
+    device = "/dev/disk/by-label/boot";
     fsType = "ext4";
   };
 
-  swapDevices = [ ];
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

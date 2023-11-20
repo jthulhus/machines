@@ -82,6 +82,7 @@ include "%L"
 <Multi_key> <m> <Q>			: "ℚ"	U211A	# DOUBLE STRUCK CAPITAL Q
 <Multi_key> <m> <s> <u> <m>             : "Σ"           # CAPITAL SIGMA
 <Multi_key> <m> <n> <a> <b>		: "∇"   UE2207  # NABLA
+<Multi_key> <q> <e> <d>                 : "□"           # Q.E.D. SYMBOL
 
 # Chinese pinyin tones
 # ~~~~~~~~~~~~~~~~~~~~

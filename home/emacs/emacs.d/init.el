@@ -170,6 +170,13 @@
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
 
+(use-package tree-sitter
+  :after tree-sitter-lang
+  :init
+  (global-tree-sitter-mode))
+
+(use-package tree-sitter-langs)
+
 (use-package beans)
 
 (use-package rustic
@@ -227,13 +234,6 @@
 
 (use-package scheme-complete)
 
-(use-package smartparens
-  :init
-  (require 'smartparens-config)
-  :hook (prog-mode . smartparens-strict-mode))
-
-(use-package web-mode)
-
 (autoload 'bash-completion-dynamic-complete
   "bash completion"
   "BASH completion hook")
@@ -245,10 +245,6 @@
 (use-package load-bash-alias
   :config
   (setq load-bash-alias-bashrc-file "~/.bashrc"))
-
-(add-to-list 'load-path "~/.emacs.d/llvm-mode")
-(require 'llvm-mode)
-(require 'tablegen-mode)
 
 (use-package tex
   :mode ("\\.tex\\'" . latex-mode)
@@ -311,6 +307,19 @@
 (use-package proof-general)
 (use-package company-coq
   :hook coq-mode)
+
+(use-package lean)
+
+(use-package smartparens
+  :init
+  (require 'smartparens-config)
+  :hook (prog-mode . smartparens-strict-mode))
+
+(use-package web-mode)
+
+(add-to-list 'load-path "~/.emacs.d/llvm-mode")
+(require 'llvm-mode)
+(require 'tablegen-mode)
 
 (use-package verilog-mode
   :after lsp-mode

@@ -233,24 +233,34 @@ of the previous command on <C-x C-o>...
   (use-package flycheck
     :hook (rustic-mode tuareg-mode elisp-mode))
 #+end_src
-* Beans
+* Tree sitter
+#+begin_src emacs-lisp :tangle yes
+  (use-package tree-sitter
+    :after tree-sitter-lang
+    :init
+    (global-tree-sitter-mode))
+
+  (use-package tree-sitter-langs)
+#+end_src
+* Programming languages
+** Beans
 #+begin_src emacs-lisp :tangle yes
   (use-package beans)
 #+end_src
-* Rust
-** Rustic
+** Rust
+*** Rustic
 #+begin_src emacs-lisp :tangle yes
   (use-package rustic
     :after rust-mode)
 #+end_src
-** Flycheck rust
+*** Flycheck rust
 #+begin_src emacs-lisp :tangle yes
   (use-package flycheck-rust
     :commands flycheck-rust-setup
     :hook (flycheck-mode . flycheck-rust-setup))
 #+end_src
-* Python
-** Setup the `ipython3` interpreter
+** Python
+*** Setup the `ipython3` interpreter
 #+begin_src emacs-lisp :tangle yes
   (use-package python
     :mode ("\\.py\\'" . python-mode)
@@ -265,7 +275,7 @@ of the previous command on <C-x C-o>...
     (python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n")
     (python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"))
 #+end_src
-** Setup the LSP server
+*** Setup the LSP server
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-pyright
     :hook
@@ -275,18 +285,18 @@ of the previous command on <C-x C-o>...
          (lsp)))
     :defer t)
 #+end_src
-* OCaml
-** OCP indent
+** OCaml
+*** OCP indent
 #+begin_src emacs-lisp :tangle yes
   (use-package ocp-indent
     :init
     (setq byte-compile-warnings '(not cl-functions)))
 #+end_src
-** Opam
+*** Opam
 #+begin_src emacs-lisp :tangle yes
   (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
 #+end_src
-** Tuareg
+*** Tuareg
 #+begin_src emacs-lisp :tangle yes
   (use-package tuareg
     :mode
@@ -294,7 +304,7 @@ of the previous command on <C-x C-o>...
     ("\\.mli\\'" . tuareg-mode)
     ("\\.mly\\'" . tuareg-menhir-mode))
 #+end_src
-** Utop
+*** Utop
 #+begin_src emacs-lisp :tangle yes
   (use-package utop
     :hook (tuareg-mode . utop-minor-mode)
@@ -302,7 +312,7 @@ of the previous command on <C-x C-o>...
     (setq utop-edit-command nil
           utop-command "dune utop . -- -emacs"))
 #+end_src
-** Merlin
+*** Merlin
 #+begin_src emacs-lisp :tangle no
   (use-package merlin
     :hook
@@ -310,35 +320,142 @@ of the previous command on <C-x C-o>...
     (merlin-mode . company-mode)
     :custom (merlin-command "ocamlmerlin"))
 #+end_src
-** Dune
+*** Dune
 #+begin_src emacs-lisp :tangle yes
   (use-package dune)
 #+end_src
-* Haskell
+** Haskell
 #+begin_src emacs-lisp :tangle no
   (use-package lsp-haskell)
 #+end_src
-* Lisp
-** Racket
+** Lisp
+*** Racket
 #+begin_src emacs-lisp :tangle yes
   (use-package racket-mode
     :hook racket-xp-mode
     :init
     (add-to-list 'auto-mode-alist '("\\.rkt\\'" . racket-mode)))
  #+end_src
-** Scheme
+*** Scheme
 #+begin_src emacs-lisp :tangle yes
   (use-package scheme-complete)
 #+end_src
-** Geiser
+*** Geiser
 Geiser seems to be broken for now.
 #+begin_src emacs-lisp :tangle no
   (use-package geiser-mit)
 #+end_src
-** Quack
+*** Quack
 Quack seems to dislike `racket-mode`.
 #+begin_src emacs-lisp :tangle no
   (use-package quack)
+#+end_src
+** Bash
+*** Bash completion
+#+begin_src emacs-lisp :tangle yes 
+  (autoload 'bash-completion-dynamic-complete
+    "bash completion"
+    "BASH completion hook")
+
+  (use-package bash-completion
+    :init
+    (add-hook 'shell-dynamic-complete-functions 'bash-completion-dynamic-complete))
+#+end_src
+*** Load Bash aliases
+#+begin_src emacs-lisp :tangle yes 
+  (use-package load-bash-alias
+    :config
+    (setq load-bash-alias-bashrc-file "~/.bashrc"))
+#+end_src
+** LaTeX
+*** AUCTeX
+#+begin_src emacs-lisp :tangle yes
+  (use-package tex
+    :mode ("\\.tex\\'" . latex-mode)
+    :hook ((LaTeX-mode . (lambda () (run-hooks 'prog-mode-hook)))
+           (LaTeX-mode . flyspell-mode))
+    :ensure auctex
+    :custom
+    (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
+  \\|\\While\\b\\|\\Loop\\b")
+    (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
+  \\EndLoop\\b")
+    (LaTeX-command "latex -shell-escape"))
+  (use-package company-auctex
+    :hook (LaTeX-mode . company-mode)
+    :init
+    (company-auctex-init))
+#+end_src
+*** Latex
+#+begin_src emacs-lisp :tangle no
+  (setq LaTeX-command "latex -shell-escape")
+  (add-hook 'latex-mode-hook 'display-line-numbers-mode)
+#+end_src
+** Markdown
+*** Pandoc
+#+begin_src emacs-lisp :tangle yes
+  (use-package pandoc-mode
+    :commands pandoc-load-default-settings
+    :hook markdown-mode
+    (pandoc-mode . pandoc-load-default-settings))
+#+end_src
+** Nix
+*** Nix mode
+#+begin_src emacs-lisp :tangle yes 
+  (use-package nix-mode
+    :after (lsp-mode flycheck)
+    :init
+    (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                      :major-modes '(nix-mode)
+                      :server-id 'nix))
+    :config
+    (diminish 'flycheck-mode)
+    (define-key nix-mode-map (kbd "C-c n") #'helm-nixos-options))
+#+end_src
+*** Direnv
+#+begin_src emacs-lisp :tangle yes
+  (use-package direnv
+    :commands direnv-update-environment
+    :hook (prog-mode . direnv-update-environment)
+    :config
+    (direnv-mode)
+    :custom
+    (direnv-always-show-summary nil))
+#+end_src
+** J
+#+begin_src emacs-lisp :tangle yes
+  (use-package j-mode
+    :mode "\\.ijs\\'"
+    :hook (j-mode . (lambda ()
+                      (run-hooks 'prog-mode-hook)
+                      (rainbow-delimiters-mode-disable)))
+    :config
+    (setq j-console-cmd "jconsole")
+    (put 'j-other-face 'face-alias 'font-lock-keyword-face)
+    (put 'j-verb-face 'face-alias 'font-lock-keyword-face)
+    (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
+    (put 'j-conjunction-face 'face-alias 'j-adverb-face))
+#+end_src
+** Yuck
+#+begin_src emacs-lisp :tangle yes
+  (use-package yuck-mode)
+#+end_src
+** Prolog
+#+begin_src emacs-lisp :tangle yes
+  ;; (use-package prolog)
+  (use-package ediprolog)
+#+end_src
+** Coq
+#+begin_src emacs-lisp :tangle yes
+  (use-package proof-general)
+  (use-package company-coq
+    :hook coq-mode)
+#+end_src
+** Lean
+#+begin_src emacs-lisp :tangle yes
+  (use-package lean)
 #+end_src
 * Parenthesis balencing
 ** Paredit
@@ -367,114 +484,11 @@ Currently not used
 #+begin_src emacs-lisp :tangle yes
   (use-package web-mode)
 #+end_src
-* Bash
-** Bash completion
-#+begin_src emacs-lisp :tangle yes 
-  (autoload 'bash-completion-dynamic-complete
-    "bash completion"
-    "BASH completion hook")
-
-  (use-package bash-completion
-    :init
-    (add-hook 'shell-dynamic-complete-functions 'bash-completion-dynamic-complete))
-#+end_src
-** Load Bash aliases
-#+begin_src emacs-lisp :tangle yes 
-  (use-package load-bash-alias
-    :config
-    (setq load-bash-alias-bashrc-file "~/.bashrc"))
-#+end_src
 * LLVM
 #+begin_src emacs-lisp :tangle yes
   (add-to-list 'load-path "~/.emacs.d/llvm-mode")
   (require 'llvm-mode)
   (require 'tablegen-mode)
-#+end_src
-* LaTeX
-** AUCTeX
-#+begin_src emacs-lisp :tangle yes
-  (use-package tex
-    :mode ("\\.tex\\'" . latex-mode)
-    :hook ((LaTeX-mode . (lambda () (run-hooks 'prog-mode-hook)))
-           (LaTeX-mode . flyspell-mode))
-    :ensure auctex
-    :custom
-    (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
-  \\|\\While\\b\\|\\Loop\\b")
-    (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
-  \\EndLoop\\b")
-    (LaTeX-command "latex -shell-escape"))
-  (use-package company-auctex
-    :hook (LaTeX-mode . company-mode)
-    :init
-    (company-auctex-init))
-#+end_src
-** Latex
-#+begin_src emacs-lisp :tangle no
-  (setq LaTeX-command "latex -shell-escape")
-  (add-hook 'latex-mode-hook 'display-line-numbers-mode)
-#+end_src
-* Markdown
-** Pandoc
-#+begin_src emacs-lisp :tangle yes
-  (use-package pandoc-mode
-    :commands pandoc-load-default-settings
-    :hook markdown-mode
-    (pandoc-mode . pandoc-load-default-settings))
-#+end_src
-* Nix
-** Nix mode
-#+begin_src emacs-lisp :tangle yes 
-  (use-package nix-mode
-    :after (lsp-mode flycheck)
-    :init
-    (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                      :major-modes '(nix-mode)
-                      :server-id 'nix))
-    :config
-    (diminish 'flycheck-mode)
-    (define-key nix-mode-map (kbd "C-c n") #'helm-nixos-options))
-#+end_src
-** Direnv
-#+begin_src emacs-lisp :tangle yes
-  (use-package direnv
-    :commands direnv-update-environment
-    :hook (prog-mode . direnv-update-environment)
-    :config
-    (direnv-mode)
-    :custom
-    (direnv-always-show-summary nil))
-#+end_src
-* J
-#+begin_src emacs-lisp :tangle yes
-  (use-package j-mode
-    :mode "\\.ijs\\'"
-    :hook (j-mode . (lambda ()
-                      (run-hooks 'prog-mode-hook)
-                      (rainbow-delimiters-mode-disable)))
-    :config
-    (setq j-console-cmd "jconsole")
-    (put 'j-other-face 'face-alias 'font-lock-keyword-face)
-    (put 'j-verb-face 'face-alias 'font-lock-keyword-face)
-    (put 'j-adverb-face 'face-alias 'font-lock-preprocessor-face)
-    (put 'j-conjunction-face 'face-alias 'j-adverb-face))
-#+end_src
-* Yuck
-#+begin_src emacs-lisp :tangle yes
-  (use-package yuck-mode)
-#+end_src
-* Prolog
-#+begin_src emacs-lisp :tangle yes
-  ;; (use-package prolog)
-  (use-package ediprolog)
-#+end_src
-* Coq
-#+begin_src emacs-lisp :tangle yes
-  (use-package proof-general)
-  (use-package company-coq
-    :hook coq-mode)
 #+end_src
 * System Verilog
 #+begin_src emacs-lisp :tangle yes

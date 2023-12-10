@@ -308,12 +308,14 @@
 (use-package company-coq
   :hook coq-mode)
 
-(use-package lean)
+(use-package lean4-mode)
+
+(use-package prog-mode)
 
 (use-package smartparens
   :init
   (require 'smartparens-config)
-  :hook (prog-mode . smartparens-strict-mode))
+  :hook ((emacs-lisp-mode racket-mode) . smartparens-strict-mode))
 
 (use-package web-mode)
 

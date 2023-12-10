@@ -15,6 +15,26 @@
       extraEmacsPackages = epkgs: with epkgs; [
         use-package
         zenburn-theme
+        (melpaBuild {
+          pname = "lean4-mode";
+          version = "1";
+          commit = "1";
+          src = pkgs.lean4-mode;
+          packageRequires = with melpaPackages; [
+            dash
+            f
+            flycheck
+            magit-section
+            lsp-mode
+            s
+          ];
+          recipe = writeText "recipe" ''
+            (lean4-mode
+              :repo "leanprover/lean4-mode"
+              :fetcher github
+              :files ("*.el" "data"))
+          '';
+        })
       ];
     };
   };

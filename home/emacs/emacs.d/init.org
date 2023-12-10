@@ -1,6 +1,6 @@
 #+title: Emacs init file
 #+author: jthulhu
-#+startup: indent
+#+startup: indent, overview
 
 My Emacs init.org file
 * Repositories
@@ -455,7 +455,11 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 ** Lean
 #+begin_src emacs-lisp :tangle yes
-  (use-package lean)
+  (use-package lean4-mode)
+#+end_src
+** Prog mode
+#+begin_src emacs-lisp :tangle yes
+  (use-package prog-mode)
 #+end_src
 * Parenthesis balencing
 ** Paredit
@@ -478,7 +482,7 @@ Currently not used
   (use-package smartparens
     :init
     (require 'smartparens-config)
-    :hook (prog-mode . smartparens-strict-mode))
+    :hook ((emacs-lisp-mode racket-mode) . smartparens-strict-mode))
 #+end_src
 * HTML Mode
 #+begin_src emacs-lisp :tangle yes

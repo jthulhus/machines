@@ -79,6 +79,22 @@
         "type": "github"
       }
     },
+    "lean4-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689286482,
+        "narHash": "sha256-tD5Ysa24fMIS6ipFc50OjabZEUge4riSb7p4BR05ReQ=",
+        "owner": "leanprover",
+        "repo": "lean4-mode",
+        "rev": "d1c936409ade7d93e67107243cbc0aa55cda7fd5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leanprover",
+        "repo": "lean4-mode",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1696019113,
@@ -148,6 +164,7 @@
         "emacsOverlay": "emacsOverlay",
         "homeManager": "homeManager",
         "isc": "isc",
+        "lean4-mode": "lean4-mode",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable_2"
       }

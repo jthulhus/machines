@@ -1,6 +1,6 @@
 { pkgs, ... }: {
-  services.xserver.layout = "bsk";
-  services.xserver.extraLayouts = {
+  services.xserver.xkb.layout = "bsk";
+  services.xserver.xkb.extraLayouts = {
     bsk = {
       description = "BB Switch";
       symbolsFile = ./bsk;

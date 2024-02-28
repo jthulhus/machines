@@ -6,7 +6,7 @@ in {
     locate
   ];
   services.locate = {
-    inherit locate;
+    package = locate;
     localuser = null;
     enable = true;
     interval = "hourly";

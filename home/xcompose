@@ -76,13 +76,72 @@ include "%L"
 <Multi_key> <m> <4> <r> <t>		: "∜"		# FORTH ROOT
 <Multi_key> <m> <i> <n> <t>		: "∫"		# INTEGRAL
 <Multi_key> <m> <i> <n> <period>	: "∈"		# ELEMENT OF
-<Multi_key> <m> <R>                     : "ℝ"   U211D   # DOUBLE STRUCK CAPITAL R
-<Multi_key> <m> <N>			: "ℕ"   U2115	# DOUBLE STRUCK CAPITAL N
-<Multi_key> <m> <Z>			: "ℤ"	U2124	# DOUBLE STRUCK CAPITAL Z
-<Multi_key> <m> <Q>			: "ℚ"	U211A	# DOUBLE STRUCK CAPITAL Q
 <Multi_key> <m> <s> <u> <m>             : "Σ"           # CAPITAL SIGMA
 <Multi_key> <m> <n> <a> <b>		: "∇"   UE2207  # NABLA
 <Multi_key> <q> <e> <d>                 : "□"           # Q.E.D. SYMBOL
+<Multi_key> <b> <a>                     : "𝕒"   U1D552  # MATHBB SMALL A
+<Multi_key> <b> <b>                     : "𝕓"   U1D553  # MATHBB SMALL X
+<Multi_key> <b> <c>                     : "𝕔"   U1D554  # MATHBB SMALL X
+<Multi_key> <b> <d>                     : "𝕕"   U1D555  # MATHBB SMALL X
+<Multi_key> <b> <e>                     : "𝕖"   U1D556  # MATHBB SMALL X
+<Multi_key> <b> <f>                     : "𝕗"   U1D557  # MATHBB SMALL X
+<Multi_key> <b> <g>                     : "𝕘"   U1D558  # MATHBB SMALL X
+<Multi_key> <b> <h>                     : "𝕙"   U1D559  # MATHBB SMALL X
+<Multi_key> <b> <i>                     : "𝕚"   U1D55A  # MATHBB SMALL X
+<Multi_key> <b> <j>                     : "𝕛"   U1D55B  # MATHBB SMALL X
+<Multi_key> <b> <k>                     : "𝕜"   U1D55C  # MATHBB SMALL X
+<Multi_key> <b> <l>                     : "𝕝"   U1D55D  # MATHBB SMALL X
+<Multi_key> <b> <m>                     : "𝕞"   U1D55E  # MATHBB SMALL X
+<Multi_key> <b> <n>                     : "𝕟"   U1D55F  # MATHBB SMALL X
+<Multi_key> <b> <o>                     : "𝕠"   U1D560  # MATHBB SMALL X
+<Multi_key> <b> <p>                     : "𝕡"   U1D561  # MATHBB SMALL X
+<Multi_key> <b> <q>                     : "𝕢"   U1D562  # MATHBB SMALL X
+<Multi_key> <b> <r>                     : "𝕣"   U1D563  # MATHBB SMALL X
+<Multi_key> <b> <s>                     : "𝕤"   U1D564  # MATHBB SMALL X
+<Multi_key> <b> <t>                     : "𝕥"   U1D565  # MATHBB SMALL X
+<Multi_key> <b> <u>                     : "𝕦"   U1D566  # MATHBB SMALL X
+<Multi_key> <b> <v>                     : "𝕧"   U1D567  # MATHBB SMALL X
+<Multi_key> <b> <w>                     : "𝕨"   U1D568  # MATHBB SMALL X
+<Multi_key> <b> <x>                     : "𝕩"   U1D569  # MATHBB SMALL X
+<Multi_key> <b> <y>                     : "𝕪"   U1D57A  # MATHBB SMALL X
+<Multi_key> <b> <z>                     : "𝕫"   U1D57B  # MATHBB SMALL 
+<Multi_key> <b> <A>                     : "𝔸"   U1D538  # MATHBB SMALL A
+<Multi_key> <b> <B>                     : "𝔹"   U1D539  # MATHBB SMALL X
+<Multi_key> <b> <C>                     : "ℂ"   U2102  # MATHBB SMALL X
+<Multi_key> <b> <D>                     : "𝔻"   U1D53B  # MATHBB SMALL X
+<Multi_key> <b> <E>                     : "𝔼"   U1D53C  # MATHBB SMALL X
+<Multi_key> <b> <F>                     : "𝔽"   U1D53D  # MATHBB SMALL X
+<Multi_key> <b> <G>                     : "𝔾"   U1D53E  # MATHBB SMALL X
+<Multi_key> <b> <H>                     : "ℍ"   U210D  # MATHBB SMALL X
+<Multi_key> <b> <I>                     : "𝕀"   U1D540  # MATHBB SMALL X
+<Multi_key> <b> <J>                     : "𝕁"   U1D541  # MATHBB SMALL X
+<Multi_key> <b> <K>                     : "𝕂"   U1D542  # MATHBB SMALL X
+<Multi_key> <b> <L>                     : "𝕃"   U1D543  # MATHBB SMALL X
+<Multi_key> <b> <M>                     : "𝕄"   U1D544  # MATHBB SMALL X
+<Multi_key> <b> <N>                     : "ℕ"   U2115  # MATHBB SMALL X
+<Multi_key> <b> <O>                     : "𝕆"   U1D546  # MATHBB SMALL X
+<Multi_key> <b> <P>                     : "ℙ"   U2119  # MATHBB SMALL X
+<Multi_key> <b> <Q>                     : "ℚ"   U211A  # MATHBB SMALL X
+<Multi_key> <b> <R>                     : "ℝ"   U211D  # MATHBB SMALL X
+<Multi_key> <b> <S>                     : "𝕊"   U1D54A  # MATHBB SMALL X
+<Multi_key> <b> <T>                     : "𝕋"   U1D54B  # MATHBB SMALL X
+<Multi_key> <b> <U>                     : "𝕌"   U1D54C  # MATHBB SMALL X
+<Multi_key> <b> <V>                     : "𝕍"   U1D54D  # MATHBB SMALL X
+<Multi_key> <b> <W>                     : "𝕎"   U1D54E  # MATHBB SMALL X
+<Multi_key> <b> <X>                     : "𝕏"   U1D54F  # MATHBB SMALL X
+<Multi_key> <b> <Y>                     : "𝕐"   U1D550  # MATHBB SMALL X
+<Multi_key> <b> <Z>                     : "ℤ"   U2124  # MATHBB SMALL X
+<Multi_key> <b> <0>                     : "𝟘"    U1D7D8
+<Multi_key> <b> <1>                     : "𝟙"    U1D7D9
+<Multi_key> <b> <2>                     : "𝟚"    U1D7DA
+<Multi_key> <b> <3>                     : "𝟛"    U1D7DB
+<Multi_key> <b> <4>                     : "𝟜"    U1D7DC
+<Multi_key> <b> <5>                     : "𝟝"    U1D7DD
+<Multi_key> <b> <6>                     : "𝟞"    U1D7DE
+<Multi_key> <b> <7>                     : "𝟟"    U1D7DF
+<Multi_key> <b> <8>                     : "𝟠"    U1D7E0
+<Multi_key> <b> <9>                     : "𝟡"    U1D7E1
+
 
 # Chinese pinyin tones
 # ~~~~~~~~~~~~~~~~~~~~

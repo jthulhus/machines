@@ -6,6 +6,7 @@ in
 {
   imports = [
     ./bash
+    ./bluetooth
     ./boot
     ./cachix.nix
     ./dbus

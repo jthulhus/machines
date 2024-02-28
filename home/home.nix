@@ -92,14 +92,15 @@ with lib;
           XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
         };
       };
-      qt = {
-        enable = true;
-        platformTheme = "gtk";
-        style = {
-          name = "adwaita-dark";
-          package = pkgs.adwaita-qt;
-        };
-      };
+      
+      # qt = {
+      #   enable = true;
+      #   platformTheme = "gtk";
+      #   style = {
+      #     name = "adwaita-dark";
+      #     package = pkgs.adwaita-qt;
+      #   };
+      # };
 
       gtkBookmarks = [
         "prog"

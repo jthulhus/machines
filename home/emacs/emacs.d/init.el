@@ -312,13 +312,6 @@
 
 (use-package prog-mode)
 
-(use-package smartparens
-  :init
-  (require 'smartparens-config)
-  :hook ((emacs-lisp-mode racket-mode) . smartparens-strict-mode))
-
-(use-package web-mode)
-
 (add-to-list 'load-path "~/.emacs.d/llvm-mode")
 (require 'llvm-mode)
 (require 'tablegen-mode)
@@ -333,6 +326,15 @@
   (add-to-list 'lsp-language-id-configuration '(verilog-mode . "verilog"))
   (setq verilog-tool 'verilog-linter
         verilog-linter "svlint"))
+
+(use-package kbd-mode)
+
+(use-package smartparens
+  :init
+  (require 'smartparens-config)
+  :hook ((emacs-lisp-mode racket-mode) . smartparens-strict-mode))
+
+(use-package web-mode)
 
 (use-package dap-mode
   :init

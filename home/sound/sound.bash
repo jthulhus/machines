@@ -75,6 +75,7 @@ case $1 in
     down) down;;
     show) show_current;;
     mute) mute;;
+    muted) muted;;
     mic) mute_mic;;
     get) current;;
 esac

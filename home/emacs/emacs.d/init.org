@@ -461,6 +461,29 @@ Quack seems to dislike `racket-mode`.
 #+begin_src emacs-lisp :tangle yes
   (use-package prog-mode)
 #+end_src
+** LLVM
+#+begin_src emacs-lisp :tangle yes
+  (add-to-list 'load-path "~/.emacs.d/llvm-mode")
+  (require 'llvm-mode)
+  (require 'tablegen-mode)
+#+end_src
+** System Verilog
+#+begin_src emacs-lisp :tangle yes
+  (use-package verilog-mode
+    :after lsp-mode
+    :config
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("svls"))
+                      :major-modes '(verilog-mode)
+                      :priority -1))
+    (add-to-list 'lsp-language-id-configuration '(verilog-mode . "verilog"))
+    (setq verilog-tool 'verilog-linter
+          verilog-linter "svlint"))
+#+end_src
+** kbd
+#+begin_src emacs-lisp :tangle yes
+  (use-package kbd-mode)
+#+end_src
 * Parenthesis balencing
 ** Paredit
 Currently not used
@@ -487,25 +510,6 @@ Currently not used
 * HTML Mode
 #+begin_src emacs-lisp :tangle yes
   (use-package web-mode)
-#+end_src
-* LLVM
-#+begin_src emacs-lisp :tangle yes
-  (add-to-list 'load-path "~/.emacs.d/llvm-mode")
-  (require 'llvm-mode)
-  (require 'tablegen-mode)
-#+end_src
-* System Verilog
-#+begin_src emacs-lisp :tangle yes
-  (use-package verilog-mode
-    :after lsp-mode
-    :config
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-stdio-connection '("svls"))
-                      :major-modes '(verilog-mode)
-                      :priority -1))
-    (add-to-list 'lsp-language-id-configuration '(verilog-mode . "verilog"))
-    (setq verilog-tool 'verilog-linter
-          verilog-linter "svlint"))
 #+end_src
 * Debugger
 #+begin_src emacs-lisp :tangle yes

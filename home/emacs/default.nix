@@ -16,6 +16,19 @@
         use-package
         zenburn-theme
         (melpaBuild {
+          pname = "kbd-mode";
+          version = "1";
+          commit = "1";
+          src = pkgs.kbd-mode;
+          packageRequires = [];
+          recipe = writeText "recipe" ''
+            (kbd-mode
+              :repo "kmonad/kbd-mode"
+              :fetcher github
+              :files ("*.el"))
+          '';
+        })
+        (melpaBuild {
           pname = "lean4-mode";
           version = "1";
           commit = "1";

@@ -1,12 +1,12 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     ecryptfs
-    ecryptfs-helper
+    # ecryptfs-helper
   ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "python-2.7.18.7"           # Thanks, ecryptfs-helper...
-  ];
+  # nixpkgs.config.permittedInsecurePackages = [
+  #   "python-2.7.18.7"           # Thanks, ecryptfs-helper...
+  # ];
 
   boot.kernelModules = [
     "ecryptfs"

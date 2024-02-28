@@ -19,7 +19,6 @@ input type:touchpad {
 
 seat * {
   hide_cursor when-typing enable
-  idle_wake keyboard
 }
 
 # Idle screenlocker

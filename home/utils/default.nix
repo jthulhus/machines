@@ -12,7 +12,7 @@
     imv
     isc
     jq
-    musescore
+    stable.musescore
     neofetch
     nix-index
     poppler_utils

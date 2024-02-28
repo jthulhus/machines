@@ -1,7 +1,8 @@
 { pkgs, config, lib, ... }:
 let
   inherit (lib) mkOption types optionals;
-in {
+in
+{
   options.games.minecraft = {
     enable = mkOption {
       type = types.bool;
@@ -10,6 +11,8 @@ in {
   };
 
   config = with config; {
-    home.packages = optionals games.minecraft.enable (with pkgs; [ prismlauncher minecraftServers.vanilla-1-18 ]);
+    home.packages = optionals games.minecraft.enable (with pkgs; [
+      stable.prismlauncher minecraftServers.vanilla-1-18
+    ]);
   };
 }

@@ -3,6 +3,10 @@ input type:keyboard {
   xkb_layout bsk
 }
 
+input 49835:14649:DPB_Ferris_sweep {
+  xkb_layout jkb
+}
+
 # Touchpad config
 input type:touchpad {
   accel_profile adaptive
@@ -74,14 +78,23 @@ bindsym $win_mod+tab workspace back_and_forth
 bindsym $win_mod+f floating toggle
 
 bindsym $win_mod+apostrophe workspace 1
+bindsym $win_mod+1 workspace 1
 bindsym $win_mod+quotedbl workspace 2
+bindsym $win_mod+2 workspace 2
 bindsym $win_mod+braceleft workspace 3
+bindsym $win_mod+3 workspace 3
 bindsym $win_mod+bracketleft workspace 4
+bindsym $win_mod+4 workspace 4
 bindsym $win_mod+parenleft workspace 5
+bindsym $win_mod+5 workspace 5
 bindsym $win_mod+minus workspace 6
+bindsym $win_mod+6 workspace 6
 bindsym $win_mod+plus workspace 7
+bindsym $win_mod+7 workspace 7
 bindsym $win_mod+bar workspace 8
+bindsym $win_mod+8 workspace 8
 bindsym $win_mod+braceright workspace 9
+bindsym $win_mod+9 workspace 9
 	
 bindsym $win_mod+r layout toggle splith splitv
 bindsym $win_mod+t layout toggle tabbed split

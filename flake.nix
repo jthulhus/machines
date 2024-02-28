@@ -19,6 +19,10 @@
       url = github:leanprover/lean4-mode;
       flake = false;
     };
+    kbd-mode = {
+      url = github:kmonad/kbd-mode;
+      flake = false;
+    };
   };
 
   outputs =
@@ -29,6 +33,7 @@
     , nixpkgs-stable
     , isc
     , lean4-mode
+    , kbd-mode
     , ...
     } @ inputs:
     let
@@ -52,7 +57,7 @@
           overlays = [
             emacsOverlay.overlay
             (final: prev: {
-              inherit lean4-mode;
+              inherit lean4-mode kbd-mode;
               stable = import nixpkgs-stable {
                 inherit system;
                 config.allowUnfree = true;

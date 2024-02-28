@@ -8,6 +8,7 @@ with lib;
     ./bash
     ./direnv
     ./emacs
+    ./eww
     ./file-browser
     ./firefox
     ./fonts

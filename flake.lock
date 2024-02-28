@@ -79,6 +79,22 @@
         "type": "github"
       }
     },
+    "kbd-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695535151,
+        "narHash": "sha256-YhVUOlUNhWmHQZLI4vCegKPD0/CDD9Dxh3aLrJUyneU=",
+        "owner": "kmonad",
+        "repo": "kbd-mode",
+        "rev": "b9048e928ac403c8a1cf09b4fec75776dc4ecf4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kmonad",
+        "repo": "kbd-mode",
+        "type": "github"
+      }
+    },
     "lean4-mode": {
       "flake": false,
       "locked": {

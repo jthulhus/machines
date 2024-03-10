@@ -1,8 +1,8 @@
 {
   self,
-  homeManager,
+  home-manager,
   ...
-} @ inputs: {
+} @ inputs: config: {
   username ? "adri",
   hostname,
   system ? "x86_64-linux",
@@ -19,7 +19,7 @@ let
   };
   pkgs = import nixpkgs { inherit system; };
 in
-homeManager.lib.homeManagerConfiguration {
+home-manager.lib.homeManagerConfiguration {
   inherit pkgs;
   modules = [
     overlaysModule

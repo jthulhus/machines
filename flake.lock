@@ -1,6 +1,6 @@
 {
   "nodes": {
-    "emacsOverlay": {
+    "emacs-overlay": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
@@ -38,7 +38,7 @@
         "type": "github"
       }
     },
-    "homeManager": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -177,9 +177,10 @@
     },
     "root": {
       "inputs": {
-        "emacsOverlay": "emacsOverlay",
-        "homeManager": "homeManager",
+        "emacs-overlay": "emacs-overlay",
+        "home-manager": "home-manager",
         "isc": "isc",
+        "kbd-mode": "kbd-mode",
         "lean4-mode": "lean4-mode",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable_2"

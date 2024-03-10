@@ -4,11 +4,11 @@
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
     nixpkgs-stable.url = github:nixos/nixpkgs/nixos-23.05;
-    homeManager = {
+    home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    emacsOverlay = {
+    emacs-overlay = {
       url = github:nix-community/emacs-overlay;
     };
     isc = {
@@ -28,8 +28,8 @@
   outputs =
     { self
     , nixpkgs
-    , homeManager
-    , emacsOverlay
+    , home-manager
+    , emacs-overlay
     , nixpkgs-stable
     , isc
     , lean4-mode
@@ -43,27 +43,33 @@
       inherit (builtins) readFile;
       isgit = writeShellScriptBin "isgit" (readFile ./scripts/isgit);
       iscPkg = isc.defaultPackage.${system};
-      commonOverlays = [
+      common-overlays = [
         (final: prev: {
           inherit isgit;
           isc = iscPkg;
         })
       ];
+      user-overlays = [
+        emacs-overlay.overlay
+        (final: prev: {
+          inherit lean4-mode kbd-mode;
+          stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
     in
     rec {
-      lib = import ./lib inputs;
+      lib = import ./lib inputs {
+        inherit user-overlays common-overlays;
+        home-configurations = homeConfigurations;
+        system-configurations = nixosConfigurations;
+      };
       homeConfigurations =
         let
-          overlays = [
-            emacsOverlay.overlay
-            (final: prev: {
-              inherit lean4-mode kbd-mode;
-              stable = import nixpkgs-stable {
-                inherit system;
-                config.allowUnfree = true;
-              };
-            })
-          ] ++ commonOverlays;
+          overlays = user-overlays ++ common-overlays
+          ;
         in
         {
           "adri@dragonbreath" = lib.mkHome
@@ -89,19 +95,19 @@
         dragonbreath = lib.mkSystem
           {
             hostname = "dragonbreath";
-            overlays = commonOverlays;
+            overlays = common-overlays;
           }
           nixpkgs;
         cthulhu = lib.mkSystem
           {
             hostname = "cthulhu";
-            overlays = commonOverlays;
+            overlays = common-overlays;
           }
           nixpkgs;
         rlyeh = lib.mkSystem
           {
             hostname = "rlyeh";
-            overlays = commonOverlays;
+            overlays = common-overlays;
           }
           nixpkgs;
       };

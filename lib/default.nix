@@ -1,4 +1,4 @@
-inputs: {
-  mkHome = import ./make_home.nix inputs;
-  mkSystem = import ./make_system.nix inputs;
+inputs: config: {
+  mkHome = import ./make_home.nix inputs config;
+  mkSystem = import ./make_system.nix inputs config;
 }

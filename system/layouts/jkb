@@ -54,7 +54,7 @@ default xkb_symbols "jkb" {
 
   key <AB01>    { [ z, Z, asciitilde, asciitilde ] };
   key <AB02>    { [ x, X, bracketleft, bracketleft, ycircumflex, Ycircumflex ] };
-  key <AB03>    { [ eacute, Eacute, rightbracket, rightbracket, ocircumflex, Ocircumflex ] };
+  key <AB03>    { [ eacute, Eacute, bracketright, bracketright, ocircumflex, Ocircumflex ] };
   key <AB04>    { [ v, V, underscore, underscore, ecircumflex, ecircumflex ] };
   key <AB05>    { [ b, B, numbersign, numbersign ] };
   key <AB06>    { [ period, period, bar, bar ] };

@@ -61,7 +61,7 @@ with lib;
       allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraft-server" "aseprite" "xkcd-font-unstable" "xkcd-font" ];
     in
     {
-      nixpkgs.config.allowUnfreePredicate = unfreePredicate;
+      # nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       home = {
         stateVersion = "20.09";
 

@@ -34,27 +34,30 @@ let
   common = "${self}/system/configuration.nix";
   entrypoint = "${self}/system/hosts/${hostname}.nix";
   hardware = "${self}/system/hardware/${hostname}.nix";
-  user-module.home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
+  user-module = {
+    home-manager = {
+      useGlobalPkgs = true;
+      useUserPackages = true;
 
-    users.adri =
-      let username = "adri"; in {
-      imports =
-        let
-          local-entrypoint = "${self}/home/hosts/${username}@${hostname}.nix";
-          main-entrypoint = "${self}/home/home.nix";
-        in
-        [
-          local-entrypoint
-          main-entrypoint
-        ];
-      config = {
-        home = {
-          inherit username;
-          homeDirectory = "/home/${username}";
+      users.adri =
+        let username = "adri"; in
+        {
+          imports =
+            let
+              local-entrypoint = "${self}/home/hosts/${username}@${hostname}.nix";
+              main-entrypoint = "${self}/home/home.nix";
+            in
+            [
+              local-entrypoint
+              main-entrypoint
+            ];
+          config = {
+            home = {
+              inherit username;
+              homeDirectory = "/home/${username}";
+            };
+          };
         };
-      };
     };
   };
 in
@@ -66,5 +69,6 @@ nixosSystem {
     hardware
     custom
     home-manager.nixosModules.home-manager
+    user-module
   ];
 }

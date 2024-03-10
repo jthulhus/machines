@@ -107,7 +107,7 @@
         rlyeh = lib.mkSystem
           {
             hostname = "rlyeh";
-            overlays = common-overlays;
+            overlays = common-overlays ++ user-overlays;
           }
           nixpkgs;
       };

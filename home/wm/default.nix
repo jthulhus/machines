@@ -112,9 +112,9 @@ There should be `/sys/class/power_supply/<battery-device>`.";
         sway-contrib.grimshot
       ];
 
-      nixpkgs.overlays = [
-        notmuchOverlay
-      ];
+      # nixpkgs.overlays = [
+      #   notmuchOverlay
+      # ];
 
       xdg.configFile = {
         "i3status-rust/config.toml".text = i3statusBar;

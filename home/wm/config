@@ -125,18 +125,25 @@ bindsym $win_mod+space mode "launch"
 mode "launch" {
   bindsym b exec nautilus, mode "default"
   bindsym c exec clementine; mode "default"
-  bindsym Control+c exec CALIBRE_USE_DARK_PALETTE=1 calibre; mode "default"
-  bindsym d exec discord, mode "default"
   bindsym e exec emacsclient -c, mode "default"
   bindsym f exec firefox, mode "default"
   bindsym g mode "games"
   bindsym k exec anki, mode "default"
-  bindsym l exec element-desktop, mode "default"
   bindsym s exec pavucontrol, mode "default"
-  bindsym t exec thunderbird, mode "default"
   bindsym u exec unison, mode "default"
   bindsym z exec zathura, mode "default"
   bindsym return exec rofi -show run, mode "default"
+
+  bindsym escape mode "default"
+  bindsym $universal_quit mode "default"
+}
+
+mode "messaging" {
+  bindsym d exec discord, mode "default"
+  bindsym e exec element, mode "default"
+  bindsym m exec mattermost-desktop, mode "default"
+  bindsym s exec signal-desktop, mode "default"
+  bindsym t exec thunderbird, mode "default"
 
   bindsym escape mode "default"
   bindsym $universal_quit mode "default"

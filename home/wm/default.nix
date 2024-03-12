@@ -119,5 +119,16 @@ There should be `/sys/class/power_supply/<battery-device>`.";
       xdg.configFile = {
         "i3status-rust/config.toml".text = i3statusBar;
       };
+
+      services.swayidle = {
+        enable = true;
+        events = [
+          { event = "before-sleep"; command = "${pkgs.systemd}/bin/loginctl lock-session"; }
+          { event = "lock"; command = "${pkgs.swaylock-fancy}/bin/swaylock-fancy -el"; }
+        ];
+        timeouts = [
+          { timeout = 300; command = "${pkgs.systemd}/bin/loginctl suspend"; }
+        ];
+      };
     };
 }

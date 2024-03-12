@@ -156,14 +156,23 @@ mode "games" {
 bindsym $win_mod+m mode "move"
 mode "move" {
   bindsym apostrophe move workspace 1, workspace 1
+  bindsym 1 move workspace 1, workspace 1
   bindsym quotedbl move workspace 2, workspace 2
+  bindsym 2 move workspace 2, workspace 2
   bindsym braceleft move workspace 3, workspace 3
+  bindsym 3 move workspace 3, workspace 3
   bindsym bracketleft move workspace 4, workspace 4
+  bindsym 4 move workspace 4, workspace 4
   bindsym parenleft move workspace 5, workspace 5
+  bindsym 5 move workspace 5, workspace 5
   bindsym minus move workspace 6, workspace 6
+  bindsym 6 move workspace 6, workspace 6
   bindsym plus move workspace 7, workspace 7
+  bindsym 7 move workspace 7, workspace 7
   bindsym bar move workspace 8, workspace 8
+  bindsym 8 move workspace 8, workspace 8
   bindsym braceright move workspace 9, workspace 9
+  bindsym 9 move workspace 9, workspace 9
 
   bindsym $alt_mod+apostrophe move workspace 1
   bindsym $alt_mod+quotedbl move workspace 2

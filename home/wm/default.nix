@@ -124,7 +124,7 @@ There should be `/sys/class/power_supply/<battery-device>`.";
         enable = true;
         events = [
           { event = "before-sleep"; command = "${pkgs.systemd}/bin/loginctl lock-session"; }
-          { event = "lock"; command = "${pkgs.swaylock-fancy}/bin/swaylock-fancy -el"; }
+          { event = "lock"; command = "${pkgs.swaylock-fancy}/bin/swaylock-fancy"; }
         ];
         timeouts = [
           { timeout = 300; command = "${pkgs.systemd}/bin/loginctl suspend"; }

@@ -66,7 +66,8 @@ in
       nixpkgs.config = {
         allowUnfreePredicate = pkg: elem (getName pkg) my.unfree;
         permittedInsecurePackages = [
-          "python-2.7.18.6"
+          # "python-2.7.18.6"
+          "nix-2.16.2"
         ];
       };
 

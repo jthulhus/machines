@@ -70,7 +70,7 @@
     nodePackages.pyright
 
     # Nix
-    rnix-lsp
+    nixd
 
     # # OCaml
     # ocamlPackages.findlib

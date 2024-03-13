@@ -66,6 +66,7 @@ include "%L"
 # ~~~~~~~~~~~~~
 <Multi_key> <slash> <equal>		: "≠"	U2260	# NOT EQUAL
 <Multi_key> <equal> <slash>   		: "≠"	U2260	# NOT EQUAL
+<Multi_key> <tilde> <equal>             : "≅"           # ISOMORPHIC
 <Multi_key> <m> <i> <n> <f>		: "∞"	U221E	# INFINITY
 <Multi_key> <m> <i> <f> <f>		: "⇔"		# IFF
 <Multi_key> <m> <equal> <greater>	: "⇒"		# IMPLIES
@@ -76,9 +77,17 @@ include "%L"
 <Multi_key> <m> <4> <r> <t>		: "∜"		# FORTH ROOT
 <Multi_key> <m> <i> <n> <t>		: "∫"		# INTEGRAL
 <Multi_key> <m> <i> <n> <period>	: "∈"		# ELEMENT OF
+<Multi_key> <m> <slash> <i> <n>         : "∉"           # NOT ELEMENT OF
+<Multi_key> <m> <q> <f>                 : "∀"           # FOR ALL
+<Multi_key> <m> <q> <e>                 : "∃"           # EXISTS
+<Multi_key> <m> <q> <n> <e>             : "∄"           # NOT EXISTS
+<Multi_key> <bar> <equal>               : "⊨"           # MODELS
+<Multi_key> <slash> <bar> <equal>       : "⊯"           # NOT MODELS
 <Multi_key> <m> <s> <u> <m>             : "Σ"           # CAPITAL SIGMA
 <Multi_key> <m> <n> <a> <b>		: "∇"   UE2207  # NABLA
+<Multi_key> <m> <n> <o> <t>             : "¬"           # LOGICAL NOT
 <Multi_key> <q> <e> <d>                 : "□"           # Q.E.D. SYMBOL
+<Multi_key> <equal> <equal>             : "≡"           # EQUIV
 <Multi_key> <b> <a>                     : "𝕒"   U1D552  # MATHBB SMALL A
 <Multi_key> <b> <b>                     : "𝕓"   U1D553  # MATHBB SMALL X
 <Multi_key> <b> <c>                     : "𝕔"   U1D554  # MATHBB SMALL X

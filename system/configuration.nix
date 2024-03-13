@@ -47,39 +47,50 @@ in
     };
   };
 
-  config = let
-    inherit (lib) getName mkDefault mkIf;
-    inherit (builtins) elem;
-    inherit (config) my;
-  in {
-    nixpkgs.config = {
-      allowUnfreePredicate = pkg: elem (getName pkg) my.unfree;
-      permittedInsecurePackages = [
-        "python-2.7.18.6"
+  config =
+    let
+      inherit (lib) getName mkDefault mkIf;
+      inherit (builtins) elem;
+      inherit (config) my;
+    in
+    {
+      my.unfree = [
+        "dwarf-fortress"
+        "discord"
+        "minecraft-launcher"
+        "minecraft-server"
+        "aseprite"
+        "xkcd-font-unstable"
+        "xkcd-font"
       ];
-    };
-
-    services.emacs.defaultEditor = true;
-
-    services.openssh.enable = true;
-
-    networking.hostName = my.hostname;
-
-    time.timeZone = mkDefault "Europe/Paris";
-
-    networking.useDHCP = false;
-
-    console = {
-      font = "Lat2-Terminus16";
-    };
-
-    services = {
-      printing = {
-        enable = true;
-        drivers = with pkgs; [ hplip ];
+      nixpkgs.config = {
+        allowUnfreePredicate = pkg: elem (getName pkg) my.unfree;
+        permittedInsecurePackages = [
+          "python-2.7.18.6"
+        ];
       };
-    };
 
-    system.stateVersion = "20.09";
-  };
+      services.emacs.defaultEditor = true;
+
+      services.openssh.enable = true;
+
+      networking.hostName = my.hostname;
+
+      time.timeZone = mkDefault "Europe/Paris";
+
+      networking.useDHCP = false;
+
+      console = {
+        font = "Lat2-Terminus16";
+      };
+
+      services = {
+        printing = {
+          enable = true;
+          drivers = with pkgs; [ hplip ];
+        };
+      };
+
+      system.stateVersion = "20.09";
+    };
 }

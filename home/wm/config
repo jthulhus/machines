@@ -122,6 +122,7 @@ mode "launch" {
   bindsym f exec firefox, mode "default"
   bindsym g mode "games"
   bindsym k exec anki, mode "default"
+  bindsym m mode "messaging"
   bindsym s exec pavucontrol, mode "default"
   bindsym u exec unison, mode "default"
   bindsym z exec zathura, mode "default"

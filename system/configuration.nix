@@ -20,6 +20,7 @@ in
     ./gpu
     ./greeter
     ./layouts
+    ./locale
     ./locate
     ./man
     ./network

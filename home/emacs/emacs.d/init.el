@@ -308,9 +308,14 @@
 (use-package company-coq
   :hook coq-mode)
 
-(use-package lean4-mode)
+(use-package lean4-mode
+  :ensure nil
+  :bind (:map lean4-mode-map
+              ("<backtab>" . #'lean4-eri-indent-reverse))
+  :hook (lean4-mode . (lambda () (lsp-semantic-tokens-mode -1))))
 
-(use-package prog-mode)
+(use-package prog-mode
+  :ensure nil)
 
 (add-to-list 'load-path "~/.emacs.d/llvm-mode")
 (require 'llvm-mode)
@@ -327,7 +332,8 @@
   (setq verilog-tool 'verilog-linter
         verilog-linter "svlint"))
 
-(use-package kbd-mode)
+(use-package kbd-mode
+  :ensure nil)
 
 (use-package smartparens
   :init

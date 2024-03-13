@@ -2,7 +2,7 @@
 #+author: jthulhu
 #+startup: indent, overview
 
-My Emacs init.org file
+My Emacs init.org file. All modes that need configuration, but that Nix shouldn't fetch
 * Repositories
 #+begin_src emacs-lisp :tangle yes 
   (require 'package)
@@ -455,11 +455,16 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 ** Lean
 #+begin_src emacs-lisp :tangle yes
-  (use-package lean4-mode)
+  (use-package lean4-mode
+    :ensure nil
+    :bind (:map lean4-mode-map
+                ("<backtab>" . #'lean4-eri-indent-reverse))
+    :hook (lean4-mode . (lambda () (lsp-semantic-tokens-mode -1))))
 #+end_src
 ** Prog mode
 #+begin_src emacs-lisp :tangle yes
-  (use-package prog-mode)
+  (use-package prog-mode
+    :ensure nil)
 #+end_src
 ** LLVM
 #+begin_src emacs-lisp :tangle yes
@@ -482,7 +487,8 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 ** kbd
 #+begin_src emacs-lisp :tangle yes
-  (use-package kbd-mode)
+  (use-package kbd-mode
+    :ensure nil)
 #+end_src
 * Parenthesis balencing
 ** Paredit

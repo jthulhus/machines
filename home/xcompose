@@ -150,7 +150,7 @@ include "%L"
 <Multi_key> <b> <7>                     : "𝟟"    U1D7DF
 <Multi_key> <b> <8>                     : "𝟠"    U1D7E0
 <Multi_key> <b> <9>                     : "𝟡"    U1D7E1
-
+<Multi_key> <bar> <bar>                 : "‖"           # DOUBLE BAR
 
 # Chinese pinyin tones
 # ~~~~~~~~~~~~~~~~~~~~

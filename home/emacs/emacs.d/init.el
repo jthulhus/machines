@@ -109,14 +109,16 @@
     (load custom-file))
   (setq-default indent-tabs-mode nil)
   :custom
-  (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
-  (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)
+  (repeat-mode t)
   (safe-local-variable-values
    '((eval set-fill-column 117)
      (lsp-rust-analyzer-cargo-target "x86_64-unknown-none")
      (lsp-rust-all-targets nil)))
   (fill-column 97)
   (warning-suppress-types '((direnv)))
+  :config
+  (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
+  (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)
   :bind (("C-x C-f" . my-find-file)
          ("C-c r s h" . shrink-window-horizontally)
          ("C-c r s v" . shrink-window)
@@ -256,7 +258,13 @@
 \\|\\While\\b\\|\\Loop\\b")
   (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
 \\EndLoop\\b")
-  (LaTeX-command "latex -shell-escape"))
+  (LaTeX-command "latex -shell-escape")
+  (TeX-source-correlate-mode t)
+  (TeX-view-program-selection '(((output-dvi has-no-display-manager) "dvi2tty")
+                                (output-dvi style-pstricks)
+                                (output-dvi "xdvi")
+                                (output-pdf "Zathura")
+                                (output-html "xdg-open"))))
 (use-package company-auctex
   :hook (LaTeX-mode . company-mode)
   :init

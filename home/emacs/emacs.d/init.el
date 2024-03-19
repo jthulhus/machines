@@ -319,8 +319,12 @@
 (use-package lean4-mode
   :ensure nil
   :bind (:map lean4-mode-map
-              ("<backtab>" . #'lean4-eri-indent-reverse))
-  :hook (lean4-mode . (lambda () (lsp-semantic-tokens-mode -1))))
+              ("<backtab>" . #'lean4-eri-indent-reverse)
+              ("<tab>" . #'lean4-eri-indent))
+  :hook
+  (lean4-mode . (lambda ()
+                  (setq-local lsp-semantic-tokens-enable nil)
+                  (electric-indent-local-mode 1))))
 
 (use-package prog-mode
   :ensure nil)

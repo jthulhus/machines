@@ -462,12 +462,19 @@ Quack seems to dislike `racket-mode`.
     :hook coq-mode)
 #+end_src
 ** Lean
+Lean mode has the sympathy of ignoring user's configuration, enable semantic tokens "by default", without any
+way to disable them, and disable electric-indent-mode for no apparent reason. To circumvent these questionable
+decisions, one has to hook into the major mode and undo, one by one, their decisions...
 #+begin_src emacs-lisp :tangle yes
   (use-package lean4-mode
     :ensure nil
     :bind (:map lean4-mode-map
-                ("<backtab>" . #'lean4-eri-indent-reverse))
-    :hook (lean4-mode . (lambda () (lsp-semantic-tokens-mode -1))))
+                ("<backtab>" . #'lean4-eri-indent-reverse)
+                ("<tab>" . #'lean4-eri-indent))
+    :hook
+    (lean4-mode . (lambda ()
+                    (setq-local lsp-semantic-tokens-enable nil)
+                    (electric-indent-local-mode 1))))
 #+end_src
 ** Prog mode
 #+begin_src emacs-lisp :tangle yes

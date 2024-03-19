@@ -48,6 +48,16 @@
               :files ("*.el" "data"))
           '';
         })
+        (treesit-grammars.with-grammars (grammars: with grammars; [
+          tree-sitter-bash
+          tree-sitter-latex
+          tree-sitter-nix
+          tree-sitter-ocaml
+          tree-sitter-ocaml-interface
+          tree-sitter-python
+          tree-sitter-rust
+          tree-sitter-toml
+        ]))
       ];
     };
   };
@@ -84,5 +94,6 @@
       en
       it
     ]))
+
   ];
 }

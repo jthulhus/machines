@@ -133,6 +133,21 @@
 (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
 (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
 
+(defun smart-beginning-of-line (&optional universal-arg)
+  "Move point to first non-whitespace character or beginning-of-line.
+
+Move point to the first non-whitespace character on this line.
+If point was already at that position, move point to beginning of line."
+  (interactive "P")
+  (if universal-arg
+      (beginning-of-line universal-arg)
+    (let ((oldpos (point)))
+      (back-to-indentation)
+      (if (= oldpos (point))
+          (beginning-of-line)))))
+
+(define-key (current-global-map) [remap move-beginning-of-line] #'smart-beginning-of-line)
+
 (setq-default require-final-newline t)
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -171,13 +186,6 @@
 
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
-
-(use-package tree-sitter
-  :after tree-sitter-lang
-  :init
-  (global-tree-sitter-mode))
-
-(use-package tree-sitter-langs)
 
 (use-package beans)
 

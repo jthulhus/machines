@@ -179,6 +179,23 @@ Make it automatically create unexistent directories.
   (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
   (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
 #+end_src
+*** Redefine jump at begin of line
+#+begin_src emacs-lisp :tangle yes
+  (defun smart-beginning-of-line (&optional universal-arg)
+    "Move point to first non-whitespace character or beginning-of-line.
+
+  Move point to the first non-whitespace character on this line.
+  If point was already at that position, move point to beginning of line."
+    (interactive "P")
+    (if universal-arg
+        (beginning-of-line universal-arg)
+      (let ((oldpos (point)))
+        (back-to-indentation)
+        (if (= oldpos (point))
+            (beginning-of-line)))))
+
+  (define-key (current-global-map) [remap move-beginning-of-line] #'smart-beginning-of-line)
+#+end_src
 *** Force newline at the end of a file
 #+begin_src emacs-lisp :tangle yes
   (setq-default require-final-newline t)
@@ -236,7 +253,7 @@ of the previous command on <C-x C-o>...
     :hook (rustic-mode tuareg-mode elisp-mode))
 #+end_src
 * Tree sitter
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (use-package tree-sitter
     :after tree-sitter-lang
     :init

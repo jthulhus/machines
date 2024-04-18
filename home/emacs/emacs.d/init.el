@@ -335,7 +335,8 @@ If point was already at that position, move point to beginning of line."
                   (electric-indent-local-mode 1))))
 
 (use-package prog-mode
-  :ensure nil)
+  :ensure nil
+  :hook (prog-mode . (lambda () (setq-local display-line-numbers 'relative))))
 
 (add-to-list 'load-path "~/.emacs.d/llvm-mode")
 (require 'llvm-mode)

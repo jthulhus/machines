@@ -496,7 +496,8 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 ** Prog mode
 #+begin_src emacs-lisp :tangle yes
   (use-package prog-mode
-    :ensure nil)
+    :ensure nil
+    :hook (prog-mode . (lambda () (setq-local display-line-numbers 'relative))))
 #+end_src
 ** LLVM
 #+begin_src emacs-lisp :tangle yes

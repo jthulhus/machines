@@ -187,6 +187,23 @@ If point was already at that position, move point to beginning of line."
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
 
+(use-package treesit
+  :ensure nil
+  :init
+  (global-tree-sitter-mode)
+  (setq major-mode-remap-alist '((bash-mode . bash-ts-mode)
+                                 (c++-mode . c++-ts-mode)
+                                 (c-mode . c-ts-mode)
+                                 (go-mode . go-ts-mode)
+                                 (html-mode . html-ts-mode)
+                                 (json-mode . json-ts-mode)
+                                 (lua-mode . lua-ts-mode)
+                                 (python-mode . python-ts-mode)
+                                 (rust-mode . rust-ts-mode)
+                                 (toml-mode . toml-ts-mode)
+                                 (yaml-mode . yaml-ts-mode)
+                                 (css-mode . css-ts-mode))))
+
 (use-package beans)
 
 (use-package rustic
@@ -355,6 +372,8 @@ If point was already at that position, move point to beginning of line."
 
 (use-package kbd-mode
   :ensure nil)
+
+(use-package lua-mode)
 
 (use-package smartparens
   :init

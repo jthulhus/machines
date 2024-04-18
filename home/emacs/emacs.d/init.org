@@ -253,13 +253,23 @@ of the previous command on <C-x C-o>...
     :hook (rustic-mode tuareg-mode elisp-mode))
 #+end_src
 * Tree sitter
-#+begin_src emacs-lisp :tangle no
-  (use-package tree-sitter
-    :after tree-sitter-lang
+#+begin_src emacs-lisp :tangle yes
+  (use-package treesit
+    :ensure nil
     :init
-    (global-tree-sitter-mode))
-
-  (use-package tree-sitter-langs)
+    (global-tree-sitter-mode)
+    (setq major-mode-remap-alist '((bash-mode . bash-ts-mode)
+                                   (c++-mode . c++-ts-mode)
+                                   (c-mode . c-ts-mode)
+                                   (go-mode . go-ts-mode)
+                                   (html-mode . html-ts-mode)
+                                   (json-mode . json-ts-mode)
+                                   (lua-mode . lua-ts-mode)
+                                   (python-mode . python-ts-mode)
+                                   (rust-mode . rust-ts-mode)
+                                   (toml-mode . toml-ts-mode)
+                                   (yaml-mode . yaml-ts-mode)
+                                   (css-mode . css-ts-mode))))
 #+end_src
 * Programming languages
 ** Beans
@@ -522,6 +532,10 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 #+begin_src emacs-lisp :tangle yes
   (use-package kbd-mode
     :ensure nil)
+#+end_src
+** Lua
+#+begin_src emacs-lisp :tangle yes
+  (use-package lua-mode)
 #+end_src
 * Parenthesis balencing
 ** Paredit

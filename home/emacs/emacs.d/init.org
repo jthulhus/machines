@@ -201,12 +201,6 @@ Make it automatically create unexistent directories.
   (setq-default require-final-newline t)
 #+end_src
 * Utilities
-** Show line numbers
-#+begin_src emacs-lisp :tangle yes
-  (add-hook 'prog-mode-hook 'display-line-numbers-mode)
-  (add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
-  (setq linum-format 'dynamic)
-#+end_src
 ** Rename both file and buffer at once
 Taken from [[http://steve.yegge.googlepages.com/my-dot-emacs-file][Steve Yegge's .emacs]]
 #+begin_src emacs-lisp :tangle yes
@@ -214,16 +208,16 @@ Taken from [[http://steve.yegge.googlepages.com/my-dot-emacs-file][Steve Yegge's
     "Renames both current buffer and file it's visiting to NEW-NAME."
     (interactive (list (read-file-name "New name: " default-directory (buffer-name) nil (buffer-name))))
     (let ((name (buffer-name))
-	  (filename (buffer-file-name)))
+          (filename (buffer-file-name)))
       (if (not filename)
-	  (message "Buffer '%s' is not visiting a file!" name)
-	(if (get-buffer new-name)
-	    (message "A buffer named '%s' already exists!" new-name)
-	  (progn
-	    (rename-file filename new-name 1)
-	    (rename-buffer new-name)
-	    (set-visited-file-name new-name)
-	    (set-buffer-modified-p nil))))))
+          (message "Buffer '%s' is not visiting a file!" name)
+        (if (get-buffer new-name)
+            (message "A buffer named '%s' already exists!" new-name)
+          (progn
+            (rename-file filename new-name 1)
+            (rename-buffer new-name)
+            (set-visited-file-name new-name)
+            (set-buffer-modified-p nil))))))
 #+end_src
 ** Pimped comment-or-uncomment
 Not sure this is useful anymore, as I have the impression this was already the default behaviour
@@ -257,7 +251,6 @@ of the previous command on <C-x C-o>...
   (use-package treesit
     :ensure nil
     :init
-    (global-tree-sitter-mode)
     (setq major-mode-remap-alist '((bash-mode . bash-ts-mode)
                                    (c++-mode . c++-ts-mode)
                                    (c-mode . c-ts-mode)
@@ -424,7 +417,6 @@ Quack seems to dislike `racket-mode`.
 *** Latex
 #+begin_src emacs-lisp :tangle no
   (setq LaTeX-command "latex -shell-escape")
-  (add-hook 'latex-mode-hook 'display-line-numbers-mode)
 #+end_src
 ** Markdown
 *** Pandoc
@@ -507,7 +499,10 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 #+begin_src emacs-lisp :tangle yes
   (use-package prog-mode
     :ensure nil
-    :hook (prog-mode . (lambda () (setq-local display-line-numbers 'relative))))
+    :hook
+    (prog-mode . (lambda () (setq-local display-line-numbers 'relative)))
+    ;; (prog-mode . #'display-fill-column-indicator-mode)
+    )
 #+end_src
 ** LLVM
 #+begin_src emacs-lisp :tangle yes
@@ -565,7 +560,7 @@ Currently not used
   (use-package web-mode)
 #+end_src
 * Debugger
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (use-package dap-mode
     :init
     (dap-register-debug-template

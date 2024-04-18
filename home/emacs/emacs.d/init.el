@@ -150,24 +150,20 @@ If point was already at that position, move point to beginning of line."
 
 (setq-default require-final-newline t)
 
-(add-hook 'prog-mode-hook 'display-line-numbers-mode)
-(add-hook 'prog-mode-hook 'display-fill-column-indicator-mode)
-(setq linum-format 'dynamic)
-
 (defun rename-file-and-buffer (new-name)
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive (list (read-file-name "New name: " default-directory (buffer-name) nil (buffer-name))))
   (let ((name (buffer-name))
-	(filename (buffer-file-name)))
+        (filename (buffer-file-name)))
     (if (not filename)
-	(message "Buffer '%s' is not visiting a file!" name)
+        (message "Buffer '%s' is not visiting a file!" name)
       (if (get-buffer new-name)
-	  (message "A buffer named '%s' already exists!" new-name)
-	(progn
-	  (rename-file filename new-name 1)
-	  (rename-buffer new-name)
-	  (set-visited-file-name new-name)
-	  (set-buffer-modified-p nil))))))
+          (message "A buffer named '%s' already exists!" new-name)
+        (progn
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil))))))
 
 (defun my/comment-or-uncomment ()
   "Comment or uncomment, based on the region."
@@ -190,7 +186,6 @@ If point was already at that position, move point to beginning of line."
 (use-package treesit
   :ensure nil
   :init
-  (global-tree-sitter-mode)
   (setq major-mode-remap-alist '((bash-mode . bash-ts-mode)
                                  (c++-mode . c++-ts-mode)
                                  (c-mode . c-ts-mode)
@@ -353,7 +348,10 @@ If point was already at that position, move point to beginning of line."
 
 (use-package prog-mode
   :ensure nil
-  :hook (prog-mode . (lambda () (setq-local display-line-numbers 'relative))))
+  :hook
+  (prog-mode . (lambda () (setq-local display-line-numbers 'relative)))
+  ;; (prog-mode . #'display-fill-column-indicator-mode)
+  )
 
 (add-to-list 'load-path "~/.emacs.d/llvm-mode")
 (require 'llvm-mode)
@@ -381,17 +379,6 @@ If point was already at that position, move point to beginning of line."
   :hook ((emacs-lisp-mode racket-mode) . smartparens-strict-mode))
 
 (use-package web-mode)
-
-(use-package dap-mode
-  :init
-  (dap-register-debug-template
-   "Rust::GDB Run Configuration"
-   (list :type "gdb"
-         :request "launch"
-         :name "GDB::Run"
-         :gdbpath "rust-gdb"
-         :target nil
-         :cwd nil)))
 
 (use-package esup)
 

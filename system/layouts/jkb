@@ -38,8 +38,8 @@ default xkb_symbols "jkb" {
   key <AD06>    { [ j, J, asciicircum, asciicircum ] };
   key <AD07>    { [ m, M, ampersand, ampersand, adiaeresis, Adiaeresis ] };
   key <AD08>    { [ o, O, apostrophe, apostrophe, udiaeresis, Udiaeresis ] };
-  key <AD09>    { [ Escape, Escape, grave, grave, idiaeresis, Idiaeresis ] };
-  key <AD10>    { [ q, Q, exclam, exclam ] };
+  key <AD09>    { [ q, Q, grave, grave, idiaeresis, Idiaeresis ] };
+  key <AD10>    { [ Escape, Escape, exclam, exclam ] };
 
   key <AC01>    { [ a, A, braceleft, braceleft ] };
   key <AC02>    { [ s, S, parenleft, parenleft, ygrave, Ygrave ] };
@@ -54,8 +54,8 @@ default xkb_symbols "jkb" {
 
   key <AB01>    { [ k, K, asciitilde, asciitilde ] };
   key <AB02>    { [ x, X, bracketleft, bracketleft, ycircumflex, Ycircumflex ] };
-  key <AB03>    { [ c, C, bracketright, bracketright, ocircumflex, Ocircumflex ] };
-  key <AB04>    { [ v, V, underscore, underscore, ecircumflex, ecircumflex ] };
+  key <AB03>    { [ v, V, bracketright, bracketright, ocircumflex, Ocircumflex ] };
+  key <AB04>    { [ c, C, underscore, underscore, ecircumflex, ecircumflex ] };
   key <AB05>    { [ w, W, numbersign, numbersign ] };
   key <AB06>    { [ period, colon, bar, bar ] };
   key <AB07>    { [ h, H, asterisk, asterisk, acircumflex, Acircumflex ] };

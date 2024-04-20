@@ -251,7 +251,7 @@ of the previous command on <C-x C-o>...
   (use-package treesit
     :ensure nil
     :init
-    (setq major-mode-remap-alist '((bash-mode . bash-ts-mode)
+    (setq major-mode-remap-alist `((bash-mode . bash-ts-mode)
                                    (c++-mode . c++-ts-mode)
                                    (c-mode . c-ts-mode)
                                    (go-mode . go-ts-mode)
@@ -262,7 +262,8 @@ of the previous command on <C-x C-o>...
                                    (rust-mode . rust-ts-mode)
                                    (toml-mode . toml-ts-mode)
                                    (yaml-mode . yaml-ts-mode)
-                                   (css-mode . css-ts-mode))))
+                                   (css-mode . css-ts-mode)
+                                   . ,major-mode-remap-alist)))
 #+end_src
 * Programming languages
 ** Beans
@@ -392,17 +393,17 @@ Quack seems to dislike `racket-mode`.
 ** LaTeX
 *** AUCTeX
 #+begin_src emacs-lisp :tangle yes
-  (use-package tex
+  (use-package auctex
     :mode ("\\.tex\\'" . latex-mode)
     :hook ((LaTeX-mode . (lambda () (run-hooks 'prog-mode-hook)))
            (LaTeX-mode . flyspell-mode))
     :ensure auctex
     :custom
+    (TeX-engine 'luatex)
     (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
   \\|\\While\\b\\|\\Loop\\b")
     (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
   \\EndLoop\\b")
-    (LaTeX-command "latex -shell-escape")
     (TeX-source-correlate-mode t)
     (TeX-view-program-selection '(((output-dvi has-no-display-manager) "dvi2tty")
                                   (output-dvi style-pstricks)
@@ -413,10 +414,6 @@ Quack seems to dislike `racket-mode`.
     :hook (LaTeX-mode . company-mode)
     :init
     (company-auctex-init))
-#+end_src
-*** Latex
-#+begin_src emacs-lisp :tangle no
-  (setq LaTeX-command "latex -shell-escape")
 #+end_src
 ** Markdown
 *** Pandoc

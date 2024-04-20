@@ -186,7 +186,7 @@ If point was already at that position, move point to beginning of line."
 (use-package treesit
   :ensure nil
   :init
-  (setq major-mode-remap-alist '((bash-mode . bash-ts-mode)
+  (setq major-mode-remap-alist `((bash-mode . bash-ts-mode)
                                  (c++-mode . c++-ts-mode)
                                  (c-mode . c-ts-mode)
                                  (go-mode . go-ts-mode)
@@ -197,7 +197,8 @@ If point was already at that position, move point to beginning of line."
                                  (rust-mode . rust-ts-mode)
                                  (toml-mode . toml-ts-mode)
                                  (yaml-mode . yaml-ts-mode)
-                                 (css-mode . css-ts-mode))))
+                                 (css-mode . css-ts-mode)
+                                 . ,major-mode-remap-alist)))
 
 (use-package beans)
 
@@ -268,17 +269,17 @@ If point was already at that position, move point to beginning of line."
   :config
   (setq load-bash-alias-bashrc-file "~/.bashrc"))
 
-(use-package tex
+(use-package auctex
   :mode ("\\.tex\\'" . latex-mode)
   :hook ((LaTeX-mode . (lambda () (run-hooks 'prog-mode-hook)))
          (LaTeX-mode . flyspell-mode))
   :ensure auctex
   :custom
+  (TeX-engine 'luatex)
   (LaTeX-begin-regexp "begin\\b\\|\\[\\|\\If\\b\\|\\ForRange\\b\\|\\For\\b\\|\\Procedure\\b\
 \\|\\While\\b\\|\\Loop\\b")
   (LaTeX-end-regexp "end\\b\\|\\]\\|\\EndIf\\|\\EndFor\\b\\|\\EndProcedure\\b\\|\\EndWhile\\b\
 \\EndLoop\\b")
-  (LaTeX-command "latex -shell-escape")
   (TeX-source-correlate-mode t)
   (TeX-view-program-selection '(((output-dvi has-no-display-manager) "dvi2tty")
                                 (output-dvi style-pstricks)

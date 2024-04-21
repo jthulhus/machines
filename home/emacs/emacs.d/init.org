@@ -530,6 +530,8 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
   (use-package lua-mode)
 #+end_src
 * Parenthesis balencing
+Automated balancing of parenthesis. Currently using smartparens over paredit because it handles
+better other programming languages than lisps.
 ** Paredit
 Currently not used
 #+begin_src emacs-lisp :tangle no
@@ -546,17 +548,34 @@ Currently not used
       dune-mode) . paredit-mode))
 #+end_src
 ** Smartparens
+The additional snippet will make it so that when pressing return after just having typed an
+opening grouping character, it will insert two newlines instead of just one, and properly indent
+both lines. This is because when a brace-like thing is the last character of a line, I usually
+want its matching character to be the first non-whitespace character of its line.
 #+begin_src emacs-lisp :tangle yes
   (use-package smartparens
     :init
     (require 'smartparens-config)
-    :hook ((emacs-lisp-mode racket-mode) . smartparens-strict-mode))
+    :config
+    (defun my/indent-after-newline (&rest whatever)
+      (interactive)
+      (newline)
+      (indent-according-to-mode)
+      (forward-line -1)
+      (indent-according-to-mode))
+    (dolist (chr '("{" "[" "("))
+      (sp-local-pair 'prog-mode chr nil :post-handlers '((my/indent-after-newline "RET"))))
+    :hook
+    ((emacs-lisp-mode racket-mode) . smartparens-strict-mode)
+    (prog-mode . smartparens-mode))
 #+end_src
 * HTML Mode
 #+begin_src emacs-lisp :tangle yes
   (use-package web-mode)
 #+end_src
 * Debugger
+This has never worked the way I wanted it to, and I haven't used much debuggers, so it's still in
+an unfinished state.
 #+begin_src emacs-lisp :tangle no
   (use-package dap-mode
     :init

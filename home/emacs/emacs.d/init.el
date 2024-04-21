@@ -377,7 +377,18 @@ If point was already at that position, move point to beginning of line."
 (use-package smartparens
   :init
   (require 'smartparens-config)
-  :hook ((emacs-lisp-mode racket-mode) . smartparens-strict-mode))
+  :config
+  (defun my/indent-after-newline (&rest whatever)
+    (interactive)
+    (newline)
+    (indent-according-to-mode)
+    (forward-line -1)
+    (indent-according-to-mode))
+  (dolist (chr '("{" "[" "("))
+    (sp-local-pair 'prog-mode chr nil :post-handlers '((my/indent-after-newline "RET"))))
+  :hook
+  ((emacs-lisp-mode racket-mode) . smartparens-strict-mode)
+  (prog-mode . smartparens-mode))
 
 (use-package web-mode)
 

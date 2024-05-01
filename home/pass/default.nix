@@ -1,12 +1,12 @@
 { pkgs, config, ... }:
 {
   home.packages = with pkgs; [
-    passExtensions.pass-otp
     zbar
   ];
   programs.password-store = {
     enable = true;
-    package = if config.xserver == "wayland" then pkgs.pass-wayland else pkgs.pass;
+    package = (if config.xserver == "wayland" then pkgs.pass-wayland else pkgs.pass)
+      .withExtensions (exts: with exts; [ pass-otp ]);
   };
 
   home.sessionVariables = {

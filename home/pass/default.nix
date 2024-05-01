@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     passExtensions.pass-otp
+    zbar
   ];
   programs.password-store = {
     enable = true;

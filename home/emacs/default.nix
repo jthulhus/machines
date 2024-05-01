@@ -50,6 +50,8 @@
         })
         (treesit-grammars.with-grammars (grammars: with grammars; [
           tree-sitter-bash
+          tree-sitter-c
+          tree-sitter-cpp
           tree-sitter-latex
           tree-sitter-nix
           tree-sitter-ocaml

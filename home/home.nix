@@ -33,6 +33,7 @@ with lib;
     ./sound
     ./ssh
     ./swappy
+    ./tmsu
     ./utils
     ./wifi
     ./wm

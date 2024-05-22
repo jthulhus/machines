@@ -29,6 +29,7 @@ in
     ./presets.nix
     ./sound
     ./steam
+    ./tablet
     ./users
     ./utils
     ./vm

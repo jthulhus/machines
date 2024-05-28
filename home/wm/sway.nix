@@ -4,6 +4,7 @@
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
+      checkConfig = false;      # It fails to check the config due to custom layouts.
       config = {
         keybindings = { };
         bars = [ ];

@@ -2,6 +2,6 @@
   services = {
     dbus.enable = true;
     upower.enable = true;
-    passSecretService.enable = true; # This doesn't work for now...
+    passSecretService.enable = false; # This doesn't work for now...
   };
 }

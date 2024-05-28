@@ -14,4 +14,6 @@
   };
 
   programs.browserpass.enable = true;
+
+  services.pass-secret-service.enable = true;
 }

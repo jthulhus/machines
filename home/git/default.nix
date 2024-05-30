@@ -24,6 +24,18 @@
       "__pycache__/"
       # Rust
       "target/"
+      # Dune
+      "_build/"
+      # Lean
+      "build/"
+      # LaTeX
+      "*.log"
+      "*.aux"
+      "*.out"
+      "*.toc"
+      "*.bbl"
+      "*.blg"
+      "_minted-*/"
     ];
     extraConfig = {
       init = {

@@ -75,7 +75,7 @@
   home.packages = with pkgs; [
     # LaTeX
     # auctex
-    stable.texlive.combined.scheme-full
+    texlive.combined.scheme-full
     pandoc
 
     # Python

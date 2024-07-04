@@ -2,25 +2,29 @@
   description = "Full BB configuration.";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-    nixpkgs-stable.url = github:nixos/nixpkgs/nixos-23.05;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.05";
     home-manager = {
-      url = github:nix-community/home-manager;
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     emacs-overlay = {
-      url = github:nix-community/emacs-overlay;
+      url = "github:nix-community/emacs-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs-stable";
+      };
     };
     isc = {
-      url = github:jthulhu/isc;
+      url = "github:jthulhu/isc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lean4-mode = {
-      url = github:leanprover/lean4-mode;
+      url = "github:leanprover/lean4-mode";
       flake = false;
     };
     kbd-mode = {
-      url = github:kmonad/kbd-mode;
+      url = "github:kmonad/kbd-mode";
       flake = false;
     };
   };

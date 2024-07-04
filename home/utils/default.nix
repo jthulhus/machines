@@ -10,6 +10,7 @@
     cloc
     file
     imv
+    sxiv
     isc
     jq
     stable.musescore

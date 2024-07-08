@@ -259,7 +259,7 @@ of the previous command on <C-x C-o>...
                                    (json-mode . json-ts-mode)
                                    (lua-mode . lua-ts-mode)
                                    (python-mode . python-ts-mode)
-                                   (rust-mode . rust-ts-mode)
+                                   ;; (rust-mode . rust-ts-mode)
                                    (toml-mode . toml-ts-mode)
                                    (yaml-mode . yaml-ts-mode)
                                    (css-mode . css-ts-mode)
@@ -274,7 +274,8 @@ of the previous command on <C-x C-o>...
 *** Rustic
 #+begin_src emacs-lisp :tangle yes
   (use-package rustic
-    :after rust-mode)
+    :after rust-mode
+    :hook (rustic-mode . font-lock-mode))
 #+end_src
 *** Flycheck rust
 #+begin_src emacs-lisp :tangle yes

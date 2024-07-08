@@ -194,7 +194,7 @@ If point was already at that position, move point to beginning of line."
                                  (json-mode . json-ts-mode)
                                  (lua-mode . lua-ts-mode)
                                  (python-mode . python-ts-mode)
-                                 (rust-mode . rust-ts-mode)
+                                 ;; (rust-mode . rust-ts-mode)
                                  (toml-mode . toml-ts-mode)
                                  (yaml-mode . yaml-ts-mode)
                                  (css-mode . css-ts-mode)
@@ -203,7 +203,8 @@ If point was already at that position, move point to beginning of line."
 (use-package beans)
 
 (use-package rustic
-  :after rust-mode)
+  :after rust-mode
+  :hook (rustic-mode . font-lock-mode))
 
 (use-package flycheck-rust
   :commands flycheck-rust-setup

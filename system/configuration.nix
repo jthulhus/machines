@@ -19,6 +19,7 @@ in
     ./gpg
     ./gpu
     ./greeter
+    ./gtk
     ./layouts
     ./locale
     ./locate

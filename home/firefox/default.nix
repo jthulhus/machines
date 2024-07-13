@@ -1,5 +1,9 @@
 { pkgs, config, ... }:
 {
+  home.packages = with pkgs; [
+    vdhcoapp
+  ];
+  
   programs.firefox = {
     enable = true;
     # /!\ Need NUR before proceeding.

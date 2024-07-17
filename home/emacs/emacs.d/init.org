@@ -1,6 +1,6 @@
 #+title: Emacs init file
 #+author: jthulhu
-#+startup: indent, overview
+#+startup: overview
 
 My Emacs init.org file. All modes that need configuration, but that Nix shouldn't fetch
 * Repositories
@@ -232,7 +232,7 @@ of the previous command on <C-x C-o>...
   (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 #+end_src
 * God mode
-#+begin_src emacs-lisp :tangle yes
+#+begin_src emacs-lisp :tangle no
   (use-package god-mode
     :init
     (global-set-key (kbd "<escape>") #'god-mode-all)
@@ -743,32 +743,12 @@ Auto-tangle
     :hook (org-mode . org-auto-tangle-mode)
     :init (setq org-auto-tangle-default t))
 #+end_src
-** Roam
+** Org-modern
+This takes care of prettifying org documents, making org mode having a modern look.
 #+begin_src emacs-lisp :tangle yes
-  (use-package org-roam
-    :init
-    (setq org-roam-v2-ack t)
-    :custom
-    (org-roam-directory "~/em/roam/")
-    (org-roam-completion-everywhere t)
-    (org-roam-dailies-directory "log/")
-    (org-roam-dailies-capture-templates
-     '(("T" "(E)Timestamp" entry "* %<%R>>\n   %?"
-	:if-new (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>\n"))))
-    :bind (("C-c n l" . org-roam-buffer-toggle)
-	   ("C-c n f" . org-roam-node-find)
-	   ("C-c n i" . org-roam-node-insert)
-	   :map org-mode-map
-	   ("C-M-i" . completion-at-point)
-	   :map org-roam-dailies-map
-	   ("Y" . org-roam-dailies-capture-yesterday)
-	   ("T" . org-roam-dailies-capture-tomorrow))
-    :bind-keymap
-    ("C-c n d" . org-roam-dailies-map)
-    :config
-    (require 'org-roam-dailies)
-    (org-roam-setup)
-    (org-roam-db-autosync-mode))
+  (use-package org-modern
+    :after (org)
+    :hook (org-mode . org-modern-mode))
 #+end_src
 * LSP
 ** Setup main LSP
@@ -824,11 +804,26 @@ Auto-tangle
 #+begin_src emacs-lisp :tangle yes
   (use-package yasnippet-snippets)
 #+end_src
-* Vertico
+* Minibuffer
+** Vertico
 #+begin_src emacs-lisp :tangle yes
   (use-package vertico
     :init
     (vertico-mode))
+#+end_src
+** Orderless
+#+begin_src emacs-lisp :tangle yes
+  (use-package orderless
+    :custom
+    (completion-styles '(orderless basic))
+    (completion-category-defaults nil)
+    (completion-category-overrides '((file (styles partial-completion)))))
+#+end_src
+** Marginalia
+#+begin_src emacs-lisp :tangle yes
+  (use-package marginalia
+    :init
+    (marginalia-mode))
 #+end_src
 * TRAMP
 ** Tramp configuration
@@ -905,4 +900,19 @@ A major mode for editing unison configuration files.
 #+begin_src emacs-lisp :tangle yes
   (use-package deadgrep
     :bind ("<f5>" . deadgrep))
+#+end_src
+
+* All the icons
+** Base package
+#+begin_src emacs-lisp :tangle yes
+  (use-package all-the-icons
+    :if (display-graphic-p))
+#+end_src
+** Completions
+#+begin_src emacs-lisp :tangle yes
+  (use-package all-the-icons-completion
+    :after (marginalia all-the-icons)
+    :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+    :init
+    (all-the-icons-completion-mode))
 #+end_src

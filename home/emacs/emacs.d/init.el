@@ -173,13 +173,6 @@ If point was already at that position, move point to beginning of line."
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 
-(use-package god-mode
-  :init
-  (global-set-key (kbd "<escape>") #'god-mode-all)
-  :config
-  (god-mode)
-  (define-key god-local-mode-map (kbd "z") #'repeat))
-
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
 
@@ -498,30 +491,9 @@ buffer's text scale."
   :hook (org-mode . org-auto-tangle-mode)
   :init (setq org-auto-tangle-default t))
 
-(use-package org-roam
-  :init
-  (setq org-roam-v2-ack t)
-  :custom
-  (org-roam-directory "~/em/roam/")
-  (org-roam-completion-everywhere t)
-  (org-roam-dailies-directory "log/")
-  (org-roam-dailies-capture-templates
-   '(("T" "(E)Timestamp" entry "* %<%R>>\n   %?"
-      :if-new (file+head "%<%Y-%m-%d>.org.gpg" "#+title: %<%Y-%m-%d>\n"))))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-	 ("C-c n f" . org-roam-node-find)
-	 ("C-c n i" . org-roam-node-insert)
-	 :map org-mode-map
-	 ("C-M-i" . completion-at-point)
-	 :map org-roam-dailies-map
-	 ("Y" . org-roam-dailies-capture-yesterday)
-	 ("T" . org-roam-dailies-capture-tomorrow))
-  :bind-keymap
-  ("C-c n d" . org-roam-dailies-map)
-  :config
-  (require 'org-roam-dailies)
-  (org-roam-setup)
-  (org-roam-db-autosync-mode))
+(use-package org-modern
+  :after (org)
+  :hook (org-mode . org-modern-mode))
 
 (use-package lsp-mode
   :after (direnv)
@@ -571,6 +543,16 @@ buffer's text scale."
   :init
   (vertico-mode))
 
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :init
+  (marginalia-mode))
+
 (setq password-cache-expiry nil)
 
 (use-package auth-source
@@ -611,3 +593,12 @@ buffer's text scale."
 
 (use-package deadgrep
   :bind ("<f5>" . deadgrep))
+
+(use-package all-the-icons
+  :if (display-graphic-p))
+
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))

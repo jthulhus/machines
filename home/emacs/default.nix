@@ -90,6 +90,8 @@
     # ocamlPackages.ocp-indent
     # ocamlPackages.utop
 
+    emacs-all-the-icons-fonts
+
     # Flyspell
     (aspellWithDicts (dictionaries: with dictionaries; [
       fr

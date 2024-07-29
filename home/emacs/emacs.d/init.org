@@ -171,8 +171,7 @@ Make it automatically create unexistent directories.
            ("C-c k" . kill-current-buffer)
            ("S-<return>" . electric-newline-and-maybe-indent)
            ("C-z" . nil)
-           ("C-x C-z" . nil)
-           ("M-<return>" . comment-indent-new-line)))
+           ("C-x C-z" . nil)))
 #+end_src
 *** Alias DEL and M-DEL
 #+begin_src emacs-lisp :tangle yes
@@ -415,6 +414,13 @@ Quack seems to dislike `racket-mode`.
     :hook (LaTeX-mode . company-mode)
     :init
     (company-auctex-init))
+#+end_src
+** Typst
+#+begin_src emacs-lisp :tangle yes
+  (use-package typst-ts-mode)
+#+end_src
+#+begin_src emacs-lisp :tangle yes
+  (use-package typst-preview)
 #+end_src
 ** Markdown
 *** Pandoc
@@ -750,6 +756,17 @@ This takes care of prettifying org documents, making org mode having a modern lo
     :after (org)
     :hook (org-mode . org-modern-mode))
 #+end_src
+** SSG exporters
+These allow you to build static websites (such as blogs) based on org-mode documents.
+*** Hugo
+#+begin_src emacs-lisp :tangle yes
+  (use-package ox-hugo)
+#+end_src
+*** Zola
+#+begin_src emacs-lisp :tangle no
+  (use-package ox-zola
+    :after ox-hugo)
+#+end_src
 * LSP
 ** Setup main LSP
 #+begin_src emacs-lisp :tangle yes
@@ -761,10 +778,11 @@ This takes care of prettifying org documents, making org mode having a modern lo
     :config
     (diminish 'lsp-lens-mode)
     (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-    (setq lsp-file-watch-ignored
-          '("[/\\\\]\\.direnv$"
-            "[/\\\\]target$"
-            "[/\\\\]\\.git")
+    (setq lsp-file-watch-ignored '("[/\\\\]build$"
+                                   "[/\\\\].lake$"
+                                   "[/\\\\]\\.direnv$"
+                                   "[/\\\\]target$"
+                                   "[/\\\\]\\.git")
           lsp-enable-suggest-server-download nil)
     :hook ((python-mode . lsp-deferred)
            (rust-mode . lsp-deferred)

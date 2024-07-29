@@ -127,8 +127,7 @@
          ("C-c k" . kill-current-buffer)
          ("S-<return>" . electric-newline-and-maybe-indent)
          ("C-z" . nil)
-         ("C-x C-z" . nil)
-         ("M-<return>" . comment-indent-new-line)))
+         ("C-x C-z" . nil)))
 
 (define-key key-translation-map (kbd "C-j") (kbd "DEL"))
 (define-key key-translation-map (kbd "M-j") (kbd "M-DEL"))
@@ -284,6 +283,10 @@ If point was already at that position, move point to beginning of line."
   :hook (LaTeX-mode . company-mode)
   :init
   (company-auctex-init))
+
+(use-package typst-ts-mode)
+
+(use-package typst-preview)
 
 (use-package pandoc-mode
   :commands pandoc-load-default-settings
@@ -495,6 +498,8 @@ buffer's text scale."
   :after (org)
   :hook (org-mode . org-modern-mode))
 
+(use-package ox-hugo)
+
 (use-package lsp-mode
   :after (direnv)
   :init
@@ -503,10 +508,11 @@ buffer's text scale."
   :config
   (diminish 'lsp-lens-mode)
   (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-  (setq lsp-file-watch-ignored
-        '("[/\\\\]\\.direnv$"
-          "[/\\\\]target$"
-          "[/\\\\]\\.git")
+  (setq lsp-file-watch-ignored '("[/\\\\]build$"
+                                 "[/\\\\].lake$"
+                                 "[/\\\\]\\.direnv$"
+                                 "[/\\\\]target$"
+                                 "[/\\\\]\\.git")
         lsp-enable-suggest-server-download nil)
   :hook ((python-mode . lsp-deferred)
          (rust-mode . lsp-deferred)

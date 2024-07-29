@@ -59,6 +59,7 @@
           tree-sitter-python
           tree-sitter-rust
           tree-sitter-toml
+          tree-sitter-typst
         ]))
       ];
     };
@@ -89,6 +90,12 @@
     # ocamlPackages.merlin
     # ocamlPackages.ocp-indent
     # ocamlPackages.utop
+
+    # Rust
+    rust-analyzer
+
+    # Typst
+    typst-lsp
 
     emacs-all-the-icons-fonts
 

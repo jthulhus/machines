@@ -48,6 +48,33 @@
               :files ("*.el" "data"))
           '';
         })
+        (melpaBuild {
+          pname = "typst-preview";
+          version = "1";
+          commit = "1";
+          src = pkgs.typst-preview;
+          packageRequires = with melpaPackages; [
+            websocket
+          ];
+          recipe = writeText "recipe" ''
+            (typst-preview
+              :repo "havarddj/typst-preview.el"
+              :fetcher github
+              :files ("*.el"))
+          '';
+        })
+        (melpaBuild {
+          pname = "typst-ts-mode";
+          version = "1";
+          commit = "1";
+          src = pkgs.typst-ts-mode;
+          recipe = writeText "recipe" ''
+            (typst-ts-mode
+              :repo "meow_king/typst-ts-mode"
+              :fetcher sourcehut
+              :files ("*.el"))
+          '';
+        })
         (treesit-grammars.with-grammars (grammars: with grammars; [
           tree-sitter-bash
           tree-sitter-c
@@ -95,7 +122,10 @@
     rust-analyzer
 
     # Typst
-    typst-lsp
+    typst
+    # typst-lsp
+    tinymist
+    typst-fmt
 
     emacs-all-the-icons-fonts
 

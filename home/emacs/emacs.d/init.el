@@ -284,9 +284,19 @@ If point was already at that position, move point to beginning of line."
   :init
   (company-auctex-init))
 
-(use-package typst-ts-mode)
+(use-package typst-ts-mode
+  :after (lsp-mode)
+  :ensure nil
+  :hook (typst-ts-mode . (lambda () (run-hooks 'prog-mode-hook)))
+  :init
+  (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("tinymist"))
+                    :major-modes '(typst-ts-mode)
+                    :server-id 'typst)))
 
-(use-package typst-preview)
+(use-package typst-preview
+  :ensure nil)
 
 (use-package pandoc-mode
   :commands pandoc-load-default-settings
@@ -516,6 +526,7 @@ buffer's text scale."
         lsp-enable-suggest-server-download nil)
   :hook ((python-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
+         (typst-ts-mode . lsp-deferred)
          (tuareg-opam-mode . lsp-deferred)
          (nix-mode . lsp-deferred)
          (haskell-mode . lsp-deferred)

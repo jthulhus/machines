@@ -417,10 +417,20 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 ** Typst
 #+begin_src emacs-lisp :tangle yes
-  (use-package typst-ts-mode)
+  (use-package typst-ts-mode
+    :after (lsp-mode)
+    :ensure nil
+    :hook (typst-ts-mode . (lambda () (run-hooks 'prog-mode-hook)))
+    :init
+    (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("tinymist"))
+                      :major-modes '(typst-ts-mode)
+                      :server-id 'typst)))
 #+end_src
 #+begin_src emacs-lisp :tangle yes
-  (use-package typst-preview)
+  (use-package typst-preview
+    :ensure nil)
 #+end_src
 ** Markdown
 *** Pandoc
@@ -786,6 +796,7 @@ These allow you to build static websites (such as blogs) based on org-mode docum
           lsp-enable-suggest-server-download nil)
     :hook ((python-mode . lsp-deferred)
            (rust-mode . lsp-deferred)
+           (typst-ts-mode . lsp-deferred)
            (tuareg-opam-mode . lsp-deferred)
            (nix-mode . lsp-deferred)
            (haskell-mode . lsp-deferred)

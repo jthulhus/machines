@@ -19,12 +19,22 @@
       url = "github:jthulhu/isc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Extra Emacs packages
     lean4-mode = {
       url = "github:leanprover/lean4-mode";
       flake = false;
     };
     kbd-mode = {
       url = "github:kmonad/kbd-mode";
+      flake = false;
+    };
+    typst-preview = {
+      url = "github:havarddj/typst-preview.el";
+      flake = false;
+    };
+    typst-ts-mode = {
+      url = "git+https://git.sr.ht/~meow_king/typst-ts-mode";
       flake = false;
     };
   };
@@ -38,6 +48,8 @@
     , isc
     , lean4-mode
     , kbd-mode
+    , typst-preview
+    , typst-ts-mode
     , ...
     } @ inputs:
     let
@@ -56,7 +68,7 @@
       user-overlays = [
         emacs-overlay.overlay
         (final: prev: {
-          inherit lean4-mode kbd-mode;
+          inherit lean4-mode kbd-mode typst-preview typst-ts-mode;
           stable = import nixpkgs-stable {
             inherit system;
             config.allowUnfree = true;

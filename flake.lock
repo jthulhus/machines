@@ -155,7 +155,9 @@
         "kbd-mode": "kbd-mode",
         "lean4-mode": "lean4-mode",
         "nixpkgs": "nixpkgs",
-        "nixpkgs-stable": "nixpkgs-stable"
+        "nixpkgs-stable": "nixpkgs-stable",
+        "typst-preview": "typst-preview",
+        "typst-ts-mode": "typst-ts-mode"
       }
     },
     "systems": {
@@ -171,6 +173,38 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "typst-preview": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1711804337,
+        "narHash": "sha256-2s0Dur4I7+XBukVjxgD77UcIQcu0dtgXHSg+XV1ZNnA=",
+        "owner": "havarddj",
+        "repo": "typst-preview.el",
+        "rev": "9dccb951c14c388f8ccfa7cac8b4b4dbf3f63c9b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "havarddj",
+        "repo": "typst-preview.el",
+        "type": "github"
+      }
+    },
+    "typst-ts-mode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718114318,
+        "narHash": "sha256-kkuR4E8rN7gZ8oXPhKE6NaKnijX1CE0t8Sj0/kGEYzo=",
+        "ref": "refs/heads/main",
+        "rev": "f179b08dc68b2d264066b7ae1ed64debafb1e237",
+        "revCount": 148,
+        "type": "git",
+        "url": "https://git.sr.ht/~meow_king/typst-ts-mode"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.sr.ht/~meow_king/typst-ts-mode"
       }
     },
     "utils": {

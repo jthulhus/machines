@@ -66,7 +66,7 @@ include "%L"
 # ~~~~~~~~~~~~~
 <Multi_key> <slash> <equal>		: "≠"	U2260	# NOT EQUAL
 <Multi_key> <equal> <slash>   		: "≠"	U2260	# NOT EQUAL
-<Multi_key> <tilde> <equal>             : "≅"           # ISOMORPHIC
+<Multi_key> <asciitilde> <equal>        : "≅"           # ISOMORPHIC
 <Multi_key> <m> <i> <n> <f>		: "∞"	U221E	# INFINITY
 <Multi_key> <m> <i> <f> <f>		: "⇔"		# IFF
 <Multi_key> <m> <equal> <greater>	: "⇒"		# IMPLIES

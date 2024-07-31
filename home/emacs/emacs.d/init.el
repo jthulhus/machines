@@ -304,6 +304,8 @@ If point was already at that position, move point to beginning of line."
 
 (use-package nix-mode
   :after (lsp-mode flycheck)
+  :hook (nix-mode . (lambda ()
+                      (add-hook 'before-save-hook #'lsp-format-buffer nil 'make-it-local)))
   :init
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client

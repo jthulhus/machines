@@ -4,8 +4,8 @@
     source = ./emacs.d;
     recursive = true;
   };
-    
-  
+
+
   programs.emacs = {
     enable = true;
     package = with pkgs; emacsWithPackagesFromUsePackage {
@@ -20,7 +20,7 @@
           version = "1";
           commit = "1";
           src = pkgs.kbd-mode;
-          packageRequires = [];
+          packageRequires = [ ];
           recipe = writeText "recipe" ''
             (kbd-mode
               :repo "kmonad/kbd-mode"
@@ -98,7 +98,7 @@
     defaultEditor = true;
     socketActivation.enable = true;
   };
-  
+
 
   home.packages = with pkgs; [
     # LaTeX

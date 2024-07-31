@@ -3,7 +3,7 @@ let
   inherit (lib) types mkOption;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (builtins) concatStringsSep;
-  inherit (pkgs.gnome) adwaita-icon-theme;
+  inherit (pkgs) adwaita-icon-theme;
   mkPath = bookmark: "file://${config.home.homeDirectory}/${bookmark}";
   gtkConfig = {
     bookmarks = map mkPath config.gtkBookmarks;

@@ -107,7 +107,7 @@
     pandoc
 
     # Python
-    nodePackages.pyright
+    pyright
 
     # Nix
     nixd

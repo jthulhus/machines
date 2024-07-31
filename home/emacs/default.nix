@@ -111,6 +111,7 @@
 
     # Nix
     nixd
+    nixpkgs-fmt
 
     # # OCaml
     # ocamlPackages.findlib

@@ -113,9 +113,9 @@ with lib;
       # };
 
       gtkBookmarks = [
-        "prog"
-        "Private/d"
-        "Private/d/scolarite/ens"
+        "dev"
+        "em/d"
+        "em/d/scolarite/ens"
       ];
 
       fonts.fontconfig.enable = true;

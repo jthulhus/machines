@@ -60,7 +60,15 @@ with lib;
       inherit (builtins) elem;
       inherit (lib) getName mkForce;
       unfreePredicate = pkg: elem (getName pkg) allowedUnfree;
-      allowedUnfree = [ "dwarf-fortress" "discord" "minecraft-launcher" "minecraft-server" "aseprite" "xkcd-font-unstable" "xkcd-font" ];
+      allowedUnfree = [
+        "dwarf-fortress"
+        "discord"
+        "minecraft-launcher"
+        "minecraft-server"
+        "aseprite"
+        "xkcd-font-unstable"
+        "xkcd-font"
+      ];
     in
     {
       # nixpkgs.config.allowUnfreePredicate = unfreePredicate;
@@ -94,7 +102,7 @@ with lib;
           XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
         };
       };
-      
+
       # qt = {
       #   enable = true;
       #   platformTheme = "gtk";

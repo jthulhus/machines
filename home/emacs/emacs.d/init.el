@@ -217,10 +217,9 @@ If point was already at that position, move point to beginning of line."
 
 (use-package lsp-pyright
   :hook
-  (python-mode
-   . (lambda ()
-       (require 'lsp-pyright)
-       (lsp)))
+  (python-mode . (lambda ()
+                   (require 'lsp-pyright)
+                   (lsp)))
   :defer t)
 
 (use-package ocp-indent

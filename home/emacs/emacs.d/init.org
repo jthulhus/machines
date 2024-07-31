@@ -302,10 +302,9 @@ of the previous command on <C-x C-o>...
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-pyright
     :hook
-    (python-mode
-     . (lambda ()
-         (require 'lsp-pyright)
-         (lsp)))
+    (python-mode . (lambda ()
+                     (require 'lsp-pyright)
+                     (lsp)))
     :defer t)
 #+end_src
 ** OCaml

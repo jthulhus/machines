@@ -71,7 +71,9 @@ with lib;
       ];
     in
     {
-      # nixpkgs.config.allowUnfreePredicate = unfreePredicate;
+      my.encrypted-places = [ "em" "er" "ed" "series" "pictures" "movies" ];
+
+      nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       home = {
         stateVersion = "20.09";
 

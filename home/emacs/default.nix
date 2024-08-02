@@ -78,15 +78,27 @@
         (treesit-grammars.with-grammars (grammars: with grammars; [
           tree-sitter-bash
           tree-sitter-c
+          tree-sitter-cmake
           tree-sitter-cpp
+          tree-sitter-css
+          tree-sitter-elisp
+          tree-sitter-haskell
+          tree-sitter-html
+          tree-sitter-json
           tree-sitter-latex
+          tree-sitter-llvm
+          tree-sitter-make
+          tree-sitter-markdown
           tree-sitter-nix
           tree-sitter-ocaml
           tree-sitter-ocaml-interface
           tree-sitter-python
           tree-sitter-rust
+          tree-sitter-scheme
+          tree-sitter-scss
           tree-sitter-toml
           tree-sitter-typst
+          tree-sitter-yaml
         ]))
       ];
     };

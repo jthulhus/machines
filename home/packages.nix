@@ -1,28 +1,36 @@
 { pkgs, config, ... }:
 {
-  home.packages = with pkgs; [                        # Usual stuff
+  home.packages = with pkgs; [
+    # Usual stuff
     clementine
     unison
     calibre
     graphviz
-  ] ++ [                       # Gnome, gtk and qt utilities
+  ] ++ [
+    # Gnome, gtk and qt utilities
     dconf
     qt5ct
-  ] ++ [                        # Imagemagick
+  ] ++ [
+    # Imagemagick
     imagemagick
+    ffmpeg
+    vid-stab
     inkscape
-  ] ++ [                        # Nss
+  ] ++ [
+    # Nss
     nss
-  ] ++ [                        # Sane
+  ] ++ [
+    # Sane
     sane-airscan
     sane-frontends
     xsane
-  ] ++ [                        # Dmenu
+  ] ++ [
+    # Dmenu
     (if config.xserver == "wayland" then dmenu-wayland else dmenu)
     libnotify
   ];
-  
-  programs = {    
+
+  programs = {
     home-manager.enable = true;
   };
 

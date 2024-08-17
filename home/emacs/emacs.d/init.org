@@ -888,9 +888,7 @@ Instead, let's set directly that value
 * Crux
 #+begin_src emacs-lisp :tangle yes 
   (use-package crux
-    :bind (("C-c e" . crux-eval-and-replace)
-	   ("C-<backspace>" . crux-kill-line-backwards)
-	   ("C-c f" . crux-recentf-find-file)))
+    :bind (("C-c e" . crux-eval-and-replace)))
 #+end_src
 * Magit
 #+begin_src emacs-lisp :tangle yes

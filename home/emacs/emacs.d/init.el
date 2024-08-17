@@ -1,6 +1,6 @@
 (require 'package)
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
+	       '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
 (use-package package-lint)
@@ -168,7 +168,7 @@ If point was already at that position, move point to beginning of line."
   "Comment or uncomment, based on the region."
   (interactive)
   (if (use-region-p)
-      (comment-or-uncomment-region (region-beginning) (region-end))
+	(comment-or-uncomment-region (region-beginning) (region-end))
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 
@@ -442,10 +442,10 @@ If point was already at that position, move point to beginning of line."
 
 (use-package jump-char
   :bind (("M-h" . jump-char-forward)
-	 ("M-m" . jump-char-backward))
+	   ("M-m" . jump-char-backward))
   :config
   (setq jump-char-forward-key nil
-	jump-char-backward-key nil))
+	  jump-char-backward-key nil))
 
 (use-package embrace
   :bind (("C-," . embrace-commander))
@@ -586,14 +586,12 @@ buffer's text scale."
   (savehist-mode))
 
 (use-package crux
-  :bind (("C-c e" . crux-eval-and-replace)
-	 ("C-<backspace>" . crux-kill-line-backwards)
-	 ("C-c f" . crux-recentf-find-file)))
+  :bind (("C-c e" . crux-eval-and-replace)))
 
 (use-package magit
   :bind (("C-x g" . magit-status)
-	 ("C-x M-g" . magit-dispatch)
-	 ("C-C M-g" . magit-file-dispatch)))
+	   ("C-x M-g" . magit-dispatch)
+	   ("C-C M-g" . magit-file-dispatch)))
 
 (use-package eldoc
   :config

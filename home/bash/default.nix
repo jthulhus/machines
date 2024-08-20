@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 let
-  inherit (lib.strings) concatMapStringsSep;
+  inherit (lib.strings) concatMapStringsSep concatStringsSep;
   encrypted-directories = map (dir: "${config.home.homeDirectory}/${dir}") config.my.encrypted-places;
   private-locate-dbs = concatMapStringsSep ":" (dir: "${dir}/.plocate.db") encrypted-directories;
 in
@@ -40,7 +40,8 @@ in
       initExtra = ''
         function udb() {
           echo Updating databases...
-          for dir in ${concatMapStringsSep " " (dir: "\"${dir}\"") encrypted-directories}; do
+          IFS=':' dbs=($ENCRYPTED_DIRS)
+          for dir in "$${dbs[@]}"; do
             if [ -f "$dir/backup" ]; then
               echo "Database for $(basename $dir) is accessibe, updating."
               updatedb -l no -o "$dir/.plocate.db" -U "$dir"
@@ -55,6 +56,7 @@ in
         fi
       '' + (builtins.readFile ./make_prompt.sh);
       sessionVariables = {
+        ENCRYPTED_DIRS = concatStringsSep ":" encrypted-directories;
         CALIBRE_USE_DARK_PALETTE = 1;
         LOCATE_PATH = private-locate-dbs;
       };

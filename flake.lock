@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722416168,
-        "narHash": "sha256-m4CoX6bQzCg6atdfx2cstBEfadnKArnTwwv48OI4BD0=",
+        "lastModified": 1724119075,
+        "narHash": "sha256-rZe4WgHhLqhu4NjGVYyIQ36ieHZgSkfnNMdLzKaqFQk=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "70497f8b17f0bdafddc197b125f54cd5f73162cf",
+        "rev": "e197771f35c8c330324256c5f306614f273ffd9d",
         "type": "github"
       },
       "original": {
@@ -49,11 +49,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1722407237,
-        "narHash": "sha256-wcpVHUc2nBSSgOM7UJSpcRbyus4duREF31xlzHV5T+A=",
+        "lastModified": 1723986931,
+        "narHash": "sha256-Fy+KEvDQ+Hc8lJAV3t6leXhZJ2ncU5/esxkgt3b8DEY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "58cef3796271aaeabaed98884d4abaab5d9d162d",
+        "rev": "2598861031b78aadb4da7269df7ca9ddfc3e1671",
         "type": "github"
       },
       "original": {
@@ -117,11 +117,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1722185531,
-        "narHash": "sha256-veKR07psFoJjINLC8RK4DiLniGGMgF3QMlS4tb74S6k=",
+        "lastModified": 1723991338,
+        "narHash": "sha256-Grh5PF0+gootJfOJFenTTxDTYPidA3V28dqJ/WV7iis=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "52ec9ac3b12395ad677e8b62106f0b98c1f8569d",
+        "rev": "8a3354191c0d7144db9756a74755672387b702ba",
         "type": "github"
       },
       "original": {
@@ -133,11 +133,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1722221733,
-        "narHash": "sha256-sga9SrrPb+pQJxG1ttJfMPheZvDOxApFfwXCFO0H9xw=",
+        "lastModified": 1723938990,
+        "narHash": "sha256-9tUadhnZQbWIiYVXH8ncfGXGvkNq3Hag4RCBEMUk7MI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "12bf09802d77264e441f48e25459c10c93eada2e",
+        "rev": "c42fcfbdfeae23e68fc520f9182dde9f38ad1890",
         "type": "github"
       },
       "original": {
@@ -194,11 +194,11 @@
     "typst-ts-mode": {
       "flake": false,
       "locked": {
-        "lastModified": 1718114318,
-        "narHash": "sha256-kkuR4E8rN7gZ8oXPhKE6NaKnijX1CE0t8Sj0/kGEYzo=",
+        "lastModified": 1723615847,
+        "narHash": "sha256-C4BV+6wAheIMR5TRyPDwmLYx/z9TyZ4eLSiux/sPnGM=",
         "ref": "refs/heads/main",
-        "rev": "f179b08dc68b2d264066b7ae1ed64debafb1e237",
-        "revCount": 148,
+        "rev": "a8487acfb74b93f76784651459e65e47f815cd67",
+        "revCount": 162,
         "type": "git",
         "url": "https://git.sr.ht/~meow_king/typst-ts-mode"
       },

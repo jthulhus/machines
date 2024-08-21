@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = pkgs.lix;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true

@@ -41,7 +41,7 @@ in
         function udb() {
           echo Updating databases...
           IFS=':' dbs=($ENCRYPTED_DIRS)
-          for dir in "$${dbs[@]}"; do
+          for dir in "''${dbs[@]}"; do
             if [ -f "$dir/backup" ]; then
               echo "Database for $(basename $dir) is accessibe, updating."
               updatedb -l no -o "$dir/.plocate.db" -U "$dir"

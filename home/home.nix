@@ -31,7 +31,6 @@ with lib;
     ./qt
     ./rofi
     ./sound
-    ./sound
     ./ssh
     ./swappy
     ./tmsu

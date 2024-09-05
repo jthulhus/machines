@@ -18,6 +18,7 @@ with lib;
     ./git
     ./gpg
     ./gtk
+    ./images
     ./krita
     ./languages
     ./ldap

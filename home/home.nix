@@ -12,6 +12,7 @@ with lib;
     ./file-browser
     ./firefox
     ./fonts
+    ./fuse
     ./games
     ./gammastep
     ./gimp

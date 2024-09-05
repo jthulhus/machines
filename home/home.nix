@@ -38,6 +38,7 @@ with lib;
     ./tmsu
     ./utils
     ./wifi
+    ./wine
     ./wm
     ./xdg
     ./yubikey

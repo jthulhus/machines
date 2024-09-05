@@ -28,6 +28,8 @@
     # Dmenu
     (if config.xserver == "wayland" then dmenu-wayland else dmenu)
     libnotify
+  ] ++ [
+    pdfpc
   ];
 
   programs = {

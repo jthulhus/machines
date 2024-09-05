@@ -547,6 +547,11 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 #+begin_src emacs-lisp :tangle yes
   (use-package lua-mode)
 #+end_src
+** Koka
+#+begin_src emacs-lisp :tangle yes
+  (use-package koka-mode
+    :ensure nil)
+#+end_src
 * Parenthesis balencing
 Automated balancing of parenthesis. Currently using smartparens over paredit because it handles
 better other programming languages than lisps.

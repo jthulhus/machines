@@ -382,6 +382,9 @@ If point was already at that position, move point to beginning of line."
 
 (use-package lua-mode)
 
+(use-package koka-mode
+  :ensure nil)
+
 (use-package smartparens
   :init
   (require 'smartparens-config)

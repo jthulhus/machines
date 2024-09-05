@@ -27,6 +27,7 @@ in {
             clementine = dTrue;
             wesnoth = dTrue;
             minecraft = dTrue;
+            ssdp = dTrue;
           };
           virt = true;
           audio = true;

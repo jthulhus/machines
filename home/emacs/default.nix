@@ -116,6 +116,7 @@
     # LaTeX
     # auctex
     texlive.combined.scheme-full
+    texlab
     pandoc
 
     # Python

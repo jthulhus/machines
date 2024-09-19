@@ -491,9 +491,10 @@ Quack seems to dislike `racket-mode`.
 #+end_src
 ** Coq
 #+begin_src emacs-lisp :tangle yes
-  (use-package proof-general)
+  (use-package proof-general
+    :hook (proof-mode . font-lock-mode))
   (use-package company-coq
-    :hook coq-mode)
+    :hook (coq-mode . company-coq-mode))
 #+end_src
 ** Lean
 Lean mode has the sympathy of ignoring user's configuration, enable semantic tokens "by default", without any

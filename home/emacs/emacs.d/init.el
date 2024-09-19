@@ -341,9 +341,10 @@ If point was already at that position, move point to beginning of line."
 ;; (use-package prolog)
 (use-package ediprolog)
 
-(use-package proof-general)
+(use-package proof-general
+  :hook (proof-mode . font-lock-mode))
 (use-package company-coq
-  :hook coq-mode)
+  :hook (coq-mode . company-coq-mode))
 
 (use-package lean4-mode
   :ensure nil

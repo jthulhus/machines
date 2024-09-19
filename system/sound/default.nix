@@ -5,6 +5,7 @@ let
 in {
   imports = [
     ./pulseaudio.nix
+    ./pipewire.nix
   ];
 
   options.my.audio = mkOption {

@@ -324,7 +324,9 @@ of the previous command on <C-x C-o>...
     :mode
     ("\\.ml\\'" . tuareg-mode)
     ("\\.mli\\'" . tuareg-mode)
-    ("\\.mly\\'" . tuareg-menhir-mode))
+    ("\\.mly\\'" . tuareg-menhir-mode)
+    :config
+    (diminish 'tuareg-mode "🐫"))
 #+end_src
 *** Utop
 #+begin_src emacs-lisp :tangle yes

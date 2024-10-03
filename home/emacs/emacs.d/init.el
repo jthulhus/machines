@@ -232,7 +232,9 @@ If point was already at that position, move point to beginning of line."
   :mode
   ("\\.ml\\'" . tuareg-mode)
   ("\\.mli\\'" . tuareg-mode)
-  ("\\.mly\\'" . tuareg-menhir-mode))
+  ("\\.mly\\'" . tuareg-menhir-mode)
+  :config
+  (diminish 'tuareg-mode "🐫"))
 
 (use-package utop
   :hook (tuareg-mode . utop-minor-mode)

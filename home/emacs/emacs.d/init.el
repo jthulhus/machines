@@ -388,6 +388,8 @@ If point was already at that position, move point to beginning of line."
 (use-package koka-mode
   :ensure nil)
 
+(use-package z3-mode)
+
 (use-package smartparens
   :init
   (require 'smartparens-config)

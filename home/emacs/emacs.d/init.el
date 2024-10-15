@@ -172,6 +172,20 @@ If point was already at that position, move point to beginning of line."
     (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
 (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 
+(defun incr-at-point (&optional arg)
+  (interactive "P")
+  (let ((n (prefix-numeric-value-arg arg))
+        (old-point (point)))
+    (unwind-protect
+        (progn
+          (skip-chars-backward "-0-9")
+          (or (looking-at "-[0-9]+")
+              (error "No number at point"))
+          (replace-match (number-to-string (+ (string-to-number (match-string 0)) n))))
+      (goto-char old-point))))
+
+(define-key (current-global-map) (kbd "C-c i") #'incr-at-point)
+
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
 

@@ -230,6 +230,25 @@ of the previous command on <C-x C-o>...
       (comment-or-uncomment-region (line-beginning-position) (line-end-position))))
   (global-set-key (kbd "C-x C-o") #'my/comment-or-uncomment)
 #+end_src
+** Increment at point
+Increments a number at point
+#+begin_src emacs-lisp :tangle yes
+  (defun incr-at-point (&optional arg)
+    (interactive "P")
+    (let ((n (prefix-numeric-value-arg arg))
+          (old-point (point)))
+      (unwind-protect
+          (progn
+            (skip-chars-backward "-0-9")
+            (or (looking-at "-[0-9]+")
+                (error "No number at point"))
+            (replace-match (number-to-string (+ (string-to-number (match-string 0)) n))))
+        (goto-char old-point))))
+#+end_src
+Bind it to something.
+#+begin_src emacs-lisp :tangle yes
+  (define-key (current-global-map) (kbd "C-c i") #'incr-at-point)
+#+end_src
 * God mode
 #+begin_src emacs-lisp :tangle no
   (use-package god-mode

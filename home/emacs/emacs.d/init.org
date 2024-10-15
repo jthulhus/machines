@@ -558,7 +558,7 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 * SMT solvers
 ** Z3
 #+begin_src emacs-lisp :tangle yes
-  (use-package z3-mode)
+  (use-package boogie-friends)
 #+end_src
 * Parenthesis balencing
 Automated balancing of parenthesis. Currently using smartparens over paredit because it handles

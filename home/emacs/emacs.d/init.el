@@ -3,6 +3,8 @@
 	       '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
+(use-package pkg-info)
+
 (use-package package-lint)
 
 (setq default-frame-alist '((undecorated . t))
@@ -187,11 +189,14 @@ If point was already at that position, move point to beginning of line."
 (define-key (current-global-map) (kbd "C-c i") #'incr-at-point)
 
 (use-package flycheck
-  :hook (rustic-mode tuareg-mode elisp-mode))
   :hook (rustic-mode tuareg-mode elisp-mode)
   :config
   (dolist (flycheck-command '(flycheck-next-error flycheck-previous-error))
     (put flycheck-command 'repeat-map 'flycheck-command-map)))
+
+(use-package flycheck-grammalecte
+  :after (flycheck)
+  :init (flycheck-grammalecte-setup))
 
 (use-package treesit
   :ensure nil

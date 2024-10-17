@@ -2,13 +2,22 @@
 #+author: jthulhu
 #+startup: overview
 
-My Emacs init.org file. All modes that need configuration, but that Nix shouldn't fetch
+My Emacs init.org file.
 * Repositories
+** Add good repositores
+Note that this is only useful to browse available packages inside Emacs, as all packages will
+actually be downloaded by Nix.
 #+begin_src emacs-lisp :tangle yes 
   (require 'package)
   (add-to-list 'package-archives
 	       '("melpa" . "https://melpa.org/packages/"))
   (package-initialize)
+#+end_src
+** Add `pkg-info`
+I'm not sure what this does, but it is apparently required by several other packages, and not
+declared as a dependency...
+#+begin_src emacs-lisp :tangle yes
+  (use-package pkg-info)
 #+end_src
 * Package Lint
 #+begin_src emacs-lisp :tangle yes
@@ -259,13 +268,21 @@ Bind it to something.
     (define-key god-local-mode-map (kbd "z") #'repeat))
 #+end_src
 * Flycheck
-** Enable flycheck for the wanted languages
+** Enable flycheck
+We enable flycheck for the wanted languages.  We also make flycheck next and previous commands
+repeatable.
 #+begin_src emacs-lisp :tangle yes
   (use-package flycheck
     :hook (rustic-mode tuareg-mode elisp-mode)
     :config
     (dolist (flycheck-command '(flycheck-next-error flycheck-previous-error))
       (put flycheck-command 'repeat-map 'flycheck-command-map)))
+#+end_src
+** Enable grammalecte
+#+begin_src emacs-lisp :tangle yes
+  (use-package flycheck-grammalecte
+    :after (flycheck)
+    :init (flycheck-grammalecte-setup))
 #+end_src
 * Tree sitter
 #+begin_src emacs-lisp :tangle yes

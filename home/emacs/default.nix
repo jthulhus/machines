@@ -144,6 +144,7 @@
     emacs-all-the-icons-fonts
 
     # Flyspell
+    python3Packages.grammalecte
     (aspellWithDicts (dictionaries: with dictionaries; [
       fr
       en

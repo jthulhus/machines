@@ -82,6 +82,7 @@ include "%L"
 <Multi_key> <m> <q> <e>                 : "∃"           # EXISTS
 <Multi_key> <m> <q> <n> <e>             : "∄"           # NOT EXISTS
 <Multi_key> <bar> <equal>               : "⊨"           # MODELS
+<Multi_key> <bar> <minus>               : "⊢"           # ENTAILS 
 <Multi_key> <slash> <bar> <equal>       : "⊯"           # NOT MODELS
 <Multi_key> <m> <s> <u> <m>             : "Σ"           # CAPITAL SIGMA
 <Multi_key> <m> <n> <a> <b>		: "∇"   UE2207  # NABLA

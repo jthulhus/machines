@@ -262,7 +262,10 @@ Bind it to something.
 ** Enable flycheck for the wanted languages
 #+begin_src emacs-lisp :tangle yes
   (use-package flycheck
-    :hook (rustic-mode tuareg-mode elisp-mode))
+    :hook (rustic-mode tuareg-mode elisp-mode)
+    :config
+    (dolist (flycheck-command '(flycheck-next-error flycheck-previous-error))
+      (put flycheck-command 'repeat-map 'flycheck-command-map)))
 #+end_src
 * Tree sitter
 #+begin_src emacs-lisp :tangle yes

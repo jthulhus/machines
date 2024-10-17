@@ -188,6 +188,10 @@ If point was already at that position, move point to beginning of line."
 
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode))
+  :hook (rustic-mode tuareg-mode elisp-mode)
+  :config
+  (dolist (flycheck-command '(flycheck-next-error flycheck-previous-error))
+    (put flycheck-command 'repeat-map 'flycheck-command-map)))
 
 (use-package treesit
   :ensure nil

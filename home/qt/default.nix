@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
-  accent = "Mauve";
-  variant = "Mocha";
+  accent = "mauve";
+  variant = "mocha";
 in {
   home.packages = with pkgs; [
     (catppuccin-kvantum.override {

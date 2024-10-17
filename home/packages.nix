@@ -9,7 +9,7 @@
   ] ++ [
     # Gnome, gtk and qt utilities
     dconf
-    qt5ct
+    libsForQt5.qt5ct
   ] ++ [
     # Imagemagick
     imagemagick

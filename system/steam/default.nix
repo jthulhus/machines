@@ -12,6 +12,6 @@ in {
   };
   config = {
     programs.steam.enable = my.steam;
-    my.unfree = [ "steam" "steam-run" "steam-original" ];
+    my.unfree = [ "steam" "steam-run" "steam-original" "steam-unwrapped" ];
   };
 }

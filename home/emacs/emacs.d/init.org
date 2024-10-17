@@ -596,7 +596,9 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 #+end_src
 * SMT solvers
 ** Z3
-#+begin_src emacs-lisp :tangle yes
+This is disabled for the time being, as this package does not compile with the current version of
+Emacs... :/
+#+begin_src emacs-lisp :tangle no
   (use-package boogie-friends)
 #+end_src
 * Parenthesis balencing

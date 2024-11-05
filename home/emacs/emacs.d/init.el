@@ -534,6 +534,16 @@ buffer's text scale."
   :hook (org-mode . org-auto-tangle-mode)
   :init (setq org-auto-tangle-default t))
 
+(use-package ebib)
+
+(use-package biblio)
+
+(use-package ebib-biblio
+  :ensure nil
+  :after (ebib biblio)
+  :bind (:map ebib-index-mode-map ("B" . ebib-biblio-import-doi)
+         :map biblio-selection-mode-map ("e" . ebib-biblio-selection-import)))
+
 (use-package org-modern
   :after (org)
   :hook (org-mode . org-modern-mode))

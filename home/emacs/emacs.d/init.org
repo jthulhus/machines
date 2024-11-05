@@ -814,6 +814,21 @@ Auto-tangle
     :hook (org-mode . org-auto-tangle-mode)
     :init (setq org-auto-tangle-default t))
 #+end_src
+** Bibliography handling
+#+begin_src emacs-lisp :tangle yes
+  (use-package ebib)
+#+end_src
+#+begin_src emacs-lisp :tangle yes
+  (use-package biblio)
+#+end_src
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package ebib-biblio
+    :ensure nil
+    :after (ebib biblio)
+    :bind (:map ebib-index-mode-map ("B" . ebib-biblio-import-doi)
+           :map biblio-selection-mode-map ("e" . ebib-biblio-selection-import)))
+#+end_src
 ** Org-modern
 This takes care of prettifying org documents, making org mode having a modern look.
 #+begin_src emacs-lisp :tangle yes

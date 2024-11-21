@@ -73,7 +73,17 @@ with lib;
       ];
     in
     {
-      my.encrypted-places = [ "em" "er" "ed" "series" "pictures" "movies" ];
+      my.encrypted-places = [
+        "books"
+        "ea"
+        "ed"
+        "em"
+        "er"
+        "movies"
+        "org"
+        "pictures"
+        "series"
+      ];
 
       nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       home = {

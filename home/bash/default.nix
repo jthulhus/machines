@@ -38,20 +38,83 @@ in
       };
       shellOptions = [ "histappend" "checkwinsize" "globstar" ];
       initExtra = ''
-        function udb() {
-          echo Updating databases...
+        function iter_open_ed() {
           IFS=':' dbs=($ENCRYPTED_DIRS)
           for dir in "''${dbs[@]}"; do
             if [ -f "$dir/backup" ]; then
-              echo "Database for $(basename $dir) is accessibe, updating."
-              updatedb -l no -o "$dir/.plocate.db" -U "$dir"
-            else
-              echo "Database for $(basename $dir) is not accessible, skipping."
+              $* "$dir"
             fi
           done
         }
 
-        if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
+        function iter_closed_ed() {
+          IFS=':' dbs=($ENCRYPTED_DIRS)
+          for dir in "''${dbs[@]}"; do
+            if [ ! -f "$dir/backup" ]; then
+              $* "$dir"
+            fi
+          done
+        }
+
+        function iter_ed() {
+          IFS=':' dbs=($ENCRYPTED_DIRS)
+          for dir in "''${dbs[@]}"; do
+            if [ -f "$dir/backup" ]; then
+              $1 "$dir"
+            else
+              $2 "$dir"
+            fi
+          done
+        }
+
+        function udb() {
+          echo Updating databases...
+          ho() {
+            echo "Database for $(basename $1) is accessible, updating."
+            updatedb -l no -o "$1/.plocate.db" -U "$1"
+          }
+          hc() {
+            echo "Database for $(basename $1) is not accessible, skipping."
+          }
+          iter_ed ho hc
+        }
+
+        function backup_all() {
+          echo Backing up
+          if [ ! -d ~/media/Adrien ]; then
+            echo "error: no backup media"
+            return
+          fi
+
+          ho() {
+            echo "Backing up $1..."
+            mntm $(basename "$1")
+            pushd "$1"
+            ./backup
+            popd
+            umntm $(basename "$1")
+          }
+          hc() {
+            mnt "$1"
+            ho "$1"
+            umnt "$1"
+          }
+        }
+
+        function make_mnt_completions() {
+          IFS=':' dbs=($ENCRYPTED_DIRS)
+          dbs_bn=()
+          for dir in "''${dbs[@]}"; do
+            dbs_bn+=($(basename $dir))
+          done
+          complete -W "''${dbs_bn[*]}" mnt
+          complete -W "''${dbs_bn[*]}" umnt
+          complete -W "''${dbs_bn[*]}" mntm
+          complete -W "''${dbs_bn[*]}" umntm
+        }
+        make_mnt_completions
+
+        if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
           exec sway
         fi
       '' + (builtins.readFile ./make_prompt.sh);

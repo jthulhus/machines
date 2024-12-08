@@ -6,6 +6,7 @@
     unison
     calibre
     graphviz
+    python3Packages.deemix
   ] ++ [
     # Gnome, gtk and qt utilities
     dconf

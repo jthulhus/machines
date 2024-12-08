@@ -1,5 +1,6 @@
 {
   imports = [
+    ./agda
     ./python
     # ./rust                      # Discontinued
     ./racket

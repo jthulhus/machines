@@ -5,6 +5,6 @@
   ];
 
   programs.bash = {
-    promptInit = builtins.readFile ../../home/bash/make_prompt.sh;
+    promptInit = builtins.readFile ../../home/shell/make_prompt.sh;
   };
 }

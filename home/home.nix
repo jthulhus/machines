@@ -5,7 +5,6 @@ with lib;
     ./alacritty
     ./anki
     ./aseprite
-    ./bash
     ./direnv
     ./emacs
     ./eww
@@ -32,6 +31,7 @@ with lib;
     ./pass
     ./qt
     ./rofi
+    ./shell
     ./sound
     ./ssh
     ./swappy

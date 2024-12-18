@@ -23,6 +23,17 @@ in
       isgit
     ];
 
+    programs.zsh = {
+      enable = true;
+      enableCompletion = true;
+      enableVteIntegration = true;
+      defaultKeymap = "emacs";
+      history = {
+        append = true;
+        expireDuplicatesFirst = true;
+      };
+    };
+    
     programs.bash = {
       enable = true;
       historyFileSize = 2000;

@@ -65,6 +65,7 @@ in
         "aseprite"
         "xkcd-font-unstable"
         "xkcd-font"
+        "helvetica-neue-lt-std"
       ];
       nixpkgs.config = {
         allowUnfreePredicate = pkg: elem (getName pkg) my.unfree;

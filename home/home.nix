@@ -70,6 +70,7 @@ with lib;
         "aseprite"
         "xkcd-font-unstable"
         "xkcd-font"
+        "helvetica-neue-lt-std"
       ];
     in
     {

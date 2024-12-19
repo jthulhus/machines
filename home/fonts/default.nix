@@ -2,9 +2,8 @@
 {
   home.packages = with pkgs; [
     font-awesome
-    (nerdfonts.override {
-      fonts = [ "FiraCode" "NerdFontsSymbolsOnly" ];
-    })
+    nerd-fonts.fira-code
+    nerd-fonts.symbols-only
     source-code-pro
     xkcd-font
   ];

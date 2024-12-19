@@ -2,7 +2,7 @@
 {
   fonts.packages = with pkgs; [
     font-awesome
-    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    nerd-fonts.fira-code
     source-code-pro
     helvetica-neue-lt-std
   ];

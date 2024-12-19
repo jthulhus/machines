@@ -7,6 +7,7 @@
     calibre
     graphviz
     python3Packages.deemix
+    lsd
   ] ++ [
     # Gnome, gtk and qt utilities
     dconf

@@ -107,7 +107,6 @@ There should be `/sys/class/power_supply/<battery-device>`.";
       home.packages = with pkgs; [
         (if useSway then swaylock-effects else i3lock)
         brightnessctl
-        pulseaudio
         i3status-rust
         sway-contrib.grimshot
       ];

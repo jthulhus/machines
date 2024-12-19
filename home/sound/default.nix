@@ -8,7 +8,7 @@ in
 {
   home.packages = with pkgs; [
     alsa-utils
-    pulseaudio
+    # pulseaudio
     soundScript
     pavucontrol
   ];

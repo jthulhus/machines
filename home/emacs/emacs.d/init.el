@@ -492,7 +492,6 @@ If point was already at that position, move point to beginning of line."
   :after (god-mode)  
   :config
   (diminish 'which-key-mode)
-  (which-key-mode)
   (which-key-enable-god-mode-support))
 
 (defun my/text-scale-adjust-latex-previews ()

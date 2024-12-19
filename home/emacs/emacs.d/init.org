@@ -768,7 +768,6 @@ Allow to jump even faster to a precise character, both forward and backward
     :after (god-mode)  
     :config
     (diminish 'which-key-mode)
-    (which-key-mode)
     (which-key-enable-god-mode-support))
 #+end_src
 * Org

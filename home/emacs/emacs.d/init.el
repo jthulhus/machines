@@ -381,6 +381,9 @@ If point was already at that position, move point to beginning of line."
                   (setq-local lsp-semantic-tokens-enable nil)
                   (electric-indent-local-mode 1))))
 
+(load-file (let ((coding-system-for-read 'utf-8))
+             (shell-command-to-string "agda-mode locate")))
+
 (use-package prog-mode
   :ensure nil
   :hook

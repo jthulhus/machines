@@ -552,6 +552,11 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
                     (setq-local lsp-semantic-tokens-enable nil)
                     (electric-indent-local-mode 1))))
 #+end_src
+** Agda
+#+begin_src emacs-lisp :tangle yes
+  (load-file (let ((coding-system-for-read 'utf-8))
+               (shell-command-to-string "agda-mode locate")))
+#+end_src
 ** Prog mode
 #+begin_src emacs-lisp :tangle yes
   (use-package prog-mode

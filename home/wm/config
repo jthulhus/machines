@@ -23,7 +23,7 @@ seat * {
 
 exec evscript -f .evrc.dyon -d /dev/@input-event@
 
-bindswitch lid:on systemctl suspend
+# bindswitch lid:on systemctl suspend
 
 ################################
 ## APPLICATION SPECIFIC SETUP ##

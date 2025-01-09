@@ -115,7 +115,8 @@
   home.packages = with pkgs; [
     # LaTeX
     # auctex
-    texlive.combined.scheme-full
+    texliveFull
+    # texlive.combined.scheme-full
     texlab
     pandoc
 

@@ -129,7 +129,7 @@ There should be `/sys/class/power_supply/<battery-device>`.";
           }
         ];
         timeouts = [
-          { timeout = 300; command = "${pkgs.systemd}/bin/loginctl suspend"; }
+          { timeout = 300; command = "${pkgs.systemd}/bin/systemctl suspend"; }
         ];
       };
     };

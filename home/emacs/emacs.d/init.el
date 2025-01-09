@@ -536,6 +536,8 @@ buffer's text scale."
   :hook (org-mode . org-auto-tangle-mode)
   :init (setq org-auto-tangle-default t))
 
+(use-package pdf-tools)
+
 (use-package ebib)
 
 (use-package biblio)

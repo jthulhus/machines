@@ -818,6 +818,10 @@ Auto-tangle
     :hook (org-mode . org-auto-tangle-mode)
     :init (setq org-auto-tangle-default t))
 #+end_src
+** Pdf handling
+#+begin_src emacs-lisp :tangle yes
+  (use-package pdf-tools)
+#+end_src
 ** Bibliography handling
 #+begin_src emacs-lisp :tangle yes
   (use-package ebib)

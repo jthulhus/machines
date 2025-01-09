@@ -9,6 +9,7 @@
   services.logind = {
     lidSwitch = "suspend";
     lidSwitchExternalPower = "lock";
+    powerKey = "ignore";
   };
 
   preset = "personal";

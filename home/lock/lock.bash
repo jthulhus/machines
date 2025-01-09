@@ -10,7 +10,7 @@ lock_on() {
 }
 
 lock_off() {
-    swaymsg "output * dmps on"
+    swaymsg "output * dpms on"
 }
 
 start_idle() {

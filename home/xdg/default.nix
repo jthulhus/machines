@@ -64,6 +64,7 @@
         defaultApplications = {
           "application/pdf" = [ "org.pwmt.zathura.desktop" ];
           "x-scheme-handler/mailto" = [ "thunderbird.desktop" ];
+          "x-scheme-handler/element" = [ "element.desktop" ];
           "text/html" = [ "firefox.desktop " ];
         }
         // imageSupport [ "imv.desktop" ]

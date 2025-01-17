@@ -111,7 +111,7 @@
         dragonbreath = lib.mkSystem
           {
             hostname = "dragonbreath";
-            overlays = common-overlays;
+            overlays = common-overlays ++ user-overlays;
           }
           nixpkgs;
         cthulhu = lib.mkSystem

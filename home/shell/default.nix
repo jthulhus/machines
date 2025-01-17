@@ -40,7 +40,7 @@ in
       historySize = 1000;
       historyControl = [ "erasedups" "ignorespace" ];
       shellAliases = {
-        ls = "ls --color=tty";
+        ls = "lsd";
         dd = "dd status=progress";
         vi = "emacsclient --nw";
         nano = "emacsclient -nw";

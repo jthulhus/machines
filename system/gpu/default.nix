@@ -18,9 +18,13 @@ in {
     services = {
       xserver.videoDrivers = ifNvidiaProp [ "nvidia" ];
     };
+    hardware.graphics = {
+      enable = true;
+    };
     hardware.nvidia = {
       package = ifNvidiaProp config.boot.kernelPackages.nvidiaPackages.beta;
-      modesetting.enable = ifNvidiaProp true;
+      modesetting.enable = true;
+      open = !(my.gpu == "nvidia-proprietary");
     };
     environment = {
       variables = extraEnv;

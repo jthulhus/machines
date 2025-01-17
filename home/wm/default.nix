@@ -120,7 +120,7 @@ There should be `/sys/class/power_supply/<battery-device>`.";
       };
 
       services.swayidle = {
-        enable = true;
+        enable = false;
         events = [
           { event = "before-sleep"; command = "${pkgs.systemd}/bin/loginctl lock-session"; }
           {

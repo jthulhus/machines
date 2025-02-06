@@ -7,7 +7,6 @@ in {
   ];
   services.locate = {
     package = locate;
-    localuser = null;
     enable = true;
     interval = "hourly";
   };

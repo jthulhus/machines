@@ -135,6 +135,7 @@ in
         LOCATE_PATH = private-locate-dbs;
         SSH_ASKPASS = "/home/adri/.local/bin/pass-ssh";
         SSH_ASKPASS_REQUIRE = "force";
+        NIXOS_OZONE_WL = 1;
       };
     };
   };

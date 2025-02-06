@@ -6,7 +6,7 @@
     ./racket
     ./coq
     ./scheme
-    ./j
+    # ./j
     ./prolog
     ./pharo
   ];

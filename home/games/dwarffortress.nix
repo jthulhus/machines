@@ -2,7 +2,7 @@
 let
   inherit (lib) mkOption types optional;
   dwarfFortress =
-    pkgs.dwarf-fortress.override {
+    pkgs.stable.dwarf-fortress.override {
       theme = pkgs.stable.dwarf-fortress-packages.themes.vettlingr;
       enableDFHack = true;
       enableTWBT = true;

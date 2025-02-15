@@ -19,7 +19,6 @@
     
     home.packages = with pkgs; [
       wl-clipboard
-      swayidle
       pango
     ];
   };

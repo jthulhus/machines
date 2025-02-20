@@ -95,7 +95,5 @@ in
           drivers = with pkgs; [ hplip ];
         };
       };
-
-      system.stateVersion = "20.09";
     };
 }

@@ -34,7 +34,7 @@
       flake = false;
     };
     typst-ts-mode = {
-      url = "git+https://git.sr.ht/~meow_king/typst-ts-mode";
+      url = "git+https://codeberg.org/meow_king/typst-ts-mode";
       flake = false;
     };
   };

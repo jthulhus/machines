@@ -71,7 +71,7 @@
           recipe = writeText "recipe" ''
             (typst-ts-mode
               :repo "meow_king/typst-ts-mode"
-              :fetcher sourcehut
+              :fetcher codeberg
               :files ("*.el"))
           '';
         })

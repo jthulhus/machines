@@ -89,6 +89,8 @@ include "%L"
 <Multi_key> <m> <n> <o> <t>             : "¬"           # LOGICAL NOT
 <Multi_key> <q> <e> <d>                 : "□"           # Q.E.D. SYMBOL
 <Multi_key> <equal> <equal>             : "≡"           # EQUIV
+<Multi_key> <m> <b> <o> <t>             : "⊥"
+<Multi_key> <m> <t> <o> <p>             : "⊤"
 # Math fonts
 #  black board
 <Multi_key> <b> <a>                     : "𝕒"   U1D552  # MATHBB SMALL A
@@ -259,6 +261,11 @@ include "%L"
 <Multi_key> <s> <x> : "𝓍"
 <Multi_key> <s> <y> : "𝓎"
 <Multi_key> <s> <z> : "𝓏"
+# Linear logic
+<Multi_key> <plus> <o> : "⊕"
+<Multi_key> <x> <o> : "⊗"
+<Multi_key> <ampersand> <ampersand> : "⅋"
+<Multi_key> <minus> <minus> <o>         : "⊸"
 
 <Multi_key> <bar> <bar>                 : "‖"           # DOUBLE BAR
 <Multi_key> <bracketleft> <bracketleft> : "⟦"

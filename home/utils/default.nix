@@ -18,7 +18,8 @@
     nix-index
     poppler_utils
     pdftk
-    zulip
+    # zulip                       # This uses a broken version of Electron
+                                  # (by which I mean brokener than Electron itself...)
     ripgrep
     tldr
     trashy

@@ -270,6 +270,8 @@ include "%L"
 <Multi_key> <bar> <bar>                 : "‖"           # DOUBLE BAR
 <Multi_key> <bracketleft> <bracketleft> : "⟦"
 <Multi_key> <bracketright> <bracketright> : "⟧"
+# Category theory
+<Multi_key> <m> <o> <o> : "∘"
 
 # Chinese pinyin tones
 # ~~~~~~~~~~~~~~~~~~~~

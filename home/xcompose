@@ -89,8 +89,9 @@ include "%L"
 <Multi_key> <m> <n> <o> <t>             : "¬"           # LOGICAL NOT
 <Multi_key> <q> <e> <d>                 : "□"           # Q.E.D. SYMBOL
 <Multi_key> <equal> <equal>             : "≡"           # EQUIV
-<Multi_key> <m> <b> <o> <t>             : "⊥"
-<Multi_key> <m> <t> <o> <p>             : "⊤"
+<Multi_key> <m> <b> <o> <t>             : "⊥"           # BOT
+<Multi_key> <m> <t> <o> <p>             : "⊤"           # TOP
+<Multi_key> <underscore> <n>            : "ₙ"           # SUBSCRIPT N
 # Math fonts
 #  black board
 <Multi_key> <b> <a>                     : "𝕒"   U1D552  # MATHBB SMALL A
@@ -272,6 +273,9 @@ include "%L"
 <Multi_key> <bracketright> <bracketright> : "⟧"
 # Category theory
 <Multi_key> <m> <o> <o> : "∘"
+
+<Multi_key> <bar> <circumflex> : "↑"
+<Multi_key> <bar> <v> : "↓"
 
 # Chinese pinyin tones
 # ~~~~~~~~~~~~~~~~~~~~

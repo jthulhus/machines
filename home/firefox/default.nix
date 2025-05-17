@@ -56,8 +56,8 @@
             "jid1-MnnxcxisBPnSXQ@jetpack" = mk "privacy-badger17";
             "uBlock0@raymondhill.net" = mk "ublock-origin";
             "{f209234a-76f0-4735-9920-eb62507a54cd}" = mk "unpaywall";
-            "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = "video-downloadhelper";
-            "{eb72a218-9d4f-4ce0-8d6e-ad2204767c9b}" = "xkcd-explainer";
+            "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}" = mk "video-downloadhelper";
+            "{eb72a218-9d4f-4ce0-8d6e-ad2204767c9b}" = mk "xkcd-explainer";
           };
       Preferences =
         let

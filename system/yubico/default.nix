@@ -2,7 +2,7 @@
 {
   services.udev.packages = with pkgs; [
     yubikey-personalization
-    yubikey-personalization-gui
+    yubioath-flutter
   ];
 
   programs.gnupg.agent = {

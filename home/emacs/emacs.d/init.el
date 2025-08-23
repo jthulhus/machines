@@ -128,7 +128,7 @@
          ("C-c r e v" . enlarge-window)
          ("C-c k" . kill-current-buffer)
          ("S-<return>" . electric-newline-and-maybe-indent)
-         ("C-z" . nil)
+         ("C-z" . kill-whole-line)
          ("C-x C-z" . nil)))
 
 (define-key key-translation-map (kbd "C-j") (kbd "DEL"))

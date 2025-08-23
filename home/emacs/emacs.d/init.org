@@ -179,7 +179,7 @@ Make it automatically create unexistent directories.
            ("C-c r e v" . enlarge-window)
            ("C-c k" . kill-current-buffer)
            ("S-<return>" . electric-newline-and-maybe-indent)
-           ("C-z" . nil)
+           ("C-z" . kill-whole-line)
            ("C-x C-z" . nil)))
 #+end_src
 *** Alias DEL and M-DEL

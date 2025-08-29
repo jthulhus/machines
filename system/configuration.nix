@@ -12,6 +12,7 @@ in
     ./dbus
     ./ecryptfs
     ./evscript
+    ./fans
     ./firewall
     ./fonts
     ./fs

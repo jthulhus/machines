@@ -4,7 +4,6 @@ let
   inherit (lib.types) enum str;
   inherit (config) my;
   ifUefi = mkIf (my.boot.mode == "uefi");
-  ifBios = mkIf (my.boot.mode == "bios");
 in
 {
   options.my.boot = {
@@ -21,12 +20,14 @@ in
     };
   };
   config.boot.loader = {
-    systemd-boot.enable = ifUefi true;
     efi.canTouchEfiVariables = ifUefi true;
-    grub = ifBios {
+    grub = {
       enable = true;
-      version = 2;
-      device = my.boot.device;
+      efiSupport = ifUefi true;
+      useOSProber = true;
+      # EFI support does not use this variable, so we just need to set it to a dummy value to
+      # pass a check and allow the build.
+      device = "nodev";
     };
   };
 }

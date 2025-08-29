@@ -106,8 +106,20 @@
               hostname = "rlyeh";
             }
             nixpkgs;
+          "adri@alice" = lib.mkHome
+	    {
+	      inherit overlays;
+	      hostname = "alice";
+	    }
+	    nixpkgs;
         };
       nixosConfigurations = {
+        alice = lib.mkSystem
+          {
+            hostname = "alice";
+            overlays = common-overlays ++ user-overlays;
+          }
+          nixpkgs;
         dragonbreath = lib.mkSystem
           {
             hostname = "dragonbreath";

@@ -20,10 +20,11 @@ in
     };
   };
   config.boot.loader = {
-    efi.canTouchEfiVariables = ifUefi true;
+    systemd-boot.enable = false;
+    efi.canTouchEfiVariables = true;
     grub = {
       enable = true;
-      efiSupport = ifUefi true;
+      efiSupport = true;
       useOSProber = true;
       # EFI support does not use this variable, so we just need to set it to a dummy value to
       # pass a check and allow the build.

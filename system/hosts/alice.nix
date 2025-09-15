@@ -4,6 +4,7 @@
     boot.mode = "uefi";
     steam = true;
     gpu = "nvidia-open";
+    boot.device = "/dev/nvme0n1p1";
   };
 
   programs.sway.enable = true;
@@ -12,7 +13,13 @@
     # "fbcon=rotate:3"
   ];
 
- 
+
+  fileSystems."/media" = {
+    device = "/dev/disk/by-label/media";
+    fsType = "ntfs";
+    options = [ "users" "nofail" ];
+  };
+  
   preset = "personal";
   
   networking.interfaces.enp4s0.useDHCP = true;

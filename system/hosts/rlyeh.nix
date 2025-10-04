@@ -7,10 +7,10 @@
   };
 
   services = {
-    logind = {
-      lidSwitch = "suspend";
-      lidSwitchExternalPower = "lock";
-      powerKey = "ignore";
+    logind.settings.Login = {
+      HandleLidSwitch = "suspend";
+      HandleLidSwitchExternalPower = "lock";
+      HandlePowerKey = "ignore";
     };
     thermald.enable = true;
     tlp = {

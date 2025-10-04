@@ -36,7 +36,6 @@ let
   hardware = "${self}/system/hardware/${hostname}.nix";
   user-module = {
     home-manager = {
-      useGlobalPkgs = true;
       useUserPackages = true;
 
       users.adri =

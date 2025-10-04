@@ -1,6 +1,6 @@
 { pkgs, config, ... }:
 {
   home.packages = with pkgs; [
-    thunderbird
+    thunderbird-140
   ];
 }

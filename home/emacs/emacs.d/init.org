@@ -824,7 +824,8 @@ Auto-tangle
 #+end_src
 ** Bibliography handling
 #+begin_src emacs-lisp :tangle yes
-  (use-package ebib)
+  (use-package ebib
+    :bind ("C-c b" . ebib))
 #+end_src
 #+begin_src emacs-lisp :tangle yes
   (use-package biblio)

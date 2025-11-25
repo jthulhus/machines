@@ -538,7 +538,8 @@ buffer's text scale."
 
 (use-package pdf-tools)
 
-(use-package ebib)
+(use-package ebib
+  :bind ("C-c b" . ebib))
 
 (use-package biblio)
 

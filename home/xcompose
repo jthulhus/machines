@@ -274,7 +274,7 @@ include "%L"
 # Category theory
 <Multi_key> <m> <o> <o> : "∘"
 
-<Multi_key> <bar> <circumflex> : "↑"
+<Multi_key> <bar> <asciicircum> : "↑"
 <Multi_key> <bar> <v> : "↓"
 
 # Chinese pinyin tones

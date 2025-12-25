@@ -26,7 +26,6 @@
     # ] ++ [                      # Dictionaries
     #   french-dictionary
     # ];
-    package = if config.xserver == "wayland" then pkgs.firefox-wayland else pkgs.firefox;
     languagePacks = [ "fr" "en-GB" "it" ];
     policies = {
       DisableTelemetry = true;

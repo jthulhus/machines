@@ -140,7 +140,7 @@ mode "messaging" {
   bindsym m exec mattermost-desktop, mode "default"
   bindsym s exec signal-desktop, mode "default"
   bindsym t exec thunderbird, mode "default"
-  bindsym w exec whatsapp-for-linux, mode "default"
+  bindsym w exec wasistlos, mode "default"
 
   bindsym escape mode "default"
   bindsym $universal_quit mode "default"

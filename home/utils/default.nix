@@ -16,7 +16,7 @@
     stable.musescore
     neofetch
     nix-index
-    poppler_utils
+    poppler-utils
     pdftk
     # zulip                       # This uses a broken version of Electron
                                   # (by which I mean brokener than Electron itself...)

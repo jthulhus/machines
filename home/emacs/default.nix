@@ -140,7 +140,7 @@
     typst
     # typst-lsp
     tinymist
-    typst-fmt
+    typstyle
 
     emacs-all-the-icons-fonts
 

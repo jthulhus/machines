@@ -86,8 +86,8 @@ with lib;
         "pictures"
         "series"
       ];
-
-      nixpkgs.config.allowUnfreePredicate = unfreePredicate;
+      
+      # nixpkgs.config.allowUnfreePredicate = unfreePredicate;
       home = {
         stateVersion = "20.09";
 

@@ -748,6 +748,16 @@ Allow to jump even faster to a precise character, both forward and backward
     (setq jump-char-forward-key nil
 	  jump-char-backward-key nil))
 #+end_src
+* HLedger
+#+begin_src emacs-lisp :tangle yes
+  (use-package hledger-mode
+    :mode ("\\.journal\\'" "\\.hledger\\'")
+    :config
+    (add-to-list 'company-backends 'hlodger-backend))
+
+  (use-package flycheck-hledger
+    :after (flycheck hledger))
+#+end_src
 * Selecting
 ** Embrace
 #+begin_src emacs-lisp :tangle yes

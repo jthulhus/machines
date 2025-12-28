@@ -19,6 +19,7 @@ with lib;
     ./git
     ./gpg
     ./gtk
+    ./hledger
     ./images
     ./krita
     ./languages

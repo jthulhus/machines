@@ -479,6 +479,14 @@ If point was already at that position, move point to beginning of line."
   (setq jump-char-forward-key nil
 	  jump-char-backward-key nil))
 
+(use-package hledger-mode
+  :mode ("\\.journal\\'" "\\.hledger\\'")
+  :config
+  (add-to-list 'company-backends 'hlodger-backend))
+
+(use-package flycheck-hledger
+  :after (flycheck hledger))
+
 (use-package embrace
   :bind (("C-," . embrace-commander))
   :hook

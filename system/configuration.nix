@@ -97,6 +97,8 @@ in
             hplip
             cups-filters
             cups-browsed
+            gutenprint
+            brlaser
           ];
         };
         avahi = {

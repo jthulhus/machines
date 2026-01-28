@@ -190,6 +190,8 @@ If point was already at that position, move point to beginning of line."
 
 (use-package flycheck
   :hook (rustic-mode tuareg-mode elisp-mode)
+  :custom
+  (flycheck-keymap-prefix (kbd "C-c f"))
   :config
   (dolist (flycheck-command '(flycheck-next-error flycheck-previous-error))
     (put flycheck-command 'repeat-map 'flycheck-command-map)))
@@ -497,10 +499,9 @@ If point was already at that position, move point to beginning of line."
   :bind (("M-'" . er/expand-region)))
 
 (use-package which-key
-  :after (god-mode)  
   :config
   (diminish 'which-key-mode)
-  (which-key-enable-god-mode-support))
+  (which-key-mode t))
 
 (defun my/text-scale-adjust-latex-previews ()
   "Adjust the size of the latex preview fragments when changing the
@@ -526,13 +527,18 @@ buffer's text scale."
           :scale (+ 1.0 (* 0.25 (- text-scale-mode-amount 2)))))))
 
 (use-package org
-  :hook (text-scale-mode . my/text-scale-adjust-latex-previews)
+  :hook
+  (text-scale-mode . my/text-scale-adjust-latex-previews)
+  (org-mode . (lambda () (setq-local backup-by-copying t)))
+  :custom
+  (org-agenda-start-on-weekday 1)
+  (org-agenda-files '("~/org/reading.org"))
+  (org-file-apps '((auto-mode . emacs)
+                   (directory . emacs)
+                   ("\\.pdf\\'" . "zathura %s")))
   :config
-  (setq org-agenda-start-on-weekday 1
-        org-modules '(ol-bbdb ol-bibtex ol-docview ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m)
-        org-agenda-files (list "~/org/head.org" "~/org/school.org")
+  (setq org-modules '(ol-bbdb ol-bibtex ol-docview ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m)
         org-preview-latex-default-process 'dvisvgm)
-  (add-hook 'org-mode-hook (lambda () (setq-local backup-by-copying t)))
   :custom-face
   (org-level-1 ((t (:inherit outline-1 :height 1.25))))
   (org-level-2 ((t (:inherit outline-1 :height 1.2))))
@@ -546,8 +552,55 @@ buffer's text scale."
 
 (use-package pdf-tools)
 
+(defun my/ebib-create-org-file-link (key db)
+  "Create an org link to the file in entry KEY in DB.
+The file is taken from the \"file\" field in the entry designated by KEY
+in the current database.  If that field contains more than one file
+name, the user is asked to select one.  If the \"file\" field is empty,
+return the empty string.
+This function differs from `ebib-create-org-file-link' because it adds a
+description to the link."
+  (let ((files (ebib-get-field-value "file" key db 'noerror 'unbraced 'xref)))
+    (if files
+        (let* ((absolute-path (ebib--expand-file-name
+                               (funcall ebib-file-name-mod-function (ebib--select-file files nil key) nil)
+                               ebib-file-search-dirs))
+               (relative-path (file-relative-name absolute-path default-directory))
+               (abbreviated-path (abbreviate-file-name absolute-path))
+               (final-path
+                (cl-case ebib-link-file-path-type
+                  (relative relative-path)
+                  (adaptive (if (string-match (concat "^" (regexp-quote default-directory))
+                                              absolute-path)
+                                relative-path
+                              abbreviated-path))
+                  (otherwise absolute-path)))
+               (title (ebib-create-org-title key db)))
+          (format "[[file:%s][%s]]" final-path title))
+      "")))
+
+(defun my/ebib-create-org-abstract (key db)
+  "Return an abstract for an Org mode for KEY in DB.
+The abstract is formed from the title of the entry."
+  (ebib-get-field-value "abstract" key db "" 'unbraced 'xref 'expand-strings 'org))
+
 (use-package ebib
-  :bind ("C-c b" . ebib))
+  :bind ("C-c b" . ebib)
+  :custom
+  (bibtex-autokey-year-title-separator "/")
+  (ebib-bibtex-dialect 'biblatex)
+  (ebib-file-associations '(("pdf" . "zathura") ("ps" . "gv")))
+  (ebib-file-search-dirs '("~/org/papers"))
+  (ebib-reading-list-template-specifiers
+    '((?K . ebib-reading-list-create-org-identifier)
+      (?T . ebib-create-org-title)
+      (?M . ebib-reading-list-todo-marker)
+      (?L . ebib-create-org-link)
+      (?F . my/ebib-create-org-file-link)
+      (?D . ebib-create-org-doi-link)
+      (?U . ebib-create-org-url-link)
+      (?A . my/ebib-create-org-abstract)))
+  (ebib-reading-list-file "~/org/reading.org"))
 
 (use-package biblio)
 
@@ -556,6 +609,8 @@ buffer's text scale."
   :after (ebib biblio)
   :bind (:map ebib-index-mode-map ("B" . ebib-biblio-import-doi)
          :map biblio-selection-mode-map ("e" . ebib-biblio-selection-import)))
+
+(use-package org-edna)
 
 (use-package org-modern
   :after (org)

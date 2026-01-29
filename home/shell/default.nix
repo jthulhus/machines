@@ -33,6 +33,8 @@ in
         expireDuplicatesFirst = true;
       };
     };
+
+    programs.command-not-found.enable = true;
     
     programs.bash = {
       enable = true;

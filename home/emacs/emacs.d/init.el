@@ -582,7 +582,15 @@ description to the link."
 (defun my/ebib-create-org-abstract (key db)
   "Return an abstract for an Org mode for KEY in DB.
 The abstract is formed from the title of the entry."
-  (ebib-get-field-value "abstract" key db "" 'unbraced 'xref 'expand-strings 'org))
+  (ebib-get-field-value "abstract" key db 'noerror 'unbraced 'xref 'expand-strings 'org))
+
+(defun my/ebib-name-transform-function (key &optional db)
+  (let* ((dbs (or db ebib--cur-db))
+         (file (ebib-get-field-value "file" key dbs nil 'unbraced 'xref)))
+    (string-trim-right file "\\.pdf")))
+
+(defun my/ebib-create-note-file (key db)
+  (concat (my/ebib-name-transform-function key db) "." ebib-notes-file-extension))
 
 (use-package ebib
   :bind ("C-c b" . ebib)
@@ -611,6 +619,25 @@ The abstract is formed from the title of the entry."
          :map biblio-selection-mode-map ("e" . ebib-biblio-selection-import)))
 
 (use-package org-edna)
+
+(defun org-edna-finder/tolp (olp)
+  "Finder for heading by its outline path.
+
+Edna Syntax: tolp(\"OLP\")
+
+Finds the heading given by OLP in the current file.  OLP is an outline
+path.  Example:
+
+* TODO Test
+:PROPERTIES:
+:BLOCKER:  tolp(\"path/to/heading\")
+:END:
+
+Test will block if the heading \"path/to/heading\" in the current file
+is not DONE."
+  (let ((marker (org-find-olp (list olp) t)))
+    (when (markerp marker)
+      (list marker))))
 
 (use-package org-modern
   :after (org)

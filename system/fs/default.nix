@@ -9,4 +9,6 @@
     udisks2.enable = true;
     devmon.enable = true;
   };
+
+  security.pam.enableFscrypt = true;
 }

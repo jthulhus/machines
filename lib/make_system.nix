@@ -1,6 +1,7 @@
 { self
 , nixpkgs-stable
 , home-manager
+, nix-index-database
 , ...
 } @ inputs: config: { hostname
                     , system ? "x86_64-linux"
@@ -63,6 +64,7 @@ in
 nixosSystem {
   inherit system;
   modules = [
+    nix-index-database.nixosModules.default
     common
     entrypoint
     hardware

@@ -121,13 +121,10 @@ There should be `/sys/class/power_supply/<battery-device>`.";
 
       services.swayidle = {
         enable = true;
-        events = [
-          { event = "before-sleep"; command = "${pkgs.systemd}/bin/loginctl lock-session"; }
-          {
-            event = "lock";
-            command = "${pkgs.swaylock-effects}/bin/swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --grace 2 --fade-in 0.2 --inside-color=0000001c --ring-color=0000003e --line-color=00000000 --key-hl-color=ffffff80 --ring-ver-color=ffffff00 --separator-color=22222260 --inside-ver-color=ff99441c --ring-clear-color=ff994430 --inside-clear-color=ff994400 --ring-wrong-color=ffffff55 --inside-wrong-color=ffffff1c --text-ver-color=00000000 --text-wrong-color=00000000 --text-caps-lock-color=00000000 --text-clear-color=00000000 --line-clear-color=00000000 --line-wrong-color=00000000 --line-ver-color=00000000 --text-color=db3300ff";
-          }
-        ];
+        events = {
+          before-sleep =  "${pkgs.systemd}/bin/loginctl lock-session";
+          lock =  "${pkgs.swaylock-effects}/bin/swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --grace 2 --fade-in 0.2 --inside-color=0000001c --ring-color=0000003e --line-color=00000000 --key-hl-color=ffffff80 --ring-ver-color=ffffff00 --separator-color=22222260 --inside-ver-color=ff99441c --ring-clear-color=ff994430 --inside-clear-color=ff994400 --ring-wrong-color=ffffff55 --inside-wrong-color=ffffff1c --text-ver-color=00000000 --text-wrong-color=00000000 --text-caps-lock-color=00000000 --text-clear-color=00000000 --line-clear-color=00000000 --line-wrong-color=00000000 --line-ver-color=00000000 --text-color=db3300ff";
+        };
         timeouts = [
           { timeout = 300; command = "${pkgs.systemd}/bin/systemctl suspend"; }
         ];

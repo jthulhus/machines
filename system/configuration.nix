@@ -10,7 +10,6 @@ in
     ./boot
     ./cachix.nix
     ./dbus
-    ./ecryptfs
     ./evscript
     ./fans
     ./firewall

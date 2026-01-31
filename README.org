@@ -8,3 +8,28 @@
 This repository is a [[https://nixos.wiki/wiki/Flakes][flake]], meaning it is meant to be used with the [[https://nixos.org/][nix]] package manager.
 This flake provides the configuration for my personal machines, including both the system
 settings and the per-user settings.
+
+* Bootstrap
+To bootstrap an installation, perform a regular nixos installation, using the current repository
+as source.  Then, you need:
+- the GPG key
+- the SSH bootstrap key
+using which you can access the password store, and decrypt the passwords.  This, in turn, will
+allow you to use the normal SSH key.  You can then stop using the SSH bootstrap key.
+
+* Encrypting directories
+Encrypting directories is currently done with =fscrypt=.  First, you need to ensure that the
+filesystem supports native encryption.  Currently, =ext4=, =f2fs= and a few others feature native
+encryption.  To enable encryption, run the following
+#+begin_src sh
+  sudo tune2fs -O encrypt /dev/<partition>
+#+end_src
+You can run =fscrypt status= to see if a filesystem supports encryption, and if encrypt is
+enabled.  Once this has been done, you have to setup encryption on that partition.
+#+begin_src sh
+  sudo fscrypt setup [mountpoint]
+#+end_src
+This asks if the management of policies and protectors can be managed by every user.  Answer yes.
+Then, you need to create an empty directory, and encrypt it using =fscrypt encrypt <directory>=.
+Then, the directory can be (un)locked using =fscrypt lock <directory>= and =fscrypt unlock
+<directory>=.  Note that if you used the pam protector, the directory will be unlocked on login.

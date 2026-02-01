@@ -5,6 +5,7 @@
     steam = true;
     gpu = "nvidia-open";
     boot.device = "/dev/nvme0n1p1";
+    remote-desktop.server.enable = true;
   };
 
   programs.sway.enable = true;

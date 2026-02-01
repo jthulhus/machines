@@ -33,6 +33,7 @@ with lib;
     ./pass
     ./qt
     ./rofi
+    ./rustdesk
     ./shell
     ./sound
     ./ssh

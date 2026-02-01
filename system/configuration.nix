@@ -28,6 +28,7 @@ in
     ./nix
     ./lang
     ./presets.nix
+    ./remote-desktop
     ./sound
     ./steam
     ./tablet

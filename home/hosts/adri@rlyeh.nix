@@ -7,4 +7,5 @@
     };
   };
   my.battery-device = "BAT0";
+  my.remote-desktop.client.enable = true;
 }

@@ -28,6 +28,7 @@ in
       enableCompletion = true;
       enableVteIntegration = true;
       defaultKeymap = "emacs";
+      dotDir = "${config.xdg.configHome}/zsh";
       history = {
         append = true;
         expireDuplicatesFirst = true;

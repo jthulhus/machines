@@ -313,7 +313,9 @@ If point was already at that position, move point to beginning of line."
 (use-package typst-ts-mode
   :after (lsp-mode)
   :ensure nil
-  :hook (typst-ts-mode . (lambda () (run-hooks 'prog-mode-hook)))
+  :hook
+  (typst-ts-mode . (lambda () (run-hooks 'prog-mode-hook)))
+  (typst-ts-mode . (lambda () (setq newline-dwim-pairs (cons '("\\$" . "\\$") newline-dwim-pairs))))
   :init
   (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
   (lsp-register-client
@@ -419,18 +421,37 @@ If point was already at that position, move point to beginning of line."
 (use-package smartparens
   :init
   (require 'smartparens-config)
-  :config
-  (defun my/indent-after-newline (&rest whatever)
-    (interactive)
-    (newline)
-    (indent-according-to-mode)
-    (forward-line -1)
-    (indent-according-to-mode))
-  (dolist (chr '("{" "[" "("))
-    (sp-local-pair 'prog-mode chr nil :post-handlers '((my/indent-after-newline "RET"))))
   :hook
   ((emacs-lisp-mode racket-mode) . smartparens-strict-mode)
-  (prog-mode . smartparens-mode))
+  (prog-mode . smartparens-strict-mode)
+  :config
+  (sp-with-modes 'typst-ts-mode
+    (sp-local-pair "_" "_" :unless '(sp-point-after-word-p))
+    (sp-local-pair "$" "$")))
+
+(defvar-local newline-dwim-pairs nil)
+
+(defun my/newline-dwim ()
+  (interactive)
+  (let ((should-open
+         (-any? (lambda (pair)
+                  (let ((bfr (car pair))
+                        (aftr (cdr pair)))
+                    (and (looking-back bfr)
+                         (looking-at aftr))))
+                newline-dwim-pairs)))
+    (newline)
+    (when should-open
+      (save-excursion
+        (newline)
+        (indent-according-to-mode)))
+    (indent-according-to-mode)))
+
+(defun my/newline-dwim-prog-pairs ()
+  (setq newline-dwim-pairs (append '(("(" . ")") ("{" . "}") ("\\[" . "\\]")) newline-dwim-pairs)))
+
+(global-set-key (kbd "RET") #'my/newline-dwim)
+(add-hook 'prog-mode-hook #'my/newline-dwim-prog-pairs)
 
 (use-package web-mode)
 

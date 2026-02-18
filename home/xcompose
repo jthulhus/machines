@@ -82,15 +82,21 @@ include "%L"
 <Multi_key> <m> <q> <e>                 : "∃"           # EXISTS
 <Multi_key> <m> <q> <n> <e>             : "∄"           # NOT EXISTS
 <Multi_key> <bar> <equal>               : "⊨"           # MODELS
-<Multi_key> <bar> <minus>               : "⊢"           # ENTAILS 
+<Multi_key> <bar> <minus>               : "⊢"           # ENTAILS
+<Multi_key> <minus> <bar>               : "⊣"           # ADJOINT
 <Multi_key> <slash> <bar> <equal>       : "⊯"           # NOT MODELS
+<Mulli_key> <l> <ampersand>             : "∧"           # LOGICAL AND
+<Multi_key> <l> <bar>                   : "∨"           # LOGICAL OR
 <Multi_key> <m> <s> <u> <m>             : "Σ"           # CAPITAL SIGMA
 <Multi_key> <m> <n> <a> <b>		: "∇"   UE2207  # NABLA
 <Multi_key> <m> <n> <o> <t>             : "¬"           # LOGICAL NOT
+<Multi_key> <l> <asciitilde>            : "¬"           # LOGICAL NOT
 <Multi_key> <q> <e> <d>                 : "□"           # Q.E.D. SYMBOL
 <Multi_key> <equal> <equal>             : "≡"           # EQUIV
 <Multi_key> <m> <b> <o> <t>             : "⊥"           # BOT
+<Mutli_key> <l> <f>                     : "⊥"           # BOT
 <Multi_key> <m> <t> <o> <p>             : "⊤"           # TOP
+<Multi_key> <l> <t>                     : "⊤"           # TOP
 <Multi_key> <underscore> <n>            : "ₙ"           # SUBSCRIPT N
 # Math fonts
 #  black board

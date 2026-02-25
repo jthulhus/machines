@@ -426,7 +426,9 @@ If point was already at that position, move point to beginning of line."
   (prog-mode . smartparens-strict-mode)
   :config
   (sp-with-modes 'typst-ts-mode
-    (sp-local-pair "_" "_" :unless '(sp-point-after-word-p))
+    (sp-local-pair "_" "_" :unless '((lambda (id action context)
+                                       (when (memq action '(insert escape))
+                                         (looking-back (concat "[^\\s-]" (regexp-quote id)))))))
     (sp-local-pair "$" "$")))
 
 (defvar-local newline-dwim-pairs nil)
@@ -616,7 +618,7 @@ The abstract is formed from the title of the entry."
 (use-package ebib
   :bind ("C-c b" . ebib)
   :custom
-  (bibtex-autokey-year-title-separator "/")
+  (bibtex-autokey-year-title-separator ":")
   (ebib-bibtex-dialect 'biblatex)
   (ebib-file-associations '(("pdf" . "zathura") ("ps" . "gv")))
   (ebib-file-search-dirs '("~/org/papers"))

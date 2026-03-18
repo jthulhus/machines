@@ -553,6 +553,7 @@ buffer's text scale."
   :hook
   (text-scale-mode . my/text-scale-adjust-latex-previews)
   (org-mode . (lambda () (setq-local backup-by-copying t)))
+  (org-mode . variable-pitch-mode)
   :custom
   (org-agenda-start-on-weekday 1)
   (org-agenda-files '("~/org/reading.org"))
@@ -665,6 +666,10 @@ is not DONE."
 (use-package org-modern
   :after (org)
   :hook (org-mode . org-modern-mode))
+
+(use-package org-appear
+  :after org
+  :hook org-mode)
 
 (use-package ox-hugo)
 

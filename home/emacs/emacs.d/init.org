@@ -1,6 +1,7 @@
 #+title: Emacs init file
 #+author: jthulhu
 #+startup: overview
+#+property: header-args:elisp :lexical t
 
 My Emacs init.org file.
 * Repositories
@@ -13,7 +14,7 @@ actually be downloaded by Nix.
 	       '("melpa" . "https://melpa.org/packages/"))
   (package-initialize)
 #+end_src
-** Add `pkg-info`
+** Add =pkg-info=
 I'm not sure what this does, but it is apparently required by several other packages, and not
 declared as a dependency...
 #+begin_src emacs-lisp :tangle yes
@@ -833,11 +834,14 @@ Default configuration
            (plist-put
             (cdr (overlay-get ov 'display))
             :scale (+ 1.0 (* 0.25 (- text-scale-mode-amount 2)))))))
+            #+end_src
 
+#+begin_src emacs-lisp :tangle yes
   (use-package org
     :hook
     (text-scale-mode . my/text-scale-adjust-latex-previews)
     (org-mode . (lambda () (setq-local backup-by-copying t)))
+    (org-mode . variable-pitch-mode)
     :custom
     (org-agenda-start-on-weekday 1)
     (org-agenda-files '("~/org/reading.org"))
@@ -966,6 +970,12 @@ This takes care of prettifying org documents, making org mode having a modern lo
   (use-package org-modern
     :after (org)
     :hook (org-mode . org-modern-mode))
+#+end_src
+** Org appear
+#+begin_src emacs-lisp :tangle yes
+  (use-package org-appear
+    :after org
+    :hook org-mode)
 #+end_src
 ** SSG exporters
 These allow you to build static websites (such as blogs) based on org-mode documents.

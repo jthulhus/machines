@@ -27,6 +27,7 @@
         defaultBranch = "main";
       };
       push.autoSetupRemote = true;
+      core.quotePath = false;
     };
     
     ignores = [

@@ -105,7 +105,7 @@ This makes it easy to distinguish where parenthesis and alike start and end.
 #+end_src
 * Emacs
 ** Global settings
-*** Overload `find-file'
+*** Overload =find-file=
 Make it open as sudo if invoked with universal argument.
 #+begin_src emacs-lisp :tangle yes
   (defun my-find-file (&optional arg)
@@ -325,7 +325,7 @@ repeatable.
     :hook (flycheck-mode . flycheck-rust-setup))
 #+end_src
 ** Python
-*** Setup the `ipython3` interpreter
+*** Setup the =ipython3= interpreter
 #+begin_src emacs-lisp :tangle yes
   (use-package python
     :mode ("\\.py\\'" . python-mode)
@@ -412,7 +412,7 @@ Geiser seems to be broken for now.
   (use-package geiser-mit)
 #+end_src
 *** Quack
-Quack seems to dislike `racket-mode`.
+Quack seems to dislike =racket-mode=.
 #+begin_src emacs-lisp :tangle no
   (use-package quack)
 #+end_src

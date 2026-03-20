@@ -14,7 +14,7 @@
     isc
     jq
     stable.musescore
-    neofetch
+    fastfetch
     poppler-utils
     pdftk
     # zulip                       # This uses a broken version of Electron

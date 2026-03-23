@@ -716,6 +716,15 @@ an unfinished state.
            :target nil
            :cwd nil)))
 #+end_src
+* LLM
+** Tabby
+#+begin_src emacs-lisp :tangle yes
+  (use-package tabbymacs)
+#+end_src
+** gptel
+#+begin_src emacs-lisp :tangle yes
+  (use-package gptel)
+#+end_src
 * Esup
 Emacs Start Up Profiler, a package that should help in profiling why startup is slow.  This
 doesn't seem to work with latest Emacs versions, and also, reducing the startup time is not that

@@ -26,6 +26,7 @@ with lib;
     ./languages
     ./ldap
     ./light
+    ./llm
     ./mailclient
     ./messaging
     ./network

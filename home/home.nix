@@ -22,6 +22,7 @@ with lib;
     ./gtk
     ./hledger
     ./images
+    ./kodi
     ./krita
     ./languages
     ./ldap

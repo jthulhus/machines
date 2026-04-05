@@ -5,6 +5,7 @@ with lib;
     ./alacritty
     ./anki
     ./aseprite
+    ./battery
     ./beets
     ./direnv
     ./emacs

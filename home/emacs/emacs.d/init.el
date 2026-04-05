@@ -418,6 +418,8 @@ If point was already at that position, move point to beginning of line."
 (use-package koka-mode
   :ensure nil)
 
+(use-package slint-mode)
+
 (use-package smartparens
   :init
   (require 'smartparens-config)
@@ -696,6 +698,7 @@ is not DONE."
          (c-mode . lsp-deferred)
          (verilog-mode . lsp-deferred)
          (tuareg-mode . lsp-deferred)
+         (slint-mode . lsp-deferred)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands (lsp lsp-deferred))
 

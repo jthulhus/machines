@@ -604,6 +604,10 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
   (use-package koka-mode
     :ensure nil)
 #+end_src
+** Slint
+#+begin_src emacs-lisp :tangle yes
+  (use-package slint-mode)
+#+end_src
 * SMT solvers
 ** Z3
 This is disabled for the time being, as this package does not compile with the current version of
@@ -1014,6 +1018,7 @@ These allow you to build static websites (such as blogs) based on org-mode docum
            (c-mode . lsp-deferred)
            (verilog-mode . lsp-deferred)
            (tuareg-mode . lsp-deferred)
+           (slint-mode . lsp-deferred)
            (lsp-mode . lsp-enable-which-key-integration))
     :commands (lsp lsp-deferred))
 #+end_src

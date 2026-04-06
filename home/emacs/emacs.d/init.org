@@ -1008,7 +1008,8 @@ These allow you to build static websites (such as blogs) based on org-mode docum
                                    "[/\\\\]\\.direnv$"
                                    "[/\\\\]target$"
                                    "[/\\\\]\\.git")
-          lsp-enable-suggest-server-download nil)
+          lsp-enable-suggest-server-download nil
+          lsp-keep-workspace-alive nil)
     :hook ((python-mode . lsp-deferred)
            (rust-mode . lsp-deferred)
            (typst-ts-mode . lsp-deferred)

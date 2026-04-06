@@ -688,7 +688,8 @@ is not DONE."
                                  "[/\\\\]\\.direnv$"
                                  "[/\\\\]target$"
                                  "[/\\\\]\\.git")
-        lsp-enable-suggest-server-download nil)
+        lsp-enable-suggest-server-download nil
+        lsp-keep-workspace-alive nil)
   :hook ((python-mode . lsp-deferred)
          (rust-mode . lsp-deferred)
          (typst-ts-mode . lsp-deferred)

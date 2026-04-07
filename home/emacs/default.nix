@@ -1,15 +1,19 @@
 { pkgs, ... }:
 {
-  home.file.".emacs.d" = {
-    source = ./emacs.d;
-    recursive = true;
+  home.file = {
+    ".emacs.d/settings.org" = {
+      source = ./init.org;
+    };
+    ".emacs.d/init.el" = {
+      source = ./init.el;
+    };
   };
 
 
   programs.emacs = {
     enable = true;
     package = with pkgs; emacsWithPackagesFromUsePackage {
-      config = ./emacs.d/init.org;
+      config = ./init.org;
       package = emacs-git-pgtk;
       alwaysEnsure = true;
       extraEmacsPackages = epkgs: with epkgs; [
@@ -108,7 +112,6 @@
     enable = true;
     client.enable = true;
     defaultEditor = true;
-    socketActivation.enable = true;
   };
 
 

@@ -4,14 +4,22 @@
 #+property: header-args:elisp :lexical t
 
 My Emacs init.org file.
+* Lexical binding
+Make the tangled init file use lexical binding.  See [[https://emacs.stackexchange.com/questions/81540/lexical-binding-in-a-tangled-init-el-file][this stackexchange post]].
+#+begin_src emacs-lisp :tangle yes :comments no
+  ;; -*- lexical-binding: t; -*-
+#+end_src
 * Repositories
 ** Add good repositores
 Note that this is only useful to browse available packages inside Emacs, as all packages will
-actually be downloaded by Nix.
+actually be downloaded by Nix.  This should cover all the repositories indexed by the Nix
+overlay, as found [[https://github.com/nix-community/emacs-overlay/tree/master/repos][here]].
 #+begin_src emacs-lisp :tangle yes 
   (require 'package)
   (add-to-list 'package-archives
-	       '("melpa" . "https://melpa.org/packages/"))
+               '("melpa" . "https://melpa.org/packages/"))
+  (add-to-list 'package-archives
+               '("nongnu" . "https://elpa.nongnu.org/nongnu/"))
   (package-initialize)
 #+end_src
 ** Add =pkg-info=
@@ -21,68 +29,78 @@ declared as a dependency...
   (use-package pkg-info)
 #+end_src
 * Package Lint
+This is a linter for Emacs Lisp files which are intended to be packages.  See [[https://github.com/purcell/package-lint][its github page]].
 #+begin_src emacs-lisp :tangle yes
   (use-package package-lint)
 #+end_src
 * Aspect
 ** Turn off every bar
+This ensures the Emacs window (as intended by the window manager) has basically nothing but the
+buffers and the minibuffer.
 #+begin_src emacs-lisp :tangle yes
-  (setq default-frame-alist '((undecorated . t))
-        menu-bar-mode nil
-        scroll-bar-mode nil
-        tool-bar-mode nil)
-  (tool-bar-mode -1)
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
+  (use-package emacs
+    :custom
+    (default-frame-alist '((undecorated . t)))
+    (menu-bar-mode nil)
+    (scroll-bar-mode nil)
+    (tool-bar-mode nil)
+    :config
+    (tool-bar-mode -1)
+    (menu-bar-mode -1)
+    (scroll-bar-mode -1))
+
 #+end_src
 ** Remove the startup screen
 #+begin_src emacs-lisp :tangle yes
-  (setq inhibit-startup-screen t)
+  (use-package emacs
+    :custom (inhibit-startup-screen t))
 #+end_src
 ** Load my theme
+I use the [[https://github.com/bbatsov/zenburn-emacs][zenburn for Emacs]] theme.
 #+begin_src emacs-lisp :tangle yes
   (load-theme 'zenburn t)
 #+end_src
 ** Have a spacemacs-like powerline
-Setup wc-modes variable.
+Spacemacs has a cool powerline!  Let's [[https://github.com/TheBB/spaceline][steal]] it.
+*** Setup word
+Setup ~wc-modes~ variable, which is a list of major modes in which the powerline has a word
+counting feature.
 #+begin_src emacs-lisp :tangle yes
   (defvar wc-modes '(fundamental-mode org-mode)
     "Which major-mode enable wc in the powerline.")
 #+end_src
-
+*** The powerline
+This enables the powerline, as well as a word counting feature.
 #+begin_src emacs-lisp :tangle yes
   (use-package spaceline
+    :custom
+    (powerline-default-separator 'rounded)
     :config
-    (use-package spaceline-config
-      :ensure nil
-      :config
-      (spaceline-toggle-buffer-encoding-off)
-      (spaceline-toggle-buffer-encoding-abbrev-off)
-      (setq powerline-default-separator 'rounded)
-      (spaceline-define-segment line-column
-        "The current line and column numbers."
-        "%l|%2c")
-      (spaceline-define-segment word-count
-        "The number of words in the buffer or region if active."
-        (if (use-region-p)
-            (format "wc[R]:%s" (count-words-region (region-beginning) (region-end)))
-          (format "wc:%s" (count-words-region (point-min) (point-max))))
-        :when (and active (member major-mode wc-modes))
-        :priority 90)
-      (spaceline-spacemacs-theme 'word-count)))
+    (spaceline-define-segment line-column
+      "The current line and column numbers."
+      "%l|%2c")
+    (spaceline-define-segment word-count
+      "The number of words in the buffer or region if active."
+      (if (use-region-p)
+          (format "wc[R]:%s" (count-words-region (region-beginning) (region-end)))
+        (format "wc:%s" (count-words-region (point-min) (point-max))))
+      :when (and active (member major-mode wc-modes))
+      :priority 90)
+    (spaceline-spacemacs-theme 'word-count))
 #+end_src
-
-** Setup a dashboard
+** Dashboard
 #+begin_src emacs-lisp :tangle yes
   (use-package dashboard
-    :init
-    (setq dashboard-items '((recents . 5)
-                            (projects . 5))
-          dashboard-show-shortcuts nil
-          dashboard-center-content nil
-          dashboard-banner-logo-title "Welcome to Beansmacs!"
-          dashboard-set-init-info t
-          initial-buffer-choice (lambda () (switch-to-buffer "*dashboard*")))
+    :custom
+    (dashboard-items '((recents . 5)
+                       (projects . 5)))
+    (dashboard-show-shortcuts nil)
+    (dashboard-center-content t)
+    (dashboard-banner-logo-title "Welcome to jthulhumacs!")
+    (dashboard-icon-type 'all-the-icons)
+    (dashboard-set-file-icons t)
+    (initial-buffer-choice (lambda ()
+                             (switch-to-buffer dashboard-buffer-name)))
     :config
     (dashboard-setup-startup-hook))
 #+end_src
@@ -134,10 +152,10 @@ Make it automatically create unexistent directories.
   (defvar always-keys-minor-mode-map
     (let ((map (make-sparse-keymap)))
       (define-key map (kbd "C-c d") #'dashboard-focus)
-      (define-key map (kbd "C-M-h") #'windmove-left)
-      (define-key map (kbd "C-M-l") #'windmove-right)
-      (define-key map (kbd "C-M-j") #'windmove-down)
-      (define-key map (kbd "C-M-k") #'windmove-up)
+      (define-key map (kbd "s-h") #'windmove-left)
+      (define-key map (kbd "s-l") #'windmove-right)
+      (define-key map (kbd "s-j") #'windmove-down)
+      (define-key map (kbd "s-k") #'windmove-up)
       map)
     "Mode map for the Always Key minor mode.")
 
@@ -145,6 +163,7 @@ Make it automatically create unexistent directories.
     "A minor mode to ensure basic moving-around key bindings are enforced."
     :init-value t)
 #+end_src
+
 *** Customize emacs
 #+begin_src emacs-lisp :tangle yes
   (use-package emacs
@@ -168,20 +187,18 @@ Make it automatically create unexistent directories.
      '((eval set-fill-column 117)
        (lsp-rust-analyzer-cargo-target "x86_64-unknown-none")
        (lsp-rust-all-targets nil)))
+    (temporary-file-directory "/dev/shm/")
     (fill-column 97)
-    (warning-suppress-types '((direnv)))
+    (warning-suppress-types '((lsp-mode direnv)))
     :config
     (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
     (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)
     :bind (("C-x C-f" . my-find-file)
-           ("C-c r s h" . shrink-window-horizontally)
-           ("C-c r s v" . shrink-window)
-           ("C-c r e h" . enlarge-window-horizontally)
-           ("C-c r e v" . enlarge-window)
            ("C-c k" . kill-current-buffer)
            ("S-<return>" . electric-newline-and-maybe-indent)
            ("C-z" . kill-whole-line)
-           ("C-x C-z" . nil)))
+           ("C-x C-z" . nil)
+           ("M-o" . other-window)))
 #+end_src
 *** Alias DEL and M-DEL
 #+begin_src emacs-lisp :tangle yes
@@ -208,6 +225,30 @@ Make it automatically create unexistent directories.
 *** Force newline at the end of a file
 #+begin_src emacs-lisp :tangle yes
   (setq-default require-final-newline t)
+#+end_src
+* Sessions
+The goal of this section is to have the following features:
+ - each project should have its own buffer list and window
+ - the set of open files, positions, etc. should be persistent, and stored in a place that is synced
+** Perspectives
+The first step is using ~persp-mode~ which
+#+begin_src emacs-lisp :tangle yes
+  (use-package persp-mode
+    :bind ("C-x x"))
+
+  (use-package persp-mode-projectile-bridge)
+#+end_src
+** Saving Emacs sessions
+#+begin_src emacs-lisp :tangle yes
+  (use-package desktop
+    :init
+    (desktop-save-mode 1)
+    :custom
+    (desktop-path '("~/sync/emacs")))
+#+end_src
+** Nice window restoring
+#+begin_src emacs-lisp :tangle yes
+  (use-package workgroups)
 #+end_src
 * Utilities
 ** Rename both file and buffer at once
@@ -289,22 +330,7 @@ repeatable.
 #+end_src
 * Tree sitter
 #+begin_src emacs-lisp :tangle yes
-  (use-package treesit
-    :ensure nil
-    :init
-    (setq major-mode-remap-alist `((bash-mode . bash-ts-mode)
-                                   (c++-mode . c++-ts-mode)
-                                   (c-mode . c-ts-mode)
-                                   (go-mode . go-ts-mode)
-                                   (html-mode . html-ts-mode)
-                                   (json-mode . json-ts-mode)
-                                   (lua-mode . lua-ts-mode)
-                                   (python-mode . python-ts-mode)
-                                   ;; (rust-mode . rust-ts-mode)
-                                   (toml-mode . toml-ts-mode)
-                                   (yaml-mode . yaml-ts-mode)
-                                   (css-mode . css-ts-mode)
-                                   . ,major-mode-remap-alist)))
+  (use-package treesit)
 #+end_src
 * Programming languages
 ** Beans
@@ -353,12 +379,8 @@ repeatable.
 *** OCP indent
 #+begin_src emacs-lisp :tangle yes
   (use-package ocp-indent
-    :init
-    (setq byte-compile-warnings '(not cl-functions)))
-#+end_src
-*** Opam
-#+begin_src emacs-lisp :tangle yes
-  (require 'opam-user-setup "~/.emacs.d/opam-user-setup.el")
+    :custom
+    (byte-compile-warnings '(not cl-functions)))
 #+end_src
 *** Tuareg
 #+begin_src emacs-lisp :tangle yes
@@ -573,9 +595,7 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 #+end_src
 ** LLVM
 #+begin_src emacs-lisp :tangle yes
-  (add-to-list 'load-path "~/.emacs.d/llvm-mode")
-  (require 'llvm-mode)
-  (require 'tablegen-mode)
+  (use-package llvm-ts-mode)
 #+end_src
 ** System Verilog
 #+begin_src emacs-lisp :tangle yes
@@ -598,11 +618,6 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 ** Lua
 #+begin_src emacs-lisp :tangle yes
   (use-package lua-mode)
-#+end_src
-** Koka
-#+begin_src emacs-lisp :tangle yes
-  (use-package koka-mode
-    :ensure nil)
 #+end_src
 ** Slint
 #+begin_src emacs-lisp :tangle yes
@@ -699,26 +714,30 @@ an unfinished state.
            :cwd nil)))
 #+end_src
 * Esup
-#+begin_src emacs-lisp :tangle yes
+Emacs Start Up Profiler, a package that should help in profiling why startup is slow.  This
+doesn't seem to work with latest Emacs versions, and also, reducing the startup time is not that
+useful with a server.  Hence, we disable it.
+#+begin_src emacs-lisp :tangle no
+
   (use-package esup)
 #+end_src
 * Data languages
 ** YAML
 Major mode for YAML configuration files.
 #+begin_src emacs-lisp :tangle yes
-  (use-package yaml-mode
+  (use-package yaml-ts-mode
     :mode "\\.yaml\\'")
 #+end_src
 ** TOML
 Major mode for TOML configuration files.
 #+begin_src emacs-lisp :tangle yes
-  (use-package toml-mode
+  (use-package toml-ts-mode
     :mode "\\.toml\\'")
 #+end_src
 ** JSON
 Major mode for JSON configuration files.
 #+begin_src emacs-lisp :tangle yes
-  (use-package json-mode
+  (use-package json-ts-mode
     :mode "\\.json\\'")
 #+end_src
 * Diminish
@@ -726,16 +745,18 @@ Major mode for JSON configuration files.
   (use-package diminish)
 #+end_src
 * Company
+Setup the completion framework ~company~.
 #+begin_src emacs-lisp :tangle yes
   (use-package company
     :hook (prog-mode . company-mode)
+    :custom
+    (company-show-numbers nil)
+    (company-tooltip-align-annotations t)
+    (company-idle-delay 0)
+    (company-minimum-prefix-length 1)
     :config
     (diminish 'company-mode)
-    (bind-key [remap completion-at-point] #'company-complete company-mode-map)
-    (setq company-show-numbers nil
-          company-tooltip-align-annotations t
-          company-idle-delay 0
-          company-minimum-prefix-length 3))
+    (bind-key [remap completion-at-point] #'company-complete company-mode-map))
 #+end_src
 * Projectile
 ** Projectile
@@ -758,7 +779,8 @@ Speedbar mode doesn't need that.
 #+end_src
 * Moving
 ** Ace window
-#+begin_src emacs-lisp :tangle yes
+Disabled in favour of just remapping ~other-window~ to ~M-o~.
+#+begin_src emacs-lisp :tangle no
   (use-package ace-window
     :config
     (setq aw-keys '(?q ?s ?d ?f ?g ?h ?j ?k ?l))
@@ -785,6 +807,10 @@ Allow to jump even faster to a precise character, both forward and backward
 #+begin_src emacs-lisp :tangle yes
   (use-package hledger-mode
     :mode ("\\.journal\\'" "\\.hledger\\'")
+    :custom
+    (hledger-currency-string "€")
+    (hledger-extra-args " -s")
+    (hledger-jfile "~/budget/main.journal")
     :config
     (add-to-list 'company-backends 'hlodger-backend))
 
@@ -795,7 +821,7 @@ Allow to jump even faster to a precise character, both forward and backward
 ** Embrace
 #+begin_src emacs-lisp :tangle yes
   (use-package embrace
-    :bind (("C-," . embrace-commander))
+    :bind (("C-:" . embrace-commander))
     :hook
     (org-mode . embrace-org-mode-hook)
     (LaTeX-mode . embrace-LaTeX-mode-hook))
@@ -847,26 +873,38 @@ Default configuration
     (org-mode . (lambda () (setq-local backup-by-copying t)))
     (org-mode . variable-pitch-mode)
     :custom
+    (org-hidden-keywords '(author subtitle title))
     (org-agenda-start-on-weekday 1)
     (org-agenda-files '("~/org/reading.org"))
     (org-file-apps '((auto-mode . emacs)
                      (directory . emacs)
                      ("\\.pdf\\'" . "zathura %s")))
+    (org-hide-emphasis-markers t)
     :config
-    (setq org-modules '(ol-bbdb ol-bibtex ol-docview ol-gnus org-habit ol-info ol-irc ol-mhe ol-rmail ol-w3m)
+    (setq org-modules '(ol-bbdb ol-bibtex ol-docview ol-gnus org-habit ol-info ol-mhe ol-w3m)
           org-preview-latex-default-process 'dvisvgm)
     :custom-face
     (org-level-1 ((t (:inherit outline-1 :height 1.25))))
     (org-level-2 ((t (:inherit outline-1 :height 1.2))))
     (org-level-3 ((t (:inherit outline-1 :height 1.15))))
     (org-level-4 ((t (:inherit outline-1 :height 1.1))))
-    (org-level-5 ((t (:inherit outline-1 :height 1.05)))))
+    (org-level-5 ((t (:inherit outline-1 :height 1.05))))
+    (org-block ((t (:inherit fixed-pitch :extend t :background "#494949"))))
+    (org-block-begin-line ((t (:inherit org-meta-line :extend t))))
+    (org-checkbox ((t (:inherit fixed-pitch
+                                :background "#5F5F5F"
+                                :foreground "#FFFFEF"
+                                :box (:line-width (1 . 1) :style released-button)))))
+    (org-code ((t (:inherit (shadow fixed-pitch)))))
+    (org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
+    (org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 #+end_src
 Auto-tangle
 #+begin_src emacs-lisp :tangle yes
   (use-package org-auto-tangle
     :hook (org-mode . org-auto-tangle-mode)
-    :init (setq org-auto-tangle-default t))
+    :custom
+    (org-auto-tangle-default nil))
 #+end_src
 ** Pdf handling
 #+begin_src emacs-lisp :tangle yes
@@ -918,6 +956,21 @@ Auto-tangle
     :bind ("C-c b" . ebib)
     :custom
     (bibtex-autokey-year-title-separator ":")
+    (ebib-notes-directory "~/org/notes/")
+    (ebib-notes-file-extension "typ")
+    (ebib-notes-name-transform-function #'my/ebib-name-transform-function)
+    (ebib-notes-template
+     "#import \"common.typ\": *\n#show: all.with([Notes on %X], none)\n\n%%?\n\n// Local Variables:\n// typst-preview--master-file: \"./%S\"\n// End:")
+    (ebib-notes-template-specifiers
+     '((?K . ebib-create-org-identifier)
+       (?T . ebib-create-org-description)
+       (?X . ebib-create-org-title)
+       (?C . ebib-create-org-cite)
+       (?L . ebib-create-org-link)
+       (?F . ebib-create-org-file-link)
+       (?D . ebib-create-org-doi-link)
+       (?U . ebib-create-org-url-link)
+       (?S . my/ebib-create-note-file)))
     (ebib-bibtex-dialect 'biblatex)
     (ebib-file-associations '(("pdf" . "zathura") ("ps" . "gv")))
     (ebib-file-search-dirs '("~/org/papers"))
@@ -930,7 +983,8 @@ Auto-tangle
         (?D . ebib-create-org-doi-link)
         (?U . ebib-create-org-url-link)
         (?A . my/ebib-create-org-abstract)))
-    (ebib-reading-list-file "~/org/reading.org"))
+    (ebib-reading-list-file "~/org/reading.org")
+    (ebib-reading-list-template "* %M %T\n:PROPERTIES:\n%K\n:END:\n*%F*"))
 #+end_src
 #+begin_src emacs-lisp :tangle yes
   (use-package biblio)
@@ -997,19 +1051,19 @@ These allow you to build static websites (such as blogs) based on org-mode docum
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-mode
     :after (direnv)
-    :init
-    (setq lsp-keymap-prefix "C-c l"
-          lsp-log-io nil)
+    :custom
+    (lsp-keymap-prefix "C-c l")
+    (lsp-log-io nil)
+    (lsp-file-watch-ignored-directories '("[/\\\\]build$"
+                                          "[/\\\\].lake$"
+                                          "[/\\\\]\\.direnv$"
+                                          "[/\\\\]target$"
+                                          "[/\\\\]\\.git"))
+    (lsp-enable-suggest-server-download nil)
+    (lsp-keep-workspace-alive nil)
     :config
     (diminish 'lsp-lens-mode)
     (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)
-    (setq lsp-file-watch-ignored '("[/\\\\]build$"
-                                   "[/\\\\].lake$"
-                                   "[/\\\\]\\.direnv$"
-                                   "[/\\\\]target$"
-                                   "[/\\\\]\\.git")
-          lsp-enable-suggest-server-download nil
-          lsp-keep-workspace-alive nil)
     :hook ((python-mode . lsp-deferred)
            (rust-mode . lsp-deferred)
            (typst-ts-mode . lsp-deferred)
@@ -1032,25 +1086,33 @@ These allow you to build static websites (such as blogs) based on org-mode docum
 ** Yasnippet
 #+begin_src emacs-lisp :tangle yes
   (use-package yasnippet
+    :after yasnippet-snippets
     :bind (("M-n" . yas-next-field)
            ("M-p" . yas-prev-field)
            ("<C-return>" . yas-exit-snippet))
     :hook
     ((prog-mode org-mode) . yas-minor-mode)
+    :custom
+    (yas-wrap-around-region t)
+    (yas-snippet-dirs '(yasnippet-snippets-dir))
     :config
     (diminish 'yas-minor-mode)
-    (setq yas-verbosity 1
-          yas-wrap-around-region t
-          yas-snippet-dirs '(yasnippet-snippets-dir))
-    (define-key yas-minor-mode-map (kbd "<tab>") nil)
-    (define-key yas-minor-mode-map (kbd "TAB") nil)
-    (define-key yas-minor-mode-map (kbd "M-<tab>") #'yas-expand))
+    (setq yas-verbosity 1))
 #+end_src
 ** Actual snippets
 #+begin_src emacs-lisp :tangle yes
   (use-package yasnippet-snippets)
 #+end_src
 * Minibuffer
+** Nice elisp support in the minibuffer
+You cannot enable the ~emacs-lisp-mode~ in the minibuffer, else it breaks a lot of things,
+including the fact that you cannot quit the minibuffer anymore!
+#+begin_src emacs-lisp :tangle yes
+  (use-package minibuffer
+    :hook (eval-expression-minibuffer-setup . (lambda ()
+                                                (smartparens-strict-mode)
+                                                (font-lock-mode))))
+#+end_src
 ** Vertico
 #+begin_src emacs-lisp :tangle yes
   (use-package vertico
@@ -1097,7 +1159,6 @@ Instead, let's set directly that value
 ** Save history
 #+begin_src emacs-lisp :tangle yes
   (use-package savehist
-    :ensure nil
     :init
     (savehist-mode))
 #+end_src
@@ -1130,13 +1191,6 @@ Instead, let's set directly that value
 A major mode for editing unison configuration files.
 #+begin_src emacs-lisp :tangle yes
   (use-package unison-mode)
-#+end_src
-
-* Pass
-#+begin_src emacs-lisp :tangle yes
-  (use-package pass
-    :bind (("C-c p" . pass)))
-  (use-package pinentry)
 #+end_src
 
 * Search

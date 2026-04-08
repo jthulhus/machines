@@ -29,6 +29,7 @@ with lib;
     ./mailclient
     ./messaging
     ./network
+    ./nextcloud
     ./notifications
     ./packages.nix
     ./pass

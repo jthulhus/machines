@@ -41,6 +41,7 @@ with lib;
     ./ssh
     ./swappy
     ./tmsu
+    ./top
     ./utils
     ./wifi
     ./wine

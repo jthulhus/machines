@@ -91,6 +91,7 @@ This enables the powerline, as well as a word counting feature.
 ** Dashboard
 #+begin_src emacs-lisp :tangle yes
   (use-package dashboard
+    :after (all-the-icons)
     :custom
     (dashboard-items '((recents . 5)
                        (projects . 5)))

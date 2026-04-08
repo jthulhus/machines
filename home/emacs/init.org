@@ -241,6 +241,7 @@ The first step is using ~persp-mode~ which
 ** Saving Emacs sessions
 #+begin_src emacs-lisp :tangle yes
   (use-package desktop
+    :ensure nil
     :init
     (desktop-save-mode 1)
     :custom
@@ -330,7 +331,8 @@ repeatable.
 #+end_src
 * Tree sitter
 #+begin_src emacs-lisp :tangle yes
-  (use-package treesit)
+  (use-package treesit
+    :ensure nil)
 #+end_src
 * Programming languages
 ** Beans
@@ -726,18 +728,21 @@ useful with a server.  Hence, we disable it.
 Major mode for YAML configuration files.
 #+begin_src emacs-lisp :tangle yes
   (use-package yaml-ts-mode
+    :ensure nil
     :mode "\\.yaml\\'")
 #+end_src
 ** TOML
 Major mode for TOML configuration files.
 #+begin_src emacs-lisp :tangle yes
   (use-package toml-ts-mode
+    :ensure nil
     :mode "\\.toml\\'")
 #+end_src
 ** JSON
 Major mode for JSON configuration files.
 #+begin_src emacs-lisp :tangle yes
   (use-package json-ts-mode
+    :ensure nil
     :mode "\\.json\\'")
 #+end_src
 * Diminish
@@ -1109,6 +1114,7 @@ You cannot enable the ~emacs-lisp-mode~ in the minibuffer, else it breaks a lot 
 including the fact that you cannot quit the minibuffer anymore!
 #+begin_src emacs-lisp :tangle yes
   (use-package minibuffer
+    :ensure nil
     :hook (eval-expression-minibuffer-setup . (lambda ()
                                                 (smartparens-strict-mode)
                                                 (font-lock-mode))))
@@ -1159,6 +1165,7 @@ Instead, let's set directly that value
 ** Save history
 #+begin_src emacs-lisp :tangle yes
   (use-package savehist
+    :ensure nil
     :init
     (savehist-mode))
 #+end_src

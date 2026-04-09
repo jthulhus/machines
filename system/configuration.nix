@@ -35,6 +35,7 @@ in
     ./users
     ./utils
     ./vm
+    ./vpn
     ./yubico
   ];
 

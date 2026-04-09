@@ -41,12 +41,18 @@
       url = "git+https://codeberg.org/meow_king/typst-ts-mode";
       flake = false;
     };
+    irif-vpn-config = {
+      url = "file+https://www.math.univ-paris-diderot.fr/sysadmin/_media/net/openvpn/sg.ovpn";
+      flake = false;
+    };
+    irif-vpn-cert = {
+      url = "file+https://www.math.univ-paris-diderot.fr/sysadmin/_media/net/openvpn/ca.crt";
+      flake = false;
+    };
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , home-manager
+    { nixpkgs
     , emacs-overlay
     , nixpkgs-stable
     , isc
@@ -54,6 +60,8 @@
     , kbd-mode
     , typst-preview
     , typst-ts-mode
+    , irif-vpn-config
+    , irif-vpn-cert
     , ...
     } @ inputs:
     let
@@ -67,6 +75,10 @@
         (final: prev: {
           inherit isgit;
           isc = iscPkg;
+          irif-vpn = {
+            config = irif-vpn-config;
+            cert = irif-vpn-cert;
+          };
         })
       ];
       user-overlays = [

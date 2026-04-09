@@ -43,6 +43,30 @@
         "type": "github"
       }
     },
+    "irif-vpn-cert": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-y87qj1jAa9Y6uUlaNvEMt6Ekzd8YJm0d4C4saA3nGEE=",
+        "type": "file",
+        "url": "https://www.math.univ-paris-diderot.fr/sysadmin/_media/net/openvpn/ca.crt"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://www.math.univ-paris-diderot.fr/sysadmin/_media/net/openvpn/ca.crt"
+      }
+    },
+    "irif-vpn-config": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-tlJPmbxU/mG9kNY8zCeo2Wsq0mvvKT+6okAdfOae4HY=",
+        "type": "file",
+        "url": "https://www.math.univ-paris-diderot.fr/sysadmin/_media/net/openvpn/sg.ovpn"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://www.math.univ-paris-diderot.fr/sysadmin/_media/net/openvpn/sg.ovpn"
+      }
+    },
     "isc": {
       "inputs": {
         "nixpkgs": [
@@ -152,6 +176,8 @@
       "inputs": {
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
+        "irif-vpn-cert": "irif-vpn-cert",
+        "irif-vpn-config": "irif-vpn-config",
         "isc": "isc",
         "kbd-mode": "kbd-mode",
         "lean4-mode": "lean4-mode",

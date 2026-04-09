@@ -35,7 +35,7 @@ in
       };
     };
 
-    programs.command-not-found.enable = true;
+    programs.command-not-found.enable = false;
     
     programs.bash = {
       enable = true;
@@ -51,7 +51,9 @@ in
         t = "trash put";
       };
       shellOptions = [ "histappend" "checkwinsize" "globstar" ];
-      initExtra = ''
+      initExtra =  (builtins.readFile ./make_prompt.sh) + ''
+        source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+
         function iter_open_ed() {
           IFS=':' dbs=($ENCRYPTED_DIRS)
           for dir in "''${dbs[@]}"; do
@@ -131,7 +133,7 @@ in
         if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
           exec sway
         fi
-      '' + (builtins.readFile ./make_prompt.sh);
+      '';
       sessionVariables = {
         ENCRYPTED_DIRS = concatStringsSep ":" encrypted-directories;
         CALIBRE_USE_DARK_PALETTE = 1;

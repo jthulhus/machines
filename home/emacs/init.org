@@ -921,6 +921,45 @@ Auto-tangle
     :custom
     (org-auto-tangle-default nil))
 #+end_src
+** Org-vid
+Adds a ~vid:~ protocol that opens files as videos, and allows specifying arguments such as start
+and end time, or the duration.
+#+begin_src emacs-lisp :tangle yes
+  (require 'dash)
+
+  (defgroup org-vid nil
+    "`org-vid' plugin customization."
+    :group 'org)
+
+  (defcustom org-vid-command "mpv"
+    "Command that is used to read a video."
+    :type 'string
+    :group 'org-vid)
+
+  (defcustom org-vid-protocol "vid"
+    "Protocol of Org links that are handled by `org-vid'."
+    :type 'string
+    :group 'org-vid)
+
+  (defvar org-vid-root nil)
+  (put 'org-vid-root 'safe-local-variable (lambda (_) t))
+
+  (defun org-vid--open (url)
+    (-let* (((path pre-args) (string-split url "?"))
+            (args (append (if pre-args (--map (concat "--" it) (string-split pre-args "&")))
+                          (list (expand-file-name path org-vid-root)))))
+      (apply #'start-process "watch video" nil org-vid-command args)))
+
+  (defun org-vid--complete ()
+    (concat org-vid-protocol ":" (read-file-name "Video: " (expand-file-name org-vid-root) nil t)))
+
+  (org-link-set-parameters
+   org-vid-protocol
+   :follow #'org-vid--open
+   :complete #'org-vid--complete)
+
+  (provide 'org-vid)
+#+end_src
 ** Pdf handling
 #+begin_src emacs-lisp :tangle yes
   (use-package pdf-tools)

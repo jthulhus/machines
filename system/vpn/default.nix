@@ -7,6 +7,7 @@ in {
     servers = {
       irif = {
         config = replaceStrings ["ca.crt"] [(toString cert)] (readFile config);
+        autoStart = false;
       };
     };
   };

@@ -17,8 +17,8 @@
 
   fileSystems."/media" = {
     device = "/dev/disk/by-label/media";
-    fsType = "ntfs";
-    options = [ "users" "nofail" ];
+    fsType = "ext4";
+    options = [ "users" "nofail" "mode=777" ];
   };
   
   preset = "personal";

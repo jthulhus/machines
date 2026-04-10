@@ -68,6 +68,10 @@ in
         "xkcd-font-unstable"
         "xkcd-font"
         "helvetica-neue-lt-std"
+        "cuda_cudart"
+        "cuda_nvcc"
+        "cuda_cccl"
+        "libcublas"
       ];
       nixpkgs.config = {
         allowUnfreePredicate = pkg: elem (getName pkg) my.unfree;

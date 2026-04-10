@@ -79,6 +79,7 @@ with lib;
         "xkcd-font-unstable"
         "xkcd-font"
         "helvetica-neue-lt-std"
+        "cuda_cudart"
       ];
     in
     {

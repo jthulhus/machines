@@ -136,7 +136,7 @@ mode "launch" {
 }
 
 mode "messaging" {
-  bindsym d exec discord, mode "default"
+  bindsym d exec vesktop, mode "default"
   bindsym e exec element-desktop, mode "default"
   bindsym m exec mattermost-desktop, mode "default"
   bindsym s exec signal-desktop, mode "default"

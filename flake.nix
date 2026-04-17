@@ -1,5 +1,5 @@
 {
-  description = "Full BB configuration.";
+  description = "Full jthulhu configuration.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -41,6 +41,8 @@
       url = "git+https://codeberg.org/meow_king/typst-ts-mode";
       flake = false;
     };
+
+    # VPN config
     irif-vpn-config = {
       url = "file+https://www.math.univ-paris-diderot.fr/sysadmin/_media/net/openvpn/sg.ovpn";
       flake = false;

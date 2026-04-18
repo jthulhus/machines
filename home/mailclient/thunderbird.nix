@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
-  home.packages = with pkgs; [
-    thunderbird-140
-  ];
+  programs.thunderbird = {
+    enable = true;
+    package = pkgs.thunderbird-140;
+    profiles.default.isDefault = true;
+  };
 }

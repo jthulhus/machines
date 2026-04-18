@@ -33,3 +33,18 @@ This asks if the management of policies and protectors can be managed by every u
 Then, you need to create an empty directory, and encrypt it using =fscrypt encrypt <directory>=.
 Then, the directory can be (un)locked using =fscrypt lock <directory>= and =fscrypt unlock
 <directory>=.  Note that if you used the pam protector, the directory will be unlocked on login.
+* Secrets
+This repository contains personal information that is redacted, using =git-crypt=.  No password is
+stored this way, but personal information such as private emails, calendar accounts and stuff
+like that.
+
+To redact the content of a file, including it in the [[file:.gitattributes][gitattributes]] file, indicating
+#+begin_src
+  pattern filter=git-crypt diff=git-crypt
+#+end_src
+*Warning!* the =.gitattrbutes= file itself should never be crypted, or there will be problems.
+
+Note that it should always be possible to build the system even without decrypting the redacted
+files.  To achieve that, you should always include a /tag/ file with a dummy content, that is
+included in the redacted files, and to check whether its content is the dummy content you expect,
+in which case you are allowed to load all redacted files.

@@ -2,6 +2,7 @@
 with lib;
 {
   imports = [
+    ./accounts
     ./alacritty
     ./anki
     ./aseprite

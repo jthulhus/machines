@@ -947,8 +947,22 @@ and end time, or the duration.
   (defun org-vid--open (url)
     (-let* (((path pre-args) (string-split url "?"))
             (args (append (if pre-args (--map (concat "--" it) (string-split pre-args "&")))
-                          (list (expand-file-name path org-vid-root)))))
-      (apply #'start-process "watch video" nil org-vid-command args)))
+                          (list (expand-file-name path org-vid-root))))
+            (bfr (generate-new-buffer (format "*Log of video watching %s*"
+                                              (file-name-nondirectory path)))))
+      (with-current-buffer-window bfr nil nil
+        (ansi-color-for-comint-mode-on)
+        (shell-command-mode)
+        (insert (format "> %s%s\n"
+                        org-vid-command
+                        (let ((res ""))
+                          (dolist (arg args res)
+                            (setq res (concat res " " arg))))))
+        (apply #'start-process
+               (format "watching `%s'" url) 
+               bfr
+               org-vid-command
+               args))))
 
   (defun org-vid--complete ()
     (concat org-vid-protocol ":" (read-file-name "Video: " (expand-file-name org-vid-root) nil t)))

@@ -1,0 +1,3 @@
+home/accounts/** filter=git-crypt diff=git-crypt
+home/accounts/default.nix !filter !diff
+.gitattributes !filter !diff

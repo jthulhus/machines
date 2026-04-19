@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Receive the a percentage ($1) and the length of the current track, in millionth of seconds,
+# and set the current position to that percentage. The unit taken by `playerctl position` is
+# seconds.
+
+playerctl position $(($1 * $2 / 100000000))

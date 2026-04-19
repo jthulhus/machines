@@ -1,0 +1,52 @@
+(deflisten musicinfo
+           :initial "{}"
+           `scripts/musicinfo`)
+
+(deflisten musicstatus
+           :initial "Stopped"
+           `playerctl -F status`)
+
+(defwidget player []
+           (box :orientation "v"
+                :class "player"
+                :space-evenly false
+                (box :class "musicart"
+                     :style "background-image: url('${musicinfo?.art}');")
+                (box :class "musictitle"
+                     {replace(musicinfo.title, "\\s*(\\(.*\\)|(${musicinfo.artist})|-)\\s*", "")})
+                (box :class "musicartist"
+                     {musicinfo.artist})
+                (box :orientation "h"
+                     :halign "center"
+                     :class "musicbtn"
+                     :space-evenly false
+                     (button :onclick "playerctl preview" "⏮︎")
+                     (button :onclick "playerctl play-pause"
+                             {musicstatus == "Playing" ? "⏸︎" : "▶"})
+                     (button :onclick "playerctl next" "⏭︎"))
+                (box :orientation "h"
+                     (label :text {musicinfo.pos}
+                            :class "musicpos"
+                            :halign "start")
+                     (label :text {musicinfo.length}
+                            :class "musiclength"
+                            :halign "end"))
+                (box :orientation "h"
+                     :class "music-slider"
+                     :space-evenly false
+                     :halign "center"
+                     (scale :min 0
+                            :max 100
+                            :onchange "scripts/setmusic {} ${musicinfo.rawlength?:1}"
+                            :value {100 * round(musicinfo.rawpos?:0, 0) / round(musicinfo.rawlength?:1, 0)}))))
+
+(defwindow player
+           :monitor 0
+           :exclusive false
+           :focusable false
+           :geometry (geometry :x "5px"
+                               :y "5px"
+                               :width "300px"
+                               :height "400px"
+                               :anchor "top right")
+           (player))

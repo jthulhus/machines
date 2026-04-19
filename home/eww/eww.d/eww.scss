@@ -1,0 +1,253 @@
+// Sources for parts of this file:
+// * github:rxyhn/tokyo
+
+* {
+    all: unset;
+}
+
+$darkblack: #1A1B26;
+$black: #24283B;
+$gray: #565F89;
+$red: #F7768E;
+$green: #73DACA;
+$yellow: #E0AF68;
+$blue: darkslateblue;
+$magenta: #BB9AF7;
+$cyan: #7DCFFF;
+$white: #A9B1D6;
+
+$background: $darkblack;
+$foreground: $white;
+
+.bar {
+    background-color: $background;
+    color: $foreground;
+    font-size: 18px;
+}
+
+.ws {
+    background-color: $darkblack;
+    border: solid 1px $black;
+    padding-left: .5em;
+    padding-right: .5em;
+}
+
+.separ {
+    color: $gray;
+    font-weight: bold;
+    font-size: 22px;
+    margin: 0px 8px 0px 8px;
+}
+
+.focused {
+    background-color: $blue;
+}
+
+tooltip.background {
+    background-color: $background;
+    font-size: 18px;
+    border-radius: 10px;
+    color: $foreground;
+}
+
+tooltip label {
+    margin: 6px;
+}
+
+.volume-bar trough {
+    min-width: 10px;
+    min-height: 80px;
+}
+
+.volume-bar trough highlight {
+    background-image: linear-gradient(to left, #afcee0 30%, #a1bdce 50%, #77a5bf 100% *50);
+    border-radius: 10px;
+}
+
+.volume-icon {
+    font-size: 22px;
+    color: #a1bdce;
+    margin: 0px 10px 0px 10px;
+}
+
+.slider-popup {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: $background;
+    padding: 8px;
+}
+
+.cpu-popup {
+    border-bottom-left-radius: 10px;
+    background-color: $background;
+    color: $foreground;
+    padding: 10px;
+}
+
+@keyframes usage {
+    0% {
+        background-color: green;
+    }
+    50% {
+        background-color: darkorange;
+    }
+    100% {
+        background-color: darkred;
+    }
+}
+
+.cpu {
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    animation-name: usage;
+    animation-duration: 100s;
+}
+
+//////////////
+// Calendar //
+//////////////
+.cal-box {
+    background-color: $black;
+    font-size: 1em;
+    font-weight: bold;
+    border-bottom-left-radius: 15px;
+
+    .cal-inner-box {
+        .cal {
+            padding: .8rem .25rem 0rem;
+            margin-left: 10px;
+            
+            &.highlight {
+                padding: 10rem;
+            }
+        }
+    }
+}
+
+calendar:selected {
+    color: $blue
+}
+
+calendar.header {
+    color: $blue;
+    font-weight: bold;
+}
+
+calendar.button {
+    color: $magenta;
+}
+
+calendar.highlight {
+    color: $magenta;
+    font-weight: bold;
+}
+
+calendar:indeterminate {
+    color: $background;
+}
+
+
+////////////
+// PLAYER //
+////////////
+
+.player {
+    background-color: $background;
+    border-radius: 20px;
+    
+    .musicart {
+        background-size: cover;
+        min-height: 260px;
+        min-width: 260px;
+        margin: 20px;
+        border-radius: 10px;
+    }
+
+    .musictitle {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .musicartist {
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+
+    .musicbtn button {
+        font-size: 20px;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+
+    .musicbtn button:hover {
+        color: #D35D6E;
+    }
+
+    .musicpos {
+        margin-left: 20px;
+    }
+
+    .musiclength {
+        margin-right: 20px;
+    }
+
+    .music-slider scale trough {
+        all: unset;
+        background-color: #4e4e4e;
+        border-radius: 50px;
+        min-height: 5px;
+        min-width: 240px;
+        margin-bottom: 20px;
+        margin-top: 5px;
+    }
+
+    .music-slider scale trough highlight {
+        all: unset;
+        background-color: #ffd5cd;
+        color: #000000;
+        border-radius: 10px;
+    }
+
+    .music-slider slider {
+        all: unset;
+        color: #ffd5cd;
+    }
+}
+
+////////////
+// VOLUME //
+////////////
+
+.volume-icon {
+    font-family: "Font Awesome 6 Free";
+}
+
+/////////////
+// BATTERY //
+/////////////
+
+.bat-module {
+    background-color: #0f0f17;
+    border-radius: 10px;
+    // margin: 0px 10px 0px 10px;
+    margin: 10px;
+    font-size: 15px;
+}
+
+.battery {
+    background-color: $background;
+    border-radius: 10px;
+}
+
+/////////////////
+// WHICH POPUP //
+/////////////////
+
+.which {
+    background-color: #3F3F3F;
+    border-radius: 10px;
+    margin: 10px;
+    font-size: 15px;
+}

@@ -48,3 +48,14 @@ Note that it should always be possible to build the system even without decrypti
 files.  To achieve that, you should always include a /tag/ file with a dummy content, that is
 included in the redacted files, and to check whether its content is the dummy content you expect,
 in which case you are allowed to load all redacted files.
+* ~evscript~ setuid
+~evscript~ requires its binary to have privileged access to the filesystem.  To have it work, we
+need some additional work
+#+begin_src nix
+  security.wrappers.evscript = {
+    setuid = true;
+    owner = "root";
+    group = "root";
+    source = "${pkgs.evscript}/bin/evscript";
+  };
+#+end_src

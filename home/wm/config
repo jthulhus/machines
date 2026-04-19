@@ -280,5 +280,3 @@ bar t {
   status_command i3status-rs
   position top
 }
-
-exec nextcloud

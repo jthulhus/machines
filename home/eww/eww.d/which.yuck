@@ -1,23 +1,32 @@
-(defwidget which-box [contents]
-           (box :class "which"
-                :orientation "horizontal"
-                (for col in contents
-                     (box :class "which-col"
-                          :orientation "vertical"
-                          (for el in col
-                               (box :class "which-entry"
-                                    :orientation "horizontal"
-                                    (label :class "which-key"
-                                         {el.key})
-                                    (label :class "which-column"
-                                           ":")
-                                    (label :class "which-description"
-                                           {el.description})))))))
+(defwidget which-box [title contents]
+           (box
+            :class "which"
+            :orientation "vertical"
+            :space-evenly false
+            (label :class "which-title"
+                   :halign "start"
+                   :text title)
+            (box :orientation "horizontal"
+                 (for col in contents
+                      (box :class "which-col"
+                           :orientation "vertical"
+                           (for el in col
+                                (box :class "which-entry"
+                                     :orientation "horizontal"
+                                     :space-evenly false
+                                     (label :class "which-key"
+                                            :text {el.key})
+                                     (label :class "which-column"
+                                            :text ":")
+                                     (label :class "which-description"
+                                            :text {el.description}))))))))
 
-(defwindow which-popup [ctnts]
+(defwindow which-popup [title contents]
            :geometry (geometry :anchor "bottom right"
                                :x "20px"
                                :y "20px"
-                               :width "${50 * arraylength(ctnts)}px"
-                               :height "${15 * arraylength(ctnts[0])}px")
-           (which-box :contents ctnts))
+                               :width "${100 * arraylength(contents[0])}px"
+                               :height "${40 * arraylength(contents)}px")
+           (which-box
+            :title title
+            :contents contents))

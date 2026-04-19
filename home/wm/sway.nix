@@ -9,6 +9,7 @@
         keybindings = { };
         bars = [ ];
       };
+      systemd.enable = true;
       extraConfig = let
         inherit (builtins) readFile replaceStrings concatStringsSep;
         baseConfig = readFile ./config;

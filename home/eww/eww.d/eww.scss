@@ -250,4 +250,29 @@ calendar:indeterminate {
     border-radius: 10px;
     margin: 10px;
     font-size: 15px;
+    border-style: solid;
+    border-color: #93E0E3;
+    border-width: 3px;
+}
+
+.which-title {
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.which-key {
+    color: #F0DFAF;
+    font-weight: bold;
+}
+
+.which-entry {
+    margin: 7px;
+}
+
+.which-column {
+    margin-left: 2px;
+    margin-right: 8px;
 }

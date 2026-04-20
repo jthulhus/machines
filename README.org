@@ -59,3 +59,9 @@ need some additional work
     source = "${pkgs.evscript}/bin/evscript";
   };
 #+end_src
+* Which-key popup
+Shortcuts using sway have a which-key like popup that shows up.  It is implemented independently
+of the actual shortcuts (the shortcuts are processed by sway, whereas which-key is an independent
+service that just listens to sway for mode changes).
+
+In particular, any change to the shortcuts should be reflected in [[file:home/eww/default.nix::6][this file]]

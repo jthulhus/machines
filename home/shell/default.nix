@@ -21,6 +21,7 @@ in
   config = {
     home.packages = with pkgs; [
       isgit
+      rgrc
     ];
 
     programs.zsh = {
@@ -49,6 +50,19 @@ in
         nano = "emacsclient -nw";
         vim = "emacsclient --nw";
         t = "trash put";
+        df = "rgrc df";
+        diff = "rgrc diff";
+        dig = "rgrc dig";
+        du = "rgrc du";
+        env = "rgrc env";
+        fdisk = "rgrc fdisk";
+        free = "rgrc free";
+        gpg = "rgrc gpg";
+        ifconfig = "rgrc ifconfig";
+        ip = "rgrc ip";
+        mount = "rgrc mount";
+        ping = "rgrc ping";
+        ps = "rgrc ps";
       };
       shellOptions = [ "histappend" "checkwinsize" "globstar" ];
       initExtra =  (builtins.readFile ./make_prompt.sh) + ''

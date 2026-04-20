@@ -27,6 +27,7 @@
                                :y "20px"
                                :width "${100 * arraylength(contents[0])}px"
                                :height "${40 * arraylength(contents)}px")
+           :stacking "overlay"
            (which-box
             :title title
             :contents contents))

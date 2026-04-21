@@ -15,6 +15,8 @@
                                      :orientation "horizontal"
                                      :space-evenly false
                                      (label :class "which-key"
+                                            :width 40
+                                            :xalign 1.0
                                             :text {el.key})
                                      (label :class "which-column"
                                             :text ":")
@@ -24,9 +26,7 @@
 (defwindow which-popup [title contents]
            :geometry (geometry :anchor "bottom right"
                                :x "20px"
-                               :y "20px"
-                               :width "${100 * arraylength(contents[0])}px"
-                               :height "${40 * arraylength(contents)}px")
+                               :y "20px")
            :stacking "overlay"
            (which-box
             :title title

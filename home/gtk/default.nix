@@ -35,7 +35,10 @@ in {
         name = "Adwaita-dark";
       };
       gtk3 = gtkConfig;
-      gtk4.extraConfig = gtkConfig.extraConfig;
+      gtk4 = {
+        theme = config.gtk.theme;
+        extraConfig = gtkConfig.extraConfig;
+      };
     };
     dconf.settings = {
       "org/gnome/desktop/interface" = {

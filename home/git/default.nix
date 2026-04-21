@@ -10,6 +10,7 @@
     signing = {
       signByDefault = true;
       key = null;
+      format = "openpgp";
     };
     settings = {
       alias = {

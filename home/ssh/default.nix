@@ -5,5 +5,6 @@
     includes = [
       "~/.ssh/hosts/*"
     ];
+    enableDefaultConfig = false;
   };
 }

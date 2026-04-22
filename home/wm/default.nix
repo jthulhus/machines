@@ -1,12 +1,7 @@
 { pkgs, config, lib, ... }:
 let
-  useSway = config.xserver == "wayland";
+  use-sway = config.xserver == "wayland";
   inherit (lib) mkOption types;
-  notmuchOverlay = final: prev: {
-    notmuch = prev.notmuch.overrideAttrs (old: {
-      doCheck = false;
-    });
-  };
 in {
   options = {
     my.battery-device = mkOption {
@@ -15,6 +10,12 @@ in {
 There should be `/sys/class/power_supply/<battery-device>`.";
     };
     wm = {
+      lock-when-idle = mkOption {
+        type = types.bool;
+        default = true;
+        example = false;
+        description = "Whether to lock the screen after being idle for long enough.";
+      };
       extraConfig = mkOption {
         type = types.lines;
         default = "";
@@ -79,7 +80,8 @@ There should be `/sys/class/power_supply/<battery-device>`.";
   config =
     let
       inherit (lib.lists) sort;
-      inherit (builtins) getAttr attrValues attrNames replaceStrings;
+      inherit (builtins) getAttr attrNames replaceStrings;
+      inherit (lib) mkIf;
       sortBlocks = sort (l: r: l.value.position < r.value.position);
       makeBlock = { key, value }:
         with value;
@@ -105,15 +107,11 @@ There should be `/sys/class/power_supply/<battery-device>`.";
       i3statusBar = builtins.concatStringsSep "\n" ([ icons theme ] ++ blocks);
     in {
       home.packages = with pkgs; [
-        (if useSway then swaylock-effects else i3lock)
+        (if use-sway then swaylock-effects else i3lock)
         brightnessctl
         i3status-rust
         sway-contrib.grimshot
       ];
-
-      # nixpkgs.overlays = [
-      #   notmuchOverlay
-      # ];
 
       xdg.configFile = {
         "i3status-rust/config.toml".text = i3statusBar;
@@ -125,7 +123,7 @@ There should be `/sys/class/power_supply/<battery-device>`.";
           before-sleep =  "${pkgs.systemd}/bin/loginctl lock-session";
           lock =  "${pkgs.swaylock-effects}/bin/swaylock --screenshots --clock --indicator --indicator-radius 100 --indicator-thickness 7 --effect-blur 7x5 --effect-vignette 0.5:0.5 --grace 2 --fade-in 0.2 --inside-color=0000001c --ring-color=0000003e --line-color=00000000 --key-hl-color=ffffff80 --ring-ver-color=ffffff00 --separator-color=22222260 --inside-ver-color=ff99441c --ring-clear-color=ff994430 --inside-clear-color=ff994400 --ring-wrong-color=ffffff55 --inside-wrong-color=ffffff1c --text-ver-color=00000000 --text-wrong-color=00000000 --text-caps-lock-color=00000000 --text-clear-color=00000000 --line-clear-color=00000000 --line-wrong-color=00000000 --line-ver-color=00000000 --text-color=db3300ff";
         };
-        timeouts = [
+        timeouts = mkIf config.wm.lock-when-idle [
           { timeout = 300; command = "${pkgs.systemd}/bin/systemctl suspend"; }
         ];
       };

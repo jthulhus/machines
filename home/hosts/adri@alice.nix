@@ -12,6 +12,7 @@ in {
       backlight.enable = false;
     };
     input-event = "input/event1";
+    lock-when-idle = false;
   };
 
   wayland.windowManager.sway.extraOptions = mkIf nvidiaProprietary [ "--unsupported-gpu" ];

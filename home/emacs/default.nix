@@ -18,6 +18,7 @@
         withXwidgets = true;
       }).overrideAttrs (old: {
         meta = old.meta // { broken = false; };
+        patches = (old.patches or []) ++ [ ./xwidget.patch ];
       });
       alwaysEnsure = true;
       extraEmacsPackages = epkgs: with epkgs; [

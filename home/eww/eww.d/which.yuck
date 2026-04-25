@@ -1,3 +1,6 @@
+(defvar which--show-help
+  false)
+
 (defwidget which-box [title contents]
            (box
             :class "which"
@@ -5,7 +8,7 @@
             :space-evenly false
             (label :class "which-title"
                    :halign "start"
-                   :text title)
+                   :markup title)
             (box :orientation "horizontal"
                  (for col in contents
                       (box :class "which-col"
@@ -14,14 +17,19 @@
                                 (box :class "which-entry"
                                      :orientation "horizontal"
                                      :space-evenly false
+                                     :tooltip {el?.tooltip ?: jq(el.description, "[.[].text] | add", "r")}
                                      (label :class "which-key"
                                             :width 40
                                             :xalign 1.0
-                                            :text {el.key})
+                                            :markup {el.key})
                                      (label :class "which-column"
                                             :text ":")
-                                     (label :class "which-description"
-                                            :text {el.description}))))))))
+                                     (box :class "which-description"
+                                          :orientation "horizontal"
+                                          :space-evenly false
+                                          (for part in {el.description}
+                                               (label :class {part?.class ?: "which-description"}
+                                                      :markup {part.text}))))))))))
 
 (defwindow which-popup [title contents]
            :geometry (geometry :anchor "bottom right"

@@ -6,6 +6,7 @@
       wrapperFeatures.gtk = true;
       checkConfig = false;      # It fails to check the config due to custom layouts.
       config = {
+        modifier = "Mod4";
         keybindings = { };
         bars = [ ];
       };

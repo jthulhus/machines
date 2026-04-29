@@ -1,6 +1,7 @@
+{ lib, ... }:
 {
   services.nextcloud-client = {
     enable = true;
-    startInBackground = true;
+    startInBackground = lib.mkDefault true;
   };
 }

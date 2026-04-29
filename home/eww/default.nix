@@ -2,6 +2,7 @@
 let
   inherit (builtins) elem filter genList length;
   inherit (lib) throwIfNot;
+  inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.lists) sublist;
   inherit (lib.strings) toSentenceCase concatMapStringsSep;
   inherit (config.wayland.windowManager.sway.config) modifier;
@@ -9,7 +10,7 @@ let
   eww = config.programs.eww.package;
   sway = config.wayland.windowManager.sway.package;
   chunks = n: l: genList (i: sublist (i * n) n l) ((length l + n - 1) / n);
-  repr-key = { key, windows ? false, shift ? false }:
+  repr-key = { key, windows, shift }:
     let
       repr-windows = if windows then "⌘-" else "";
       repr-shift = if shift then "S-" else "";
@@ -31,7 +32,7 @@ let
         else 
           key;
     in "${repr-windows}${repr-shift}${repr-key}";
-  mk-binding = { key, exec ? true, which ? true, kind ? "raw", command ? "", description }:
+  mk-binding = { key, enable-exec, enable-which, kind, command, description }:
     throwIfNot (elem kind [ "raw" "mode" "open" ]) "`${kind}` must be one of `raw`, `mode` or `open`." (
       if kind == "raw" then
         ''{"key": "${repr-key key}", "description": [{"text": "${description}"}]}''
@@ -40,9 +41,9 @@ let
       else
         ''{"key": "${repr-key key}", "description": [{"text": "open", "class": "which-app-pre"}, {"text": " "}, {"text": "${description}", "class": "which-app"}]}''
     );
-  mk-case = { help-only ? false, mode ? "default", bindings, col-size ? 1 }:
+  mk-case = { help-only, mode, bindings, col-size }:
     let
-      bdgs = chunks col-size (filter ({which ? true, ...}: which) bindings);
+      bdgs = chunks col-size (filter ({ enable-which, ...}: enable-which) bindings);
       handle-chunk = chunk: ''[${concatMapStringsSep ", " mk-binding chunk}]'';
       open-command = ''open "${toSentenceCase mode}" "$(${pkgs.uutils-coreutils-noprefix}/bin/cat <<EOF
 [${concatMapStringsSep ", " handle-chunk bdgs}]
@@ -94,7 +95,7 @@ EOF
 
       function show_popup() {
           case "$1" in
-              ${concatMapStringsSep "\n" mk-case modes}
+              ${concatMapStringsSep "\n" mk-case (mapAttrsToList (mode: args: args // { inherit mode; }) modes)}
               * )
                   close
                   ;;
@@ -111,8 +112,14 @@ EOF
           ${sway}/bin/swaymsg -t subscribe '["binding"]' >/dev/null 2>&1
       done
    '';
-  modes = [
-    {
+in {
+  programs.eww = {
+    enable = true;
+    configDir = ./eww.d;
+  };
+
+  wm.modes = {
+    default = {
       help-only = true;
       col-size = 2;
       bindings = [
@@ -123,6 +130,7 @@ EOF
             key = "q";
           };
           description = "close window";
+          command = "kill";
         }
         {
           key = {
@@ -198,9 +206,8 @@ EOF
           command = "exec rofi -show window";
         }
       ];
-    }
-    {
-      mode = "screenshot";
+    };
+    screenshot = {
       col-size = 2;
       bindings = [
         {
@@ -224,9 +231,8 @@ EOF
           command = "exec grimshot save output - | swappy -f -, mode default";
         }
       ];
-    }
-    {
-      mode = "launch";
+    };
+    launch = {
       col-size = 3;
       bindings = [
         {
@@ -303,8 +309,8 @@ EOF
           command = "rofi -show run";
         }
       ];
-    }
-    {
+    };
+    messaging = {
       mode = "messaging";
       col-size = 3;
       bindings = [
@@ -345,9 +351,8 @@ EOF
           command = "karere";
         }
       ];
-    }
-    {
-      mode = "games";
+    };
+    games = {
       col-size = 2;
       bindings = [
         {
@@ -375,9 +380,8 @@ EOF
           command = "steam";
         }
       ];
-    }
-    {
-      mode = "power";
+    };
+    power = {
       col-size = 2;
       bindings = [
         {
@@ -401,9 +405,8 @@ EOF
           command = "mode default, exec loginctl lock-session";
         }
       ];
-    }
-    {
-      mode = "notification";
+    };
+    notification = {
       help-only = true;
       bindings = [
         {
@@ -422,8 +425,8 @@ EOF
           command = "exec dunstctl action 0, dunstctl close";
         }
       ];
-    }
-    {
+    };
+    connection = {
       mode = "connection";
       bindings = [
         {
@@ -442,19 +445,13 @@ EOF
           command = "exec wifi toggle, mode default";
         }
       ];
-    }
-    {
-      mode = "move";
+    };
+    move = {
       help-only = true;
       bindings = [];
-    }
-  ];
-in {
-  programs.eww = {
-    enable = true;
-    configDir = ./eww.d;
+    };
   };
-
+  
   systemd.user.services = {
     eww = {
       Unit = {
@@ -479,7 +476,7 @@ in {
       };
       Service = {
         Type = "exec";
-        ExecStart = "${which-key-script modes}/bin/which-key";
+        ExecStart = "${which-key-script config.wm.modes}/bin/which-key";
         Restart = "on-failure";
       };
       Install = {
@@ -488,8 +485,10 @@ in {
     };
   };
 
-  wayland.windowManager.sway.config.keybindings = {
-    "${modifier}+Shift+h" = "exec ${toggle-help}/bin/toggle-help, mode default";
+  wayland.windowManager.sway.config = {
+    keybindings = {
+      "${modifier}+Shift+h" = "exec ${toggle-help}/bin/toggle-help, mode default";
+    };
   };
 
   services.playerctld.enable = true;

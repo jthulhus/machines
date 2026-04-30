@@ -65,10 +65,6 @@ bindsym Control+$win_mod+XF86TouchpadToggle input type:touchpad events toggle en
 
 floating_modifier $win_mod
 
-bindsym $win_mod+Return exec alacritty
-bindsym $win_mod+Shift+q kill
-bindsym $win_mod+tab workspace back_and_forth
-
 bindsym $win_mod+f floating toggle
 
 bindsym $win_mod+apostrophe workspace 1
@@ -104,59 +100,6 @@ bindsym $win_mod+z exec passmenu
 bindsym Print mode $print_mode
 bindsym XF86Tools mode "screenshot"
 
-mode "screenshot" {
-  bindsym a exec grimshot save area - | swappy -f -, mode "default"
-  bindsym c exec grimshot save active - | swappy -f -, mode "default"
-  bindsym w exec grimshot save window - | swappy -f -, mode "default"
-  bindsym o exec grimshot save output - | swappy -f -, mode "default"
-
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-bindsym $win_mod+space mode "launch"
-mode "launch" {
-  bindsym b exec nautilus, mode "default"
-  bindsym c exec clementine; mode "default"
-  bindsym e exec emacsclient -c, mode "default"
-  bindsym f exec firefox, mode "default"
-  bindsym g mode "games"
-  bindsym k exec anki, mode "default"
-  bindsym Shift+k exec kodi, mode "default"
-  bindsym m mode "messaging"
-  bindsym s exec pavucontrol, mode "default"
-  bindsym u exec unison, mode "default"
-  bindsym z exec zathura, mode "default"
-  bindsym return exec rofi -show run, mode "default"
-
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-mode "messaging" {
-  bindsym d exec vesktop, mode "default"
-  bindsym e exec element-desktop, mode "default"
-  bindsym m exec mattermost-desktop, mode "default"
-  bindsym s exec signal-desktop, mode "default"
-  bindsym t exec thunderbird, mode "default"
-  bindsym w exec karere, mode "default"
-
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-mode "games" {
-  bindsym d exec dfhack, mode "default"
-  bindsym w exec wesnoth, mode "default"
-  bindsym m exec prismlauncher, mode "default"
-  bindsym k exec supertuxkart, mode "default"
-  bindsym s exec steam, mode "default"
-
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-bindsym $win_mod+m mode "move"
 mode "move" {
   bindsym apostrophe move workspace 1, workspace 1
   bindsym 1 move workspace 1, workspace 1
@@ -217,44 +160,7 @@ mode "move" {
   
   bindsym r layout toggle splitv splith
 
-  bindsym escape mode "default"
   bindsym space mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-bindsym $win_mod+p mode "power"
-mode "power" {
-  bindsym e exit, mode "default"
-  bindsym o exec poweroff, mode "default"
-  bindsym r exec reboot, mode "default"
-  bindsym l mode "default", exec "loginctl lock-session"
-
-
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-bindsym $win_mod+Shift+n mode "notification"
-mode "notification" {
-  bindsym d exec "dunstctl close"
-  bindsym a exec "dunstctl close-all", mode "default"
-  bindsym i exec "dunstctl action 0, dunstctl close"
-
-  bindsym space mode "default"
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
-}
-
-bindsym $win_mod+n exec "dunstctl close"
-
-bindsym $win_mod+c mode "connection"
-mode "connection" {
-  bindsym f exec "wifi off", mode "default"
-  bindsym n exec "wifi on", mode "default"
-  bindsym t exec "wifi toggle", mode "default"
-
-  bindsym escape mode "default"
-  bindsym $universal_quit mode "default"
 }
 
 bindsym $win_mod+Shift+space exec {
@@ -270,8 +176,6 @@ bindsym $win_mod+h focus left
 bindsym $win_mod+j focus down
 bindsym $win_mod+k focus up
 bindsym $win_mod+l focus right
-
-bindsym $win_mod+w exec rofi -show window
 
 bar t {
   font DejaVu Sans

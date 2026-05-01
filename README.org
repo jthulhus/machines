@@ -31,8 +31,8 @@ enabled.  Once this has been done, you have to setup encryption on that partitio
 #+end_src
 This asks if the management of policies and protectors can be managed by every user.  Answer yes.
 Then, you need to create an empty directory, and encrypt it using =fscrypt encrypt <directory>=.
-Then, the directory can be (un)locked using =fscrypt lock <directory>= and =fscrypt unlock
-<directory>=.  Note that if you used the pam protector, the directory will be unlocked on login.
+Then, the directory can be (un)locked using =fscrypt lock <directory>= and ~fscrypt unlock
+<directory>~.  Note that if you used the pam protector, the directory will be unlocked on login.
 * Secrets
 This repository contains personal information that is redacted, using =git-crypt=.  No password is
 stored this way, but personal information such as private emails, calendar accounts and stuff
@@ -42,7 +42,7 @@ To redact the content of a file, including it in the [[file:.gitattributes][gita
 #+begin_src
   pattern filter=git-crypt diff=git-crypt
 #+end_src
-*Warning!* the =.gitattrbutes= file itself should never be crypted, or there will be problems.
+*Warning!* the =.gitattributes= file itself should never be crypted, or there will be problems.
 
 Note that it should always be possible to build the system even without decrypting the redacted
 files.  To achieve that, you should always include a /tag/ file with a dummy content, that is

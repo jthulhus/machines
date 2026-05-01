@@ -5,7 +5,7 @@
   ];
   programs.password-store = {
     enable = true;
-    package = (if config.xserver == "wayland" then pkgs.pass-wayland else pkgs.pass)
+    package = pkgs.pass-wayland
       .withExtensions (exts: with exts; [ pass-otp ]);
     settings = {
       PASSWORD_STORE_DIR = "${config.xdg.dataHome}/password-store";

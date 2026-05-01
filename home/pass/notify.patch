@@ -1,0 +1,21 @@
+diff --git a/src/password-store.sh b/src/password-store.sh
+--- a/src/password-store.sh
++++ b/src/password-store.sh
+@@ -383,6 +383,8 @@ cmd_show() {
+ 	local passfile="$PREFIX/$path.gpg"
+ 	check_sneaky_paths "$path"
+ 	if [[ -f $passfile ]]; then
++                notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Requesting password <i>$path</i>."
++                trap 'notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Unlocking failed."' EXIT
+ 		if [[ $clip -eq 0 && $qrcode -eq 0 ]]; then
+ 			pass="$($GPG -d "${GPG_OPTS[@]}" "$passfile" | $BASE64)" || exit $?
+ 			echo "$pass" | $BASE64 -d
+@@ -396,6 +398,8 @@ cmd_show() {
+ 				qrcode "$pass" "$path"
+ 			fi
+ 		fi
++                notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Unlocked."
++                trap - EXIT
+ 	elif [[ -d $PREFIX/$path ]]; then
+ 		if [[ -z $path ]]; then
+ 			echo "Password Store"

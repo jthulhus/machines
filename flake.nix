@@ -91,6 +91,9 @@
             inherit system;
             config.allowUnfree = true;
           };
+          pass-wayland = prev.pass-wayland.overrideAttrs (old: {
+            patches = (old.patches or []) ++ [ ./home/pass/notify.patch ];
+          });
         })
       ];
     in

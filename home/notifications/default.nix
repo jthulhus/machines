@@ -1,21 +1,16 @@
+{ pkgs, ... }:
 {
-  # services.mako = {
-  #   enable = true;
-  #   anchor = "top-right";
-  #   borderRadius = 5;
-  #   font = "monospace 15";
-  #   extraConfig = ''
-  #   text-alignment=center
-  #   '';
-  # };
   services.dunst = {
     enable = true;
+    iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+    };
     settings = {
       global = {
+        enable_recursive_icon_lookup = true;
         origin = "top-right";
         corner_radius = 15;
-        # transparency only works for X11...
-        # transparency = 10;
         progress_bar_height = 25;
         progress_bar_frame_width = 0;
         progress_bar_corner_radius = 5;
@@ -25,13 +20,13 @@
         highlight= "#808080";
       };
       urgency_low = {
-        background = "#222222cc";
+        background = "#018055cc";
       };
       urgency_normal = {
-        background = "#222222cc";
+        background = "#018055cc";
       };
       urgency_critical = {
-        background = "#332222cc";
+        background = "#018055cc";
         origin = "top-center";
         padding = 8;
         horizontal_padding = 8;

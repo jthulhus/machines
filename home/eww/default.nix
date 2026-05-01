@@ -66,9 +66,12 @@ EOF
     else
       ${eww}/bin/eww update which--show-help=true
     fi
+    # Notify the which-key service that it might need to refresh the pop-up.
+    ${pkgs.systemd}/bin/systemctl --user kill --signal=SIGUSR1 which-key
   '';
   which-key-script =
     writeShellScriptBin "which-key" ''
+      STATE=""
       function close() {
           # Doing `eww close which-popup` has the same effect, but if we try to close a
           # window which is not open, then `eww` complains in the logs, resulting in
@@ -84,7 +87,6 @@ EOF
       }
 
       function open() {
-          echo BLOUP: "$2" 1>&2
           ${eww}/bin/eww open which-popup \
               --arg title="$1" \
               --arg contents="$2" \
@@ -100,13 +102,30 @@ EOF
           esac
       }
 
+      function maybe_refresh() {
+          local binding_mode="$(get_binding_mode)"
+          local show_help="$(${eww}/bin/eww get which--show-help)"
+          local screen="$(screen)"
+          local new_state="$show_help:$binding_mode:$screen"
+          if [ "$new_state" != "$STATE" ]; then
+              STATE="$new_state"
+              show_popup "$binding_mode"
+          fi
+      }
+
       function get_binding_mode() {
            ${sway}/bin/swaymsg -t get_binding_state --raw | \
               ${pkgs.jq}/bin/jq -r '.name'
       }
 
+      function usr1_hook() {
+          maybe_refresh
+      }
+
+      trap usr1_hook USR1
+
       while true; do
-          show_popup "$(get_binding_mode)"
+          maybe_refresh
           ${sway}/bin/swaymsg -t subscribe '["binding"]' >/dev/null 2>&1
       done
    '';
@@ -119,7 +138,7 @@ in {
   wm.modes = {
     default = {
       help-only = true;
-      col-size = 3;
+      col-size = 4;
       bindings = [
         {
           key = {
@@ -182,6 +201,7 @@ in {
         {
           key = {
             windows = true;
+            shift = true;
             key = "n";
           };
           kind = "mode";
@@ -210,14 +230,6 @@ in {
           };
           description = "close notification";
           command = "exec dunstctl close";
-        }
-        {
-          key = {
-            windows = true;
-            key = "w";
-          };
-          description = "switch to window";
-          command = "exec rofi -show window";
         }
       ];
     };
@@ -265,7 +277,7 @@ in {
           key.key = "e";
           kind = "open";
           description = "Editor";
-          command = "Emacs";
+          command = "emacsclient -c";
         }
         {
           key.key = "f";

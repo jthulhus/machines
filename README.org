@@ -65,3 +65,11 @@ of the actual shortcuts (the shortcuts are processed by sway, whereas which-key 
 service that just listens to sway for mode changes).
 
 In particular, any change to the shortcuts should be reflected in [[file:home/eww/default.nix::6][this file]]
+* Reset author of all commits
+To reset the author information of all commits in a repository, run
+#+begin_src bash
+  git -c rebase.instructionFormat='%s%nexec GIT_COMMITTER_DATE="%cD" GIT_AUTHOR_DATE="%aD" git commit --amend --no-edit --reset-author' rebase -f --root
+#+end_src
+This will preserve the original date of the commit.
+*Warning*: This will reset the commit hashes, hence it will destroy the history, meaning that you
+will have to ~git push --force~, and be annoying for anyone else working on the repository.

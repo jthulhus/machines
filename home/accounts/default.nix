@@ -5,8 +5,6 @@ let
 in {
   imports =
     if hasPrefix "yes" (readFile ./available) then [
-      ./calendar.nix
-      ./contacts.nix
-      ./email.nix
+      ./adri.nix
     ] else [];
 }

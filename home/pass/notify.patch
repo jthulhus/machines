@@ -1,20 +1,31 @@
 diff --git a/src/password-store.sh b/src/password-store.sh
 --- a/src/password-store.sh
 +++ b/src/password-store.sh
-@@ -383,6 +383,8 @@ cmd_show() {
+@@ -383,6 +383,19 @@ cmd_show() {
  	local passfile="$PREFIX/$path.gpg"
  	check_sneaky_paths "$path"
  	if [[ -f $passfile ]]; then
-+                notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Requesting password <i>$path</i>."
++                case "$(notify-send --app-name=pass --expire-time=60000 --action 'yes=Unlock the password.' --action "no=Don't unlock the password." --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Requesting password <i>$path</i>.")" in
++                     "yes" )
++                         notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Unlocking password <i>$path</i>."
++                         ;;
++                     "no" )
++                         notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Not unlocking password."
++                         exit 1
++                         ;;
++                     * )
++                         notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "No action provided."
++                         exit 1
++                esac
 +                trap 'notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Unlocking failed."' EXIT
  		if [[ $clip -eq 0 && $qrcode -eq 0 ]]; then
  			pass="$($GPG -d "${GPG_OPTS[@]}" "$passfile" | $BASE64)" || exit $?
  			echo "$pass" | $BASE64 -d
-@@ -396,6 +398,8 @@ cmd_show() {
+@@ -396,6 +409,8 @@ cmd_show() {
  				qrcode "$pass" "$path"
  			fi
  		fi
-+                notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Unlocked."
++                notify-send --app-name=pass --icon=dialog-password-symbolic -h string:x-canonical-private-synchronous:pass "Password Store" "Password provided."
 +                trap - EXIT
  	elif [[ -d $PREFIX/$path ]]; then
  		if [[ -z $path ]]; then

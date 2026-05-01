@@ -152,6 +152,14 @@ in {
         {
           key = {
             windows = true;
+            key = "x";
+          };
+          description = "execute notification";
+          command = "exec dunstctl context";
+        }
+        {
+          key = {
+            windows = true;
             key = "Return";
           };
           kind = "open";

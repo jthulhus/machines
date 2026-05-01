@@ -8,6 +8,7 @@
     };
     settings = {
       global = {
+        dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p Dunst";
         enable_recursive_icon_lookup = true;
         origin = "top-right";
         corner_radius = 15;
@@ -18,6 +19,7 @@
         padding = 12;
         horizontal_padding = 12;
         highlight= "#808080";
+        mouse_right_click = "context";
       };
       urgency_low = {
         background = "#018055cc";

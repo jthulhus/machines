@@ -6,9 +6,10 @@
 } @ inputs: config: { hostname
                     , system ? "x86_64-linux"
                     , overlays ? [ ]
-                    ,
+                    , users ? [ "adri" ]
                     }: nixpkgs:
 let
+  inherit (builtins) listToAttrs;
   inherit (nixpkgs.lib) nixosSystem;
   custom = {
     my.hostname = hostname;
@@ -38,26 +39,20 @@ let
   user-module = {
     home-manager = {
       useGlobalPkgs = true;
-
-      users.adri =
-        let username = "adri"; in
-        {
-          imports =
-            let
-              local-entrypoint = "${self}/home/hosts/${username}@${hostname}.nix";
-              main-entrypoint = "${self}/home/home.nix";
-            in
-            [
-              local-entrypoint
-              main-entrypoint
-            ];
-          config = {
-            home = {
-              inherit username;
-              homeDirectory = "/home/${username}";
-            };
+      
+      users = listToAttrs (map (username: {
+        name = username;
+        value = {
+          imports = [
+            "${self}/home/hosts/${username}@${hostname}.nix"
+            "${self}/home/home.nix"
+          ];
+          config.home = {
+            inherit username;
+            homeDirectory = "/home/${username}";
           };
         };
+      }) users);
     };
   };
 in

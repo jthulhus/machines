@@ -142,6 +142,10 @@
           {
             hostname = "alice";
             overlays = common-overlays ++ user-overlays;
+            users = [
+              "adri"
+              "marie"
+            ];
           }
           nixpkgs;
         dragonbreath = lib.mkSystem

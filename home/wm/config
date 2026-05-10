@@ -97,7 +97,7 @@ bindsym $win_mod+Shift+left move left
 
 bindsym $win_mod+z exec passmenu
 
-bindsym Print mode $print_mode
+bindsym Print mode "screenshot"
 bindsym XF86Tools mode "screenshot"
 
 mode "move" {

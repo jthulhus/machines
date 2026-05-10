@@ -8,11 +8,11 @@ with lib;
     ./aseprite
     ./battery
     ./beets
+    ./browser
     ./direnv
     ./emacs
     ./eww
     ./file-browser
-    ./firefox
     ./fonts
     ./fuse
     ./games

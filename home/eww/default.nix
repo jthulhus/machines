@@ -429,7 +429,7 @@ in {
           command = "exit";
         }
         {
-          key.key = "p";
+          key.key = "o";
           description = "poweroff";
           command = "exec poweroff";
         }

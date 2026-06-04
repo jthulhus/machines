@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   programs.firefox = {
     enable = true;
@@ -21,6 +22,7 @@
     # ] ++ [                      # Dictionaries
     #   french-dictionary
     # ];
+    configPath = "./mozilla/firefox";
     languagePacks = [ "fr" "en-GB" "it" ];
     policies = {
       DisableTelemetry = true;

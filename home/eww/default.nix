@@ -1,7 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (builtins) elem filter genList length;
-  inherit (lib) throwIfNot;
+  inherit (builtins) filter genList length readFile;
   inherit (lib.attrsets) mapAttrsToList;
   inherit (lib.lists) sublist;
   inherit (lib.strings) toSentenceCase concatMapStringsSep;
@@ -132,7 +131,8 @@ EOF
 in {
   programs.eww = {
     enable = true;
-    configDir = ./eww.d;
+    yuckConfig = readFile ./eww.d/which.yuck;
+    scssConfig = readFile ./eww.d/eww.scss;
   };
 
   wm.modes = {

@@ -9,6 +9,7 @@ with lib;
     ./battery
     ./beets
     ./browser
+    ./cursor
     ./direnv
     ./emacs
     ./eww

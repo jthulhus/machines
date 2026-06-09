@@ -1,17 +1,14 @@
-(in-package #:nyxt-user)
+(define-configuration buffer
+    ((default-modes
+         (pushnew 'nyxt/mode/emacs:emacs-mode %slot-value%))))
 
-(defvar *my-search-engines*
-  (list
-   (make-instance 'search-engine
-                  :name "Google"
-                  :shortcut "goo"
-                  #+nyxt-4 :control-url #+nyxt-3 :search-url
-                  "https://duckduckgo.com/?q=~a")))
+(define-configuration input-buffer
+    ((default-modes
+         (pushnew 'nyxt/mode/emacs:emacs-mode %slot-value%))))
 
-(define-configuration browser
-    ((restore-session-on-startup-p t)
-     (external-editor-program "emacsclient -r")
-     #+nyxt-4
-     (search-engine-suggestions-p t)
-     #+nyxt-4
-     (search-engines (append %slot-default% *my-search-engines*))))
+(define-configuration web-buffer
+    ((default-modes
+         (append '(nyxt/mode/blocker:blocker-mode 
+                   nyxt/mode/reduce-tracking:reduce-tracking-mode
+                   nyxt/mode/force-https:force-https-mode)
+                 %slot-value%))))

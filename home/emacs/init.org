@@ -4,10 +4,21 @@
 #+property: header-args:elisp :lexical t
 
 My Emacs init.org file.
+* Sources
+The current configuration file has been written over the years, taking inspiration from several
+places on the web.  Here is a (non-exhaustive) list of such resources:
+- https://www.jamescherti.com/essential-emacs-packages/
 * Lexical binding
 Make the tangled init file use lexical binding.  See [[https://emacs.stackexchange.com/questions/81540/lexical-binding-in-a-tangled-init-el-file][this stackexchange post]].
 #+begin_src emacs-lisp :tangle yes :comments no
   ;; -*- lexical-binding: t; -*-
+#+end_src
+* GC tweaking
+#+begin_src emacs-lisp :tangle yes
+  (use-package gcmh
+    :demand t
+    :config
+    (gcmh-mode))
 #+end_src
 * Repositories
 ** Add good repositores
@@ -122,6 +133,21 @@ This makes it easy to distinguish where parenthesis and alike start and end.
     (xkcd-cache-dir "~/.cache/xkcd/" "The directory where the comics are stored.")
     (xkcd-cache-latest "~/.cache/xkcd/latest" "The file where the latest cached comics' number is stored."))
 #+end_src
+* Saving and formatting
+** Formatting
+~apheleia~ automatically, and asynchronously, formats buffers on save, in a way that does not interfere with writing.
+#+begin_src emacs-lisp :tangle yes
+  (use-package apheleia
+    :demand t
+    :config
+    (apheleia-global-mode t))
+#+end_src
+** Saving
+~buffer-guardian~ saves buffers in the background, when idle, on focus loss, or similar situations.
+#+begin_src emacs-lisp :tangle yes
+  (use-package buffer-guardian
+    :hook (after-init . buffer-guardian-mode))
+#+end_src
 * Emacs
 ** Global settings
 *** Overload =find-file=
@@ -181,7 +207,6 @@ Make it automatically create unexistent directories.
           custom-file (concat user-emacs-directory "custom.el"))
     (when (file-exists-p custom-file)
       (load custom-file))
-    (setq-default indent-tabs-mode nil)
     :custom
     (repeat-mode t)
     (safe-local-variable-values
@@ -191,6 +216,7 @@ Make it automatically create unexistent directories.
     (temporary-file-directory "/dev/shm/")
     (fill-column 97)
     (warning-suppress-types '((lsp-mode direnv)))
+    (enable-recursive-minibuffers t)
     :config
     (put 'lsp-rust-analyzer-cargo-target 'safe-local-variable #'stringp)
     (put 'lsp-rust-all-targets 'safe-local-variable #'stringp)
@@ -199,7 +225,8 @@ Make it automatically create unexistent directories.
            ("S-<return>" . electric-newline-and-maybe-indent)
            ("C-z" . kill-whole-line)
            ("C-x C-z" . nil)
-           ("M-o" . other-window)))
+           ("M-o" . other-window)
+           ([remap cycle-spacing] . execute-extended-command)))
 #+end_src
 *** Alias DEL and M-DEL
 #+begin_src emacs-lisp :tangle yes
@@ -226,6 +253,60 @@ Make it automatically create unexistent directories.
 *** Force newline at the end of a file
 #+begin_src emacs-lisp :tangle yes
   (setq-default require-final-newline t)
+#+end_src
+* Indentation
+** Auto-detect indentation style of buffer
+This modes infers the indentation style of a buffer, if no specific directive is given.
+#+begin_src emacs-lisp :tangle yes
+  (use-package dtrt-indent
+    :demand t
+    :custom (dtrt-indent-global-mode . t))
+#+end_src
+** Bars for tabulation
+#+begin_src emacs-lisp :tangle yes
+  (use-package indent-bars
+    :hook (prog-mode . (lambda ()
+                         (unless (string-prefix-p " *org-src-fontification:" (buffer-name))
+                           (indent-bars-mode))))
+    :custom
+    (indent-bars-no-descend-list 'skip)
+    (indent-bars-treesit-support t)
+    (indent-bars-treesit-wrap '((rust arguments parameters)))
+    (indent-bars-tressit-scope '((rust trait_item impl_item 
+                                     macro_definition macro_invocation 
+                                     struct_item enum_item mod_item 
+                                     const_item let_declaration 
+                                     function_item for_expression 
+                                     if_expression loop_expression 
+                                     while_expression match_expression 
+                                     match_arm call_expression 
+                                     token_tree token_tree_pattern 
+                                     token_repetition))))
+#+end_src
+* Code folding
+Code folding front-end.  ~kirigami~ offers uniform key bindings, regardless of the underlying folding backend.
+#+begin_src emacs-lisp :tangle yes
+  (use-package kirigami
+    :demand t
+    :bind 
+    ("C-," . kirigami-toggle-fold)
+    ("C-;" . kirigami-open-folds)
+    ("C-M-;" . kirigami-close-folds)
+    ("C-M-," . kirigami-open-fold-rec)
+    :config
+    (kirigami-global-mode 1)
+    (add-hook 'prog-mode-hook (lambda ()
+  			      (if (or (treesit-fold-mode t)
+  				      (outline-indent-minor-mode t))
+  				  (kirigami-close-folds)))))
+#+end_src
+The preferred backend is ~treesit~-based parsing.
+#+begin_src emacs-lisp :tangle yes
+  (use-package treesit-fold)
+#+end_src
+Otherwise, we rely on indentation.
+#+begin_src emacs-lisp :tangle yes
+  (use-package outline-indent)
 #+end_src
 * Sessions
 The goal of this section is to have the following features:
@@ -343,6 +424,10 @@ repeatable.
 ** Rust
 *** Rustic
 #+begin_src emacs-lisp :tangle yes
+  (use-package rust-mode
+    :init
+    (setq rust-mode-treesitter-derive t))
+
   (use-package rustic
     :after rust-mode
     :hook (rustic-mode . font-lock-mode))
@@ -580,7 +665,13 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
     :hook
     (lean4-mode . (lambda ()
                     (setq-local lsp-semantic-tokens-enable nil)
+                    (setq-local standard-indent 2)
                     (electric-indent-local-mode 1))))
+#+end_src
+
+#+begin_src emacs-lisp :tangle yes
+  (use-package nael)
+  (use-package nael-lsp)
 #+end_src
 ** Agda
 #+begin_src emacs-lisp :tangle yes
@@ -1237,12 +1328,25 @@ Instead, let's set directly that value
   (use-package crux
     :bind (("C-c e" . crux-eval-and-replace)))
 #+end_src
-* Magit
+* Version Control
+** Git
+Git interface within Emacs.
 #+begin_src emacs-lisp :tangle yes
   (use-package magit
     :bind (("C-x g" . magit-status)
 	   ("C-x M-g" . magit-dispatch)
 	   ("C-C M-g" . magit-file-dispatch)))
+#+end_src
+Show VC status within file buffers.
+#+begin_src emacs-lisp :tangle yes
+  (use-package diff-hl
+    :demand t
+    :config
+    (global-diff-hl-mode))
+#+end_src
+Git related files support.
+#+begin_src emacs-lisp :tangle yes
+  (use-package git-modes)
 #+end_src
 * ElDoc
 #+begin_src emacs-lisp :tangle yes

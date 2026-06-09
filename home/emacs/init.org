@@ -4,6 +4,10 @@
 #+property: header-args:elisp :lexical t
 
 My Emacs init.org file.
+* Sources
+The current configuration file has been written over the years, taking inspiration from several
+places on the web.  Here is a (non-exhaustive) list of such resources:
+- https://www.jamescherti.com/essential-emacs-packages/
 * Lexical binding
 Make the tangled init file use lexical binding.  See [[https://emacs.stackexchange.com/questions/81540/lexical-binding-in-a-tangled-init-el-file][this stackexchange post]].
 #+begin_src emacs-lisp :tangle yes :comments no
@@ -122,6 +126,20 @@ This makes it easy to distinguish where parenthesis and alike start and end.
     (xkcd-cache-dir "~/.cache/xkcd/" "The directory where the comics are stored.")
     (xkcd-cache-latest "~/.cache/xkcd/latest" "The file where the latest cached comics' number is stored."))
 #+end_src
+* Saving and formatting
+** Formatting
+~apheleia~ automatically, and asynchronously, formats buffers on save, in a way that does not interfere with writing.
+#+begin_src emacs-lisp :tangle yes
+  (use-package apheleia
+    :config
+    (apheleia-global-mode t))
+#+end_src
+** Saving
+~buffer-guardian~ saves buffers in the background, when idle, on focus loss, or similar situations.
+#+begin_src emacs-lisp :tangle yes
+  (use-package buffer-guardian
+    :hook (after-init . buffer-guardian-mode))
+#+end_src
 * Emacs
 ** Global settings
 *** Overload =find-file=
@@ -181,7 +199,6 @@ Make it automatically create unexistent directories.
           custom-file (concat user-emacs-directory "custom.el"))
     (when (file-exists-p custom-file)
       (load custom-file))
-    (setq-default indent-tabs-mode nil)
     :custom
     (repeat-mode t)
     (safe-local-variable-values
@@ -199,7 +216,8 @@ Make it automatically create unexistent directories.
            ("S-<return>" . electric-newline-and-maybe-indent)
            ("C-z" . kill-whole-line)
            ("C-x C-z" . nil)
-           ("M-o" . other-window)))
+           ("M-o" . other-window)
+           ("M-SPC" . execute-extended-command)))
 #+end_src
 *** Alias DEL and M-DEL
 #+begin_src emacs-lisp :tangle yes
@@ -227,6 +245,30 @@ Make it automatically create unexistent directories.
 #+begin_src emacs-lisp :tangle yes
   (setq-default require-final-newline t)
 #+end_src
+* Indentation
+** Auto-detect indentation style of buffer
+This modes infers the indentation style of a buffer, if no specific directive is given.
+#+begin_src emacs-lisp :tangle yes
+  (use-package dtrt-indent
+    :custom (dtrt-indent-global-mode . t))
+#+end_src
+** Bars for tabulation
+#+begin_src emacs-lisp :tangle yes
+  (use-package indent-bars
+    :hook prog-mode)
+#+end_src
+* Code folding
+#+begin_src emacs-lisp :tangle yes
+  (use-package kirigami
+    :config
+    (kirigami-global-mode 1))
+#+end_src
+#+begin_src emacs-lisp :tangle yes
+  (use-package treesit-fold
+    :config
+    (global-treesit-fold-mode))
+#+end_src
+
 * Sessions
 The goal of this section is to have the following features:
  - each project should have its own buffer list and window
@@ -343,6 +385,10 @@ repeatable.
 ** Rust
 *** Rustic
 #+begin_src emacs-lisp :tangle yes
+  (use-package rust-mode
+    :init
+    (setq rust-mode-treesitter-derive t))
+
   (use-package rustic
     :after rust-mode
     :hook (rustic-mode . font-lock-mode))
@@ -1237,7 +1283,8 @@ Instead, let's set directly that value
   (use-package crux
     :bind (("C-c e" . crux-eval-and-replace)))
 #+end_src
-* Magit
+* Version Control
+** Git
 #+begin_src emacs-lisp :tangle yes
   (use-package magit
     :bind (("C-x g" . magit-status)

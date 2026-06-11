@@ -120,6 +120,7 @@
     # LaTeX
     # auctex
     texliveFull
+    tex-fmt
     # texlive.combined.scheme-full
     texlab
     pandoc

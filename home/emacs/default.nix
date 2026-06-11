@@ -9,16 +9,12 @@
     };
   };
 
-
   programs.emacs = {
     enable = true;
     package = with pkgs; emacsWithPackagesFromUsePackage {
       config = ./init.org;
       package = (emacs-git-pgtk.override {
         withXwidgets = true;
-      }).overrideAttrs (old: {
-        meta = old.meta // { broken = false; };
-        patches = (old.patches or []) ++ [ ./xwidget.patch ];
       });
       alwaysEnsure = true;
       extraEmacsPackages = epkgs: with epkgs; [
@@ -119,7 +115,6 @@
     defaultEditor = true;
     startWithUserSession = "graphical";
   };
-
 
   home.packages = with pkgs; [
     # LaTeX

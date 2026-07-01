@@ -37,6 +37,7 @@ with lib;
     ./notifications
     ./packages.nix
     ./pass
+    ./printing
     ./qt
     ./rofi
     ./rustdesk

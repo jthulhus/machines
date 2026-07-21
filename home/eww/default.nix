@@ -270,6 +270,12 @@ in {
       col-size = 3;
       bindings = [
         {
+          key.key = "t";
+          kind = "open";
+          description = "Torrent Browser";
+          command = "trgui-ng";
+        }
+        {
           key.key = "b";
           kind = "open";
           description = "File Browser";

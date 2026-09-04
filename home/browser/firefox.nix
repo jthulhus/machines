@@ -85,13 +85,13 @@
       containers = {
         em = {
           icon = "fingerprint";
-          id = 0;
+          id = 1;
           color = "yellow";
           name = "em";
         };
         mala = {
           icon = "pet";
-          id = 1;
+          id = 2;
           color = "green";
           name = "mala";
         };

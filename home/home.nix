@@ -52,6 +52,7 @@ with lib;
     ./tmsu
     ./top
     ./torrent
+    ./unified-push
     ./utils
     ./vpn
     ./wifi

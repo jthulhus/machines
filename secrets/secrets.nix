@@ -16,4 +16,25 @@ in {
       rlyeh
     ];
   };
+  "nextcloud-credentials.age" = {
+    script = ''
+      secrets=$(pass web/2mon.ad/jthulhu)
+      username=$(echo "$secrets" | cut -d $'\n' -f 2)
+      username=''${username#login: }
+      password=$(echo "$secrets" | cut -d $'\n' -f 1)
+      cat <<EOF
+      [PushProvider]
+      Type=NextPush
+
+      [NextPush]
+      Url=https://2mon.ad
+      Username=$username
+      AppPassword=$password
+      EOF
+    '';
+    publicKeys = [
+      alice
+      rlyeh
+    ];
+  };
 }

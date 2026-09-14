@@ -38,7 +38,7 @@ let
   common = "${self}/system/configuration.nix";
   entrypoint = "${self}/system/hosts/${hostname}.nix";
   hardware = "${self}/system/hardware/${hostname}.nix";
-  user-module = {
+  user-module = { config, ... }: {
     home-manager = {
       useGlobalPkgs = true;
 
@@ -55,8 +55,12 @@ let
           };
         };
       }) users);
-      
+
       sharedModules = [ nix-index-database.homeModules.default ];
+
+      extraSpecialArgs = {
+        inherit (config.age) secrets;
+      };
     };
   };
 in

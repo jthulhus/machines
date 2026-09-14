@@ -8,7 +8,7 @@
   };
 
   home.packages = with pkgs; [
-    rofi-pass
+    tessen
     rofi-power-menu
   ];
 }

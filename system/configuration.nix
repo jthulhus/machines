@@ -35,6 +35,7 @@ in
     ./secret-services
     ./sound
     ./steam
+    ./sudo
     ./tablet
     ./users
     ./utils

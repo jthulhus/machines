@@ -1012,6 +1012,7 @@ Default configuration
                                 :foreground "#FFFFEF"
                                 :box (:line-width (1 . 1) :style released-button)))))
     (org-code ((t (:inherit (shadow fixed-pitch)))))
+    (org-table ((t (:inherit fixed-pitch))))
     (org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
     (org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 #+end_src

@@ -624,13 +624,8 @@ Quack seems to dislike =racket-mode=.
 #+end_src
 *** Direnv
 #+begin_src emacs-lisp :tangle yes
-  (use-package direnv
-    :commands direnv-update-environment
-    :hook (prog-mode . direnv-update-environment)
-    :config
-    (direnv-mode)
-    :custom
-    (direnv-always-show-summary nil))
+  (use-package envrc
+    :hook (after-init . envrc-global-mode))
 #+end_src
 ** J
 #+begin_src emacs-lisp :tangle yes
@@ -1220,7 +1215,6 @@ These allow you to build static websites (such as blogs) based on org-mode docum
 ** Setup main LSP
 #+begin_src emacs-lisp :tangle yes
   (use-package lsp-mode
-    :after (direnv)
     :custom
     (lsp-keymap-prefix "C-c l")
     (lsp-log-io nil)

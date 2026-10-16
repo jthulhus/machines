@@ -10,7 +10,7 @@ in
     ./boot
     ./cachix.nix
     ./dbus
-    ./dns
+    # ./dns
     ./evscript
     ./fans
     ./firewall

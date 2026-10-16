@@ -40,6 +40,8 @@ let
   hardware = "${self}/system/hardware/${hostname}.nix";
   user-module = { config, ... }: {
     home-manager = {
+      backupFileExtension = "bak";
+
       useGlobalPkgs = true;
 
       users = listToAttrs (map (username: {

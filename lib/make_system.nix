@@ -16,6 +16,7 @@ let
   custom = {
     my.hostname = hostname;
     nixpkgs.overlays = overlays;
+    nixpkgs.hostPlatform = system;
     nix = {
       registry = {
         jpkgs = {
@@ -67,7 +68,6 @@ let
   };
 in
 nixosSystem {
-  inherit system;
   modules = [
     common
     entrypoint

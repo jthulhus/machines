@@ -1,6 +1,8 @@
+{ pkgs, ... }:
 {
   programs.alacritty = {
     enable = true;
+    package = pkgs.alacritty;
     settings = {
       font = let
         actualFont = "Source Code Pro";

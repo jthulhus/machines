@@ -144,9 +144,9 @@ in
         }
         make_mnt_completions
 
-        if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-          exec sway
-        fi
+        # if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+        #   exec sway
+        # fi
       '';
       sessionVariables = {
         ENCRYPTED_DIRS = concatStringsSep ":" encrypted-directories;

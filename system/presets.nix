@@ -34,6 +34,7 @@ in {
         };
         programs.sway = {
           enable = dTrue;
+          wrapperFeatures.gtk = true;
           extraOptions = mkIf (my.gpu == "nvidia-proprietary") (mkDefault [ "--unsupported-gpu" ]);
         };
       };

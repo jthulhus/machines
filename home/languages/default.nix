@@ -4,7 +4,7 @@
     ./python
     # ./rust                      # Discontinued
     ./racket
-    ./coq
+    ./rocq
     ./scheme
     # ./j
     ./prolog

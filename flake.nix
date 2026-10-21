@@ -78,7 +78,7 @@
     } @ inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
+      pkgs = nixpkgs.legacyPackages.${system};
       inherit (pkgs) writeShellScriptBin;
       inherit (builtins) readFile;
       isgit = writeShellScriptBin "isgit" (readFile ./scripts/isgit);

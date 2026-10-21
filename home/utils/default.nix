@@ -2,9 +2,8 @@
 {
   imports = [
     ./zathura.nix
-    ./zotero.nix
   ];
-  
+
   home.packages = with pkgs; [
     bat
     cloc

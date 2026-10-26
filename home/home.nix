@@ -47,6 +47,7 @@ with lib;
     ./shell
     ./sound
     ./ssh
+    ./storage
     ./swappy
     ./television
     ./tmsu

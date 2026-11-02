@@ -5,8 +5,9 @@
   ];
 
   home.packages = with pkgs; [
+    uutils-coreutils-noprefix
     bat
-    cloc
+    tokei
     file
     imv
     sxiv

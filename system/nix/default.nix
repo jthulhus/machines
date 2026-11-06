@@ -2,10 +2,18 @@
 {
   nix = {
     package = pkgs.lix;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-    '';
+
+    settings = {
+      auto-allocate-uids = true;
+      use-cgroups = true;
+      keep-outputs = true;
+      keep-derivations = true;
+      experimental-features = [ "nix-command" "flakes" "auto-allocate-uids" "cgroups" ];
+      extra-system-features = [ "uid-range" ];
+    };
+  };
+
+  systemd.services.nix-daemon.serviceConfig = { 
+    Delegate = true;
   };
 }

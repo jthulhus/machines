@@ -31,6 +31,10 @@
       url = "github:mrehanabbasi/pia.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    trustd = {
+      url = "github:jthulhu/trustd";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Extra Emacs packages
     lean4-mode = {
@@ -74,6 +78,7 @@
     , irif-vpn-config
     , irif-vpn-cert
     , nix-index-database
+    , trustd
     , ...
     } @ inputs:
     let
@@ -112,80 +117,80 @@
         })
       ];
     in
-    rec {
-      lib = import ./lib inputs {
-        inherit user-overlays common-overlays;
-        home-configurations = homeConfigurations;
-        system-configurations = nixosConfigurations;
-      };
-      homeConfigurations =
-        let
-          overlays = user-overlays ++ common-overlays
-          ;
-        in
-        {
-          "adri@dragonbreath" = lib.mkHome
-            {
-              inherit overlays;
-              hostname = "dragonbreath";
-            }
-            nixpkgs;
-          "adri@cthulhu" = lib.mkHome
-            {
-              inherit overlays;
-              hostname = "cthulhu";
-            }
-            nixpkgs;
-          "adri@rlyeh" = lib.mkHome
-            {
-              inherit overlays;
-              hostname = "rlyeh";
-            }
-            nixpkgs;
-          "adri@alice" = lib.mkHome
-	    {
-	      inherit overlays;
-	      hostname = "alice";
-	    }
-	    nixpkgs;
+      rec {
+        lib = import ./lib inputs {
+          inherit user-overlays common-overlays;
+          home-configurations = homeConfigurations;
+          system-configurations = nixosConfigurations;
         };
-      nixosConfigurations = {
-        alice = lib.mkSystem
-          {
-            hostname = "alice";
-            overlays = common-overlays ++ user-overlays;
-            users = [
-              "adri"
-              "marie"
-            ];
-          }
-          nixpkgs;
-        dragonbreath = lib.mkSystem
-          {
-            hostname = "dragonbreath";
-            overlays = common-overlays ++ user-overlays;
-          }
-          nixpkgs;
-        cthulhu = lib.mkSystem
-          {
-            hostname = "cthulhu";
-            overlays = common-overlays;
-          }
-          nixpkgs;
-        rlyeh = lib.mkSystem
-          {
-            hostname = "rlyeh";
-            overlays = common-overlays ++ user-overlays;
-          }
-          nixpkgs;
+        homeConfigurations =
+          let
+            overlays = user-overlays ++ common-overlays
+            ;
+          in
+            {
+              "adri@dragonbreath" = lib.mkHome
+                {
+                  inherit overlays;
+                  hostname = "dragonbreath";
+                }
+                nixpkgs;
+              "adri@cthulhu" = lib.mkHome
+                {
+                  inherit overlays;
+                  hostname = "cthulhu";
+                }
+                nixpkgs;
+              "adri@rlyeh" = lib.mkHome
+                {
+                  inherit overlays;
+                  hostname = "rlyeh";
+                }
+                nixpkgs;
+              "adri@alice" = lib.mkHome
+	              {
+	                inherit overlays;
+	                hostname = "alice";
+	              }
+	              nixpkgs;
+            };
+        nixosConfigurations = {
+          alice = lib.mkSystem
+            {
+              hostname = "alice";
+              overlays = common-overlays ++ user-overlays;
+              users = [
+                "adri"
+                "marie"
+              ];
+            }
+            nixpkgs;
+          dragonbreath = lib.mkSystem
+            {
+              hostname = "dragonbreath";
+              overlays = common-overlays ++ user-overlays;
+            }
+            nixpkgs;
+          cthulhu = lib.mkSystem
+            {
+              hostname = "cthulhu";
+              overlays = common-overlays;
+            }
+            nixpkgs;
+          rlyeh = lib.mkSystem
+            {
+              hostname = "rlyeh";
+              overlays = common-overlays ++ user-overlays;
+            }
+            nixpkgs;
+        };
+        packages.${system} = {
+          inherit isgit mk-secrets;
+        };
+        devShell.${system} = pkgs.mkShell {
+          nativeBuildInputs = [
+            mk-secrets
+          ];
+        };
       };
-      packages.${system} = {
-        inherit isgit mk-secrets;
-      };
-      devShell.${system} = pkgs.mkShell {
-        nativeBuildInputs = [
-          mk-secrets
-        ];
-      };
-    };
 }

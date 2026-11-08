@@ -37,6 +37,7 @@ in
     ./steam
     ./sudo
     ./tablet
+    ./trust
     ./users
     ./utils
     ./vm

@@ -4,6 +4,7 @@
 , nix-index-database
 , ragenix
 , pia
+, trustd
 , ...
 } @ inputs: config: { hostname
                     , system ? "x86_64-linux"
@@ -77,5 +78,7 @@ nixosSystem {
     ragenix.nixosModules.default
     pia.nixosModules.default
     user-module
+    trustd.nixosModules.trust
+    trustd.nixosModules.home-manager
   ];
 }

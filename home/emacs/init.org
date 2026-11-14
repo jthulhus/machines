@@ -579,19 +579,61 @@ Quack seems to dislike =racket-mode=.
     (company-auctex-init))
 #+end_src
 ** Typst
+Typst's plugin handles very poorly paragraph filling, so let's make a function that fixes this:
+#+begin_src emacs-lisp :tangle yes
+  (defun my/typst-ts-fill-paragraph (arg)
+    "Fill text safely by respecting subnodes while preserving adaptive indentation context."
+    (interactive "P")
+    (save-excursion
+      (let* ((node (treesit-node-at (point)))
+             (current node)
+             (start (line-beginning-position))
+             (end (line-end-position)))
+
+        ;; Walk up to find the immediate parent list item or container
+        (while (and current (not (member (treesit-node-type current) '("item" "numbered" "heading"))))
+          (setq current (treesit-node-parent current)))
+
+        (when current
+          (setq end (treesit-node-end current))
+
+          ;; Scan direct children to find nested sub-lists below the cursor
+          (let ((children (treesit-node-children current)))
+            (dolist (child children)
+              (when (member (treesit-node-type child) '("list" "item" "numbered"))
+                (when (> (treesit-node-start child) (point))
+                  (setq end (min end (treesit-node-start child))))))))
+
+        ;; Narrow and fill the calculated zone if it contains text
+        (if (< start end)
+            (save-restriction
+              (narrow-to-region start end)
+              (let ((fill-paragraph-function nil))
+                (fill-paragraph arg)))
+          (let ((fill-paragraph-function nil))
+            (fill-paragraph arg)))))
+    t)
+#+end_src
+
 #+begin_src emacs-lisp :tangle yes
   (use-package typst-ts-mode
     :after (lsp-mode)
     :ensure nil
     :hook
     (typst-ts-mode . (lambda () (run-hooks 'prog-mode-hook)))
-    (typst-ts-mode . (lambda () (setq newline-dwim-pairs (cons '("\\$" . "\\$") newline-dwim-pairs))))
+    (typst-ts-mode . (lambda () (setq-local newline-dwim-pairs (cons '("\\$" . "\\$") newline-dwim-pairs)
+                                            fill-paragraph-function #'my/typst-ts-fill-paragraph)))
     :init
     (add-to-list 'lsp-language-id-configuration '(typst-ts-mode . "typst"))
     (lsp-register-client
      (make-lsp-client :new-connection (lsp-stdio-connection '("tinymist"))
                       :major-modes '(typst-ts-mode)
-                      :server-id 'typst)))
+                      :server-id 'typst))
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("tola" "lsp"))
+                      :major-modes '(typst-ts-mode)
+                      :server-id 'tola
+                      :priority -1)))
 #+end_src
 #+begin_src emacs-lisp :tangle yes
   (use-package typst-preview

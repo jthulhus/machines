@@ -22,7 +22,7 @@
       };
       user = {
         name = "jthulhu";
-        email = "jthulhu@posteo.net";
+        email = "jthulhu@2mon.ad";
       };
       init = {
         defaultBranch = "main";
@@ -30,7 +30,7 @@
       push.autoSetupRemote = true;
       core.quotePath = false;
     };
-    
+
     ignores = [
       # Emacs
       "*~"

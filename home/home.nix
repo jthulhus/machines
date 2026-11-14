@@ -20,7 +20,6 @@ with lib;
     ./gammastep
     ./gimp
     ./git
-    ./gpg
     ./gtk
     ./hledger
     ./images
@@ -38,6 +37,7 @@ with lib;
     ./notifications
     ./packages.nix
     ./pass
+    ./pgp
     ./printing
     ./qalc
     ./qt

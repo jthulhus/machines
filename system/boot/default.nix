@@ -1,27 +1,23 @@
-{ config, lib, ... }:
-let
-  inherit (lib) mkIf mkOption;
-  inherit (lib.types) enum str;
-  inherit (config) my;
-  ifUefi = mkIf (my.boot.mode == "uefi");
-in
+{ pkgs, ... }:
 {
-  options.my.boot = {
-    mode = mkOption {
-      type = enum [ "bios" "uefi" ];
-      default = "uefi";
-      example = "bios";
-      description = "The motherboard's boot loader.";
-    };
-    device = mkOption {
-      type = str;
-      default = "/dev/sda";
-      description = "The device grub loads.";
+  environment.systemPackages = with pkgs; [
+    sbctl
+  ];
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+
+    autoGenerateKeys.enable = true;
+
+    autoEnrollKeys = {
+      enable = true;
+      autoReboot = true;
     };
   };
-  config.boot.loader = {
-    systemd-boot.enable = true;
-    systemd-boot.configurationLimit = 5;
+
+  boot.loader = {
+    systemd-boot.enable = false;
     efi.canTouchEfiVariables = true;
     # grub = {
     #   enable = false;

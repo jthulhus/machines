@@ -5,6 +5,7 @@
 , ragenix
 , pia
 , trustd
+, lanzaboote
 , ...
 } @ inputs: config: { hostname
                     , system ? "x86_64-linux"
@@ -80,5 +81,6 @@ nixosSystem {
     user-module
     trustd.nixosModules.trust
     trustd.nixosModules.home-manager
+    lanzaboote.nixosModules.lanzaboote
   ];
 }

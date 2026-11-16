@@ -35,6 +35,10 @@
       url = "github:jthulhu/trustd";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Extra Emacs packages
     lean4-mode = {

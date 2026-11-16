@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 {
   my = {
-    boot.mode = "uefi";
     steam = true;
     gpu = "intel";
   };

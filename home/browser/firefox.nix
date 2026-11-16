@@ -79,6 +79,7 @@
         "ui.systemUsesDarkTheme" = 1;
       };
       search = {
+        force = true;
         privateDefault = "ddg";
       };
       path = "jthulhu";

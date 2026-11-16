@@ -69,7 +69,7 @@ in
         source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
 
         function iter_open_ed() {
-          IFS=':' dbs=($ENCRYPTED_DIRS)
+          local IFS=':' dbs=($ENCRYPTED_DIRS)
           for dir in "''${dbs[@]}"; do
             if [ -f "$dir/backup" ]; then
               $* "$dir"
@@ -78,7 +78,7 @@ in
         }
 
         function iter_closed_ed() {
-          IFS=':' dbs=($ENCRYPTED_DIRS)
+          local IFS=':' dbs=($ENCRYPTED_DIRS)
           for dir in "''${dbs[@]}"; do
             if [ ! -f "$dir/backup" ]; then
               $* "$dir"
@@ -87,7 +87,7 @@ in
         }
 
         function iter_ed() {
-          IFS=':' dbs=($ENCRYPTED_DIRS)
+          local IFS=':' dbs=($ENCRYPTED_DIRS)
           for dir in "''${dbs[@]}"; do
             if [ -f "$dir/backup" ]; then
               $1 "$dir"
@@ -132,7 +132,7 @@ in
         }
 
         function make_mnt_completions() {
-          IFS=':' dbs=($ENCRYPTED_DIRS)
+          local IFS=':' dbs=($ENCRYPTED_DIRS)
           dbs_bn=()
           for dir in "''${dbs[@]}"; do
             dbs_bn+=($(basename $dir))

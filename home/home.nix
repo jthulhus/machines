@@ -6,6 +6,7 @@ with lib;
     ./alacritty
     ./anki
     ./aseprite
+    ./backup
     ./battery
     ./beets
     ./browser

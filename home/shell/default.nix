@@ -67,91 +67,14 @@ in
       shellOptions = [ "histappend" "checkwinsize" "globstar" ];
       initExtra =  (builtins.readFile ./make_prompt.sh) + ''
         source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
-
-        function iter_open_ed() {
-          local IFS=':' dbs=($ENCRYPTED_DIRS)
-          for dir in "''${dbs[@]}"; do
-            if [ -f "$dir/backup" ]; then
-              $* "$dir"
-            fi
-          done
-        }
-
-        function iter_closed_ed() {
-          local IFS=':' dbs=($ENCRYPTED_DIRS)
-          for dir in "''${dbs[@]}"; do
-            if [ ! -f "$dir/backup" ]; then
-              $* "$dir"
-            fi
-          done
-        }
-
-        function iter_ed() {
-          local IFS=':' dbs=($ENCRYPTED_DIRS)
-          for dir in "''${dbs[@]}"; do
-            if [ -f "$dir/backup" ]; then
-              $1 "$dir"
-            else
-              $2 "$dir"
-            fi
-          done
-        }
-
-        function udb() {
-          echo Updating databases...
-          ho() {
-            echo "Database for $(basename $1) is accessible, updating."
-            updatedb -l no -o "$1/.plocate.db" -U "$1"
-          }
-          hc() {
-            echo "Database for $(basename $1) is not accessible, skipping."
-          }
-          iter_ed ho hc
-        }
-
-        function backup_all() {
-          echo Backing up
-          if [ ! -d ~/media/Adrien ]; then
-            echo "error: no backup media"
-            return
-          fi
-
-          ho() {
-            echo "Backing up $1..."
-            mntm $(basename "$1")
-            pushd "$1"
-            ./backup
-            popd
-            umntm $(basename "$1")
-          }
-          hc() {
-            mnt "$1"
-            ho "$1"
-            umnt "$1"
-          }
-        }
-
-        function make_mnt_completions() {
-          local IFS=':' dbs=($ENCRYPTED_DIRS)
-          dbs_bn=()
-          for dir in "''${dbs[@]}"; do
-            dbs_bn+=($(basename $dir))
-          done
-          complete -W "''${dbs_bn[*]}" mnt
-          complete -W "''${dbs_bn[*]}" umnt
-          complete -W "''${dbs_bn[*]}" mntm
-          complete -W "''${dbs_bn[*]}" umntm
-        }
-        make_mnt_completions
-
-        # if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-        #   exec sway
-        # fi
       '';
       sessionVariables = {
         ENCRYPTED_DIRS = concatStringsSep ":" encrypted-directories;
         LOCATE_PATH = private-locate-dbs;
-        SSH_ASKPASS = "${config.home.homeDirectory}/.local/bin/pass-ssh";
+        SSH_ASKPASS =  pkgs.writeScript "pass-ssh" ''
+          #!${lib.getExe pkgs.bash}
+          ${lib.getExe pkgs.pass-wayland} ssh/jthulhu
+        '';
         SSH_ASKPASS_REQUIRE = "force";
         NIXOS_OZONE_WL = 1;
       };

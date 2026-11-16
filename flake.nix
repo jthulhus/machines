@@ -107,7 +107,9 @@
             inherit system;
             config.allowUnfree = true;
           };
-          pass-wayland = prev.pass-wayland.overrideAttrs (old: {
+          pass-wayland = (prev.pass-wayland.override {
+            # gnupg = final.sequoia-chameleon-gnupg;
+          }).overrideAttrs (old: {
             patches = (old.patches or []) ++ [ ./home/pass/notify.patch ];
             # The patch breaks the tests, as expected since it makes user interaction necessary
             # whenpp unlocking password.

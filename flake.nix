@@ -83,6 +83,7 @@
     , irif-vpn-cert
     , nix-index-database
     , trustd
+    , self
     , ...
     } @ inputs:
     let
@@ -161,6 +162,14 @@
 	              nixpkgs;
             };
         nixosConfigurations = {
+          installer = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = { inherit inputs self; };
+            modules = [
+              "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix"
+              ./installer
+            ];
+          };
           alice = lib.mkSystem
             {
               hostname = "alice";
@@ -192,6 +201,8 @@
         };
         packages.${system} = {
           inherit isgit mk-secrets;
+
+          installer = self.nixosConfigurations.installer.config.system.build.isoImage;
         };
         devShell.${system} = pkgs.mkShell {
           nativeBuildInputs = [

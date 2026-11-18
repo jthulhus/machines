@@ -4,6 +4,11 @@
     sbctl
   ];
 
+  boot.initrd = {
+    systemd.tpm2.enable = true;
+    availableKernelModules = [ "tpm_tis" ];
+  };
+
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";

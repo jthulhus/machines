@@ -29,10 +29,14 @@
   boot.consoleLogLevel = 4;
 
   boot.kernelParams = [
+    # Have logs instead of a splash image
     "systemd.show_status=true"
     "rd.systemd.show_status=true"
+    # Use the modern `xe` drivers
     "i915.force_probe=!7d55"
     "xe.force_probe=7d55"
+    # Disable IME drivers in stage 1 boot
+    "module_blacklist=mei,mei_me,mei_hdcp,mei_pxp,mei_gsc"
   ];
 
   networking.interfaces.eno0.useDHCP = true;

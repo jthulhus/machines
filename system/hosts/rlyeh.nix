@@ -25,10 +25,20 @@
     powertop.enable = true;
   };
 
+  boot.plymouth.enable = false;
+  boot.consoleLogLevel = 4;
+
+  boot.kernelParams = [
+    "systemd.show_status=true"
+    "rd.systemd.show_status=true"
+    "i915.force_probe=!7d55"
+    "xe.force_probe=7d55"
+  ];
+
   networking.interfaces.eno0.useDHCP = true;
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
   programs.captive-browser.interface = "wlp0s20f3";
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "26.11";
 }

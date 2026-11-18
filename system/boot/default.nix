@@ -14,18 +14,16 @@
       enable = true;
       autoReboot = true;
     };
+
+    configurationLimit = 4;
+    measuredBoot = {
+      enable = true;
+      pcrs = [ 4 ];
+    };
   };
 
   boot.loader = {
     systemd-boot.enable = false;
     efi.canTouchEfiVariables = true;
-    # grub = {
-    #   enable = false;
-    #   efiSupport = true;
-    #   useOSProber = true;
-    #   # EFI support does not use this variable, so we just need to set it to a dummy value to
-    #   # pass a check and allow the build.
-    #   device = "nodev";
-    # };
   };
 }

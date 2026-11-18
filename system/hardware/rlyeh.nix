@@ -7,10 +7,16 @@
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.blacklistedKernelModules = [
+    "mei"
+    "mei_me"
+    "mei_hdcp"
+    "mei_pxp"
+  ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "/dev/mapper/cryptroot";
     fsType = "ext4";
   };
   fileSystems."/boot" = {
@@ -19,11 +25,17 @@
     options = [ "umask=0077" ];
   };
 
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-uuid/bf9fc1ac-04ed-47bf-a7ac-d44797b07b55";
+    crypttabExtraOpts = [ "tpm2-device=auto" "tpm2-measure-pcr=yes" ];
+  };
+
   swapDevices = [
     { device = "/dev/disk/by-label/swap"; }
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.npu.enable = true;
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

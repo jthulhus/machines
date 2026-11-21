@@ -10,8 +10,10 @@ with lib;
     ./battery
     ./beets
     ./browser
+    ./compression
     ./cursor
     ./direnv
+    ./documentation
     ./emacs
     ./eww
     ./file-browser
@@ -38,10 +40,13 @@ with lib;
     ./notifications
     ./packages.nix
     ./pass
+    ./pdf
     ./pgp
     ./printing
     ./qalc
     ./qt
+    ./img
+    ./line-count
     ./rofi
     ./rustdesk
     ./search

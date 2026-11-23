@@ -764,6 +764,13 @@ decisions, one has to hook into the major mode and undo, one by one, their decis
 #+begin_src emacs-lisp :tangle yes
   (use-package slint-mode)
 #+end_src
+** Kotlin
+#+begin_src emacs-lisp :tangle yes
+  (use-package kotlin-mode
+    :hook
+    (kotlin-mode . lsp-deferred))
+#+end_src
+
 * SMT solvers
 ** Z3
 This is disabled for the time being, as this package does not compile with the current version of
@@ -1267,6 +1274,7 @@ These allow you to build static websites (such as blogs) based on org-mode docum
                                           "[/\\\\]\\.git"))
     (lsp-enable-suggest-server-download nil)
     (lsp-keep-workspace-alive nil)
+    (lsp-kotlin-compiler-jvm-target "17")
     :config
     (diminish 'lsp-lens-mode)
     (define-key lsp-mode-map (kbd "C-c l") lsp-command-map)

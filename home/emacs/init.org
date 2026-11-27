@@ -868,7 +868,61 @@ an unfinished state.
 #+end_src
 ** gptel
 #+begin_src emacs-lisp :tangle yes
-  (use-package gptel)
+  (use-package gptel
+    :commands (gptel gptel-send gptel-rewrite gptel-menu)
+    :init
+    (defvar local-provider "192.168.1.1")
+    :config
+    (gptel-make-tool
+     :name "web_search"
+     :description "Search programming documentation and CS/math papers (arXiv, Semantic Scholar, OpenAlex, Github, StackOverflow) via SearXNG."
+     :args (list '(:name "query"
+                   :type string
+                   :description "The search query"))
+     :category "web"
+     :function
+     (lambda (query)
+       (let ((url (format "http://%s/searx/search?q=%s&format=json" 
+  			local-provider
+  			(url-hexify-string query)))
+  	   (url-request-method "GET"))
+         (with-current-buffer
+  	   (url-retrieve-synchronously url t nil 10)
+  	 (goto-char (point-min))
+  	 (re-search-forward "\n\n")
+  	 (let* ((json-object-type 'alist)
+  	       (json-array-type 'list)
+  	       (data (json-read))
+  	       (results (seq-take (alist-get 'results data) 6)))
+  	  (mapconcat
+  	   (lambda (r)
+  	     (format "Title: %s\nURL: %s\nSnippet: %s\n"
+  		     (alist-get 'title r)
+  		     (alist-get 'url r)
+  		     (alist-get 'content r)))
+  	   results
+  	   "\n---\n"))))))
+    (setq gptel-backend (gptel-make-ollama "Desktop Ollama"
+  			:host local-provider
+  			:protocol "http"
+  			:endpoint "/ollama/api/chat"
+  			:stream t
+  			:request-params '(:options (:num_ctx 16384))
+  			:models '(gemma4:26b-a4b-it-qat gemma4:12b qwen3.5:9b))
+  	gptel-tools (list (gptel-get-tool "web_search")))
+    :custom
+    (gptel-model 'gemma4:26b-a4b-it-qat)
+    (gptel-default-mode 'org-mode)
+    (gptel-system-prompt "You are a helpful web search assistant.  Your goal is to streamline search among technical documentation, and finding bibliographical information.
+
+  You have to follow two critical constraints.
+
+  The first is that it is worse to provide false or misleading information, rather than no information. The cutoff of your training data means you don't know recent information, but you have access to web search.  Whenever you need recent information, search for it.  If you have a doubt about something, it's better to search and be sure rather than risking giving false information.  If you give code snippets, make sure to check their API by searching only.  Make extensive use of available examples on the internet, rather than inventing stuff yourself.
+
+  The second is that the user input is in Org-mode format, and so should your output.  Most notably, tables are formatted as such
+  | Header Cell | Header Cell |
+  |-------------+-------------|
+  |    Cell     |    Cell     |"))
 #+end_src
 * Esup
 Emacs Start Up Profiler, a package that should help in profiling why startup is slow.  This

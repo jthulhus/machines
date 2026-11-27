@@ -79,6 +79,7 @@
         documents = "${home}/em/d";
         music = "${home}/music";
         pictures = "${home}/em/pictures";
+        projects = "${home}/dev";
         setSessionVariables = false;
       };
     };
